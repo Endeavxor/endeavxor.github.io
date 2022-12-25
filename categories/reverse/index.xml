@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Endeavxor</title>
-        <link>https://endeavxor.github.io/post/</link>
-        <description>Recent content in Posts on Endeavxor</description>
+        <title>Reverse on Endeavxor</title>
+        <link>https://endeavxor.github.io/categories/reverse/</link>
+        <description>Recent content in Reverse on Endeavxor</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sun, 25 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://endeavxor.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 25 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://endeavxor.github.io/categories/reverse/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>CATF 2022 - My Secret Vault</title>
         <link>https://endeavxor.github.io/p/catf-2022-my-secret-vault/</link>
         <pubDate>Sun, 25 Dec 2022 00:00:00 +0000</pubDate>
@@ -413,14 +413,6 @@ etc ...
 &lt;p&gt;Il ne reste plus qu&amp;rsquo;à regarder les dernières lignes pour rassembler le tout et on obtient le flag suivant :&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;CATF{18198-5eve5sing-c#-is-easy-18198}&lt;/strong&gt;&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>ANCIENS POSTS</title>
-        <link>https://endeavxor.github.io/p/anciens-posts/</link>
-        <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://endeavxor.github.io/p/anciens-posts/</guid>
-        <description></description>
         </item>
         
     </channel>

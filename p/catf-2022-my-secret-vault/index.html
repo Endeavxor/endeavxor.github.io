@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Challenge conçu par M58'>
+<title>CATF 2022 - My Secret Vault</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/catf-2022-my-secret-vault/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='CATF 2022 - My Secret Vault'>
+<meta property='og:description' content='Challenge conçu par M58'>
+<meta property='og:url' content='https://endeavxor.github.io/p/catf-2022-my-secret-vault/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-12-25T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-12-25T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/catf-2022-my-secret-vault/cover.jpg' />
+<meta name="twitter:title" content="CATF 2022 - My Secret Vault">
+<meta name="twitter:description" content="Challenge conçu par M58"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/catf-2022-my-secret-vault/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table des matières</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#i-premières-informations-sur-le-binaire-">I. Premières informations sur le binaire :</a></li>
+    <li><a href="#ii-reverse-statique-du-binaire">II. Reverse <em>statique</em> du binaire</a></li>
+    <li><a href="#iii-résolution-du-système">III. Résolution du système</a>
+      <ol>
+        <li><a href="#z3">Z3</a></li>
+      </ol>
+    </li>
+    <li><a href="#iv-reverse-statique-du-second-binaire">IV. Reverse <em>statique</em> du second binaire</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/catf-2022-my-secret-vault/">
+                <img src="/p/catf-2022-my-secret-vault/cover_hu2e840c0771da91caf4371bc6f144fc70_180002_800x0_resize_q75_box.jpg"
+                        srcset="/p/catf-2022-my-secret-vault/cover_hu2e840c0771da91caf4371bc6f144fc70_180002_800x0_resize_q75_box.jpg 800w, /p/catf-2022-my-secret-vault/cover_hu2e840c0771da91caf4371bc6f144fc70_180002_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="506" 
+                        loading="lazy"
+                        alt="Featured image of post CATF 2022 - My Secret Vault" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/reverse/" >
+                Reverse
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/catf-2022-my-secret-vault/">CATF 2022 - My Secret Vault</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Challenge conçu par M58
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 25, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="/p/catf-2022-my-secret-vault/img/img1.png"
+	width="494"
+	height="603"
+	srcset="/p/catf-2022-my-secret-vault/img/img1_hu4644e400aeeabd171499779f5fd07aad_47447_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img1_hu4644e400aeeabd171499779f5fd07aad_47447_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="196px"
+	
+></p>
+<h2 id="i-premières-informations-sur-le-binaire-">I. Premières informations sur le binaire :</h2>
+<p>Après avoir récupéré le binaire <strong>My_Secret_Vault</strong> on peut lancer un <strong>file</strong> dessus pour avoir un premier aperçu :</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ file My_Secret_Vault 
+
+My_Secret_Vault: ELF 64-bit LSB pie executable, x86-64, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span>, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID<span class="o">[</span>sha1<span class="o">]=</span>0733083f40f381469e7f22f663f382d7031944c7, <span class="k">for</span> GNU/Linux 3.2.0, stripped
+</code></pre></div><p>On a donc affaire à un binaire strippé <em>(donc sans les symboles de débuggage et donc moins facile à reverse)</em>.</p>
+<p>Un petit coup de <strong>strings</strong> habituel nous donne davantage d&rsquo;informations.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ strings My_Secret_Vault
+
+<span class="o">[</span>...<span class="o">]</span>
+
+_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE5c_strEv
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKcm
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS3_
+_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
+_ZNSaIcED2Ev
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+_ZNSt8ios_base4InitC1Ev
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm
+__cxa_rethrow
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm
+_ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv
+_ZSt4cout
+
+<span class="o">[</span>...<span class="o">]</span>
+
+ptrace
+
+<span class="o">[</span>...<span class="o">]</span>
+
+        /<span class="se">\_</span>/<span class="se">\
+</span><span class="se"></span>       / o o <span class="se">\
+</span><span class="se"></span>      <span class="o">(</span>   <span class="s2">&#34;   )
+</span><span class="s2">       \~(*)~/
+</span><span class="s2">        /\_/\
+</span><span class="s2">       / o o \
+</span><span class="s2">      (   &#34;</span>   <span class="o">)</span>
+       <span class="se">\~</span><span class="o">(</span>*<span class="o">)</span>~/
+       CORRECT!
+You are not allowed to use IDA!
+ps -A <span class="p">|</span> grep gdb
+You are not allowed to use GDB!
+ Enter Serial
+Invalid serial: contains forbidden characters
+Invalid serial: repeated characters
+Invalid serial: invalid character sequence
+https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/
+wget -q 
+Downloading the V2...
+basic_string::_M_construct null not valid
+
+<span class="o">[</span>...<span class="o">]</span>
+</code></pre></div><p>La sortie est volontairement tronquée mais on en tire les informations suivantes :</p>
+<ul>
+<li>Les chaînes de caractères du style &ldquo;_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE5c_strEv&rdquo; sont une caractéristique de la compilation issue d&rsquo;un code source en <strong>C++</strong> <em>(cf. name mangling)</em>.</li>
+<li><strong>ptrace</strong> est généralement utilisée pour détecter les debuggers et empêcher le reverse <strong>dynamique</strong> avec <strong>GDB</strong> par exemple mais nous n&rsquo;en aurons pas besoin ici car le reverse sera uniquement en <strong>statique</strong>.</li>
+<li>La dernière partie nous donne dans les grandes lignes le fonctionnement du programme :
+<ul>
+<li>Vérification de la présence de GDB et IDA au lancement via <strong>ps -A | grep gdb</strong>.</li>
+<li>Demande à l&rsquo;utilisateur un <strong>serial</strong>.</li>
+<li>L&rsquo;utilise certainement par la suite pour récupérer un second binaire <strong>V2</strong> depuis l&rsquo;adresse ** <a href="https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/">https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/</a> ** avec <strong>wget</strong>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="ii-reverse-statique-du-binaire">II. Reverse <em>statique</em> du binaire</h2>
+<p>On a une bonne vue d&rsquo;ensemble mais on va aller confirmé tout ça. Je vais utiliser <strong>IDA</strong> dans sa version gratuite qui sera amplement suffisante <em>(<a href="https://hex-rays.com/ida-free/">https://hex-rays.com/ida-free/</a>)</em>.</p>
+<p>Une fois le binaire chargé on obtient l&rsquo;interface suivante :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img2.png"
+	width="1920"
+	height="919"
+	srcset="/p/catf-2022-my-secret-vault/img/img2_hucfc06fcc20d89cc52ee9dbebcc41cbf2_177328_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img2_hucfc06fcc20d89cc52ee9dbebcc41cbf2_177328_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="208"
+		data-flex-basis="501px"
+	
+></p>
+<p>Parmi les nombreuses fonctionnalités que propose IDA, une va nous faire gagner du temps : le pseudo décompilateur <em>(via <strong>F5</strong>)</em>. Il va nous permettre d&rsquo;obtenir un &ldquo;&ldquo;&ldquo;code source&rdquo;&rdquo;&rdquo; se rapprochant de celui originel.</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img3.png"
+	width="605"
+	height="171"
+	srcset="/p/catf-2022-my-secret-vault/img/img3_hu1e4abffc62afd226f2045848fe560b00_22528_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img3_hu1e4abffc62afd226f2045848fe560b00_22528_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="353"
+		data-flex-basis="849px"
+	
+></p>
+<p>Je ne vais pas rentrer trop dans le détail de ces lignes donc on va directement se rendre dans <strong>main</strong> dont voici un rapide aperçu :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img4.png"
+	width="702"
+	height="684"
+	srcset="/p/catf-2022-my-secret-vault/img/img4_hu79a82cdcb27d7b526105fb9ab271e757_77508_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img4_hu79a82cdcb27d7b526105fb9ab271e757_77508_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+<p>Après renommage des variables et des fonctions on y voit beaucoup plus clair :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img5.png"
+	width="1093"
+	height="693"
+	srcset="/p/catf-2022-my-secret-vault/img/img5_hu05e49a27fd82352911a3866251962479_141272_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img5_hu05e49a27fd82352911a3866251962479_141272_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<p>Quelques précisions :</p>
+<ul>
+<li><strong>uselessFunction()</strong> est une fonction qui effectue des calculs de <strong>log(),sqrt() et pow()</strong> avec un nombre aléatoire dans aucun but, elle est juste là pour faire perdre du temps au reverser :).</li>
+<li>De même pour <strong>userlessVar</strong> qui n&rsquo;est utilisée nul part ailleurs.</li>
+<li>On observe qu&rsquo;il y a beaucoup de vérification sur le <strong>userInput</strong> , qui vérifie la valeur du code ASCII de différents caractères et quitte le programme via <strong>exit(0)</strong> si cela ne correspond pas.</li>
+</ul>
+<p>On a donc affaire à une sorte de <strong>Keygen</strong> avec un système à plusieurs inconnues à résoudre, il y a cependant un léger hic à plusieurs endroits :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img6.png"
+	width="1093"
+	height="133"
+	srcset="/p/catf-2022-my-secret-vault/img/img6_hua2dddf61cd509ecf592e77ef6297c13e_32114_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img6_hua2dddf61cd509ecf592e77ef6297c13e_32114_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="821"
+		data-flex-basis="1972px"
+	
+></p>
+<p>Les variables <strong>v22,v28,v35</strong>, etc &hellip; sont elles aussi comparées mais ne sont initialisées nulle part dans le binaire, et appartiennent à une zone mémoire très proche de celle de <strong>ptrUserInput</strong> :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img7.png"
+	width="414"
+	height="410"
+	srcset="/p/catf-2022-my-secret-vault/img/img7_hu0af85b4286840fb4f6f500010a21f15d_37543_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img7_hu0af85b4286840fb4f6f500010a21f15d_37543_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="242px"
+	
+></p>
+<p>Un <strong>ptrUserInput</strong> à seulement 3 caractères 🤔 ? Il s&rsquo;avère que le pseudo-décompilateur n&rsquo;a pas su quelle était la taille du tableau de caractères <em>(string)</em> . Il va donc falloir manuellement <strong>retyper ptrUserInput</strong> en <strong>char[n]</strong> où n est la longueur de la chaîne de caractères. Mais quelle taille fait-elle ? Une des premières conditions vérifiées est la suivante :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img8.png"
+	width="575"
+	height="34"
+	srcset="/p/catf-2022-my-secret-vault/img/img8_huc18185563e05c4bfe81cbe411dd9066c_6668_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img8_huc18185563e05c4bfe81cbe411dd9066c_6668_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1691"
+		data-flex-basis="4058px"
+	
+></p>
+<p>La taille de l&rsquo;entrée utilisateur doit être supérieur ou égal à 25 pour ne pas rentrer dans la condition <em>(évitant le <strong>exit(0)</strong>)</em> et est donc de 26 caractères minimums <em>(strlen ne prend pas en compte le NULL BYTE à la fin donc 25+1)</em>.</p>
+<p>Clique droit sur <strong>ptrUserInput</strong> &gt; Set lvar type &gt; char ptrUserInput[26]</p>
+<p>Et là, la magie de Noël opère car les comparaisons se font bien uniquement sur l&rsquo;entrée utilisateur :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img9.png"
+	width="1049"
+	height="665"
+	srcset="/p/catf-2022-my-secret-vault/img/img9_hue4437651fe0dc1a45ec8c9739f20c64f_111110_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img9_hue4437651fe0dc1a45ec8c9739f20c64f_111110_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<p>Bon il faut maitenant satisfaire toutes les conditions afin d&rsquo;échapper aux multiples <strong>exit(0)</strong> mais avant cela regardons à quoi va servir notre <strong>ptrUserInput</strong> :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img14.png"
+	width="1256"
+	height="355"
+	srcset="/p/catf-2022-my-secret-vault/img/img14_hu94ca2fc6469e8858f2d2347e226b56c7_132005_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img14_hu94ca2fc6469e8858f2d2347e226b56c7_132005_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="353"
+		data-flex-basis="849px"
+	
+></p>
+<p>On voit ici que l&rsquo;entrée utilisateur est concaténée à la fin de <strong>&ldquo;<a href="https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/%22">https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&quot;</a></strong> puis est rajoutée devant <strong>&ldquo;wget -q &ldquo;</strong> pour former la commande suivante qui sera exécutée dans <strong>system()</strong> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget -q https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/USER_INPUT
+</code></pre></div><p>Il nous reste donc à déterminer quelle entrée utilisateur correspond.</p>
+<h2 id="iii-résolution-du-système">III. Résolution du système</h2>
+<p>Pour résoudre toutes ces contraintes sur l&rsquo;entrée utilisateur que l&rsquo;on a vue plus haut, il y a trois possibilités :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img10.jpg"
+	width="500"
+	height="517"
+	srcset="/p/catf-2022-my-secret-vault/img/img10_hu3d3e51e6834f5da43f04e77706a67fb8_43222_480x0_resize_q75_box.jpg 480w, /p/catf-2022-my-secret-vault/img/img10_hu3d3e51e6834f5da43f04e77706a67fb8_43222_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="96"
+		data-flex-basis="232px"
+	
+></p>
+<p>Bien que je l&rsquo;aie initialement résolu à la main, nous allons ici utiliser <strong>Z3</strong>, quant à <strong>angr</strong>, l&rsquo;épave qui me sert de PC est incapable de trouver en temps raisonable un chemin vers la victoire <em>(donc si certains ont un script fonctionnel je suis preneur)</em>.</p>
+<h3 id="z3">Z3</h3>
+<p>Pour résumer très brièvement, z3 <em>(<a href="https://github.com/Z3Prover/z3">https://github.com/Z3Prover/z3</a>)</em> permet, avec un certains nombre de contraintes/formules donné, de déterminer s&rsquo;il existe une solution à ce problème, s&rsquo;il est <strong>satisfaisable</strong>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">pip</span> <span class="n">install</span> <span class="n">z3</span><span class="o">-</span><span class="n">solver</span>
+</code></pre></div><p>Bon pour des contraintes aussi simples, c&rsquo;est un peu sortir l&rsquo;arme nucléaire pour tuer une mouche mais c&rsquo;est un bon cas d&rsquo;école pour découvrir z3. Sans plus tarder voilà le script après avoir copié/collé la majorité des contraintes depuis IDA :</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">z3</span>
+
+<span class="c1"># Prepare</span>
+<span class="n">userInput</span> <span class="o">=</span> <span class="n">z3</span><span class="o">.</span><span class="n">IntVector</span><span class="p">(</span><span class="s2">&#34;userInput&#34;</span><span class="p">,</span> <span class="mi">26</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">z3</span><span class="o">.</span><span class="n">Solver</span><span class="p">()</span>
+
+<span class="c1"># Constraints</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">userInput</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="mi">45</span><span class="p">,</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">==</span> <span class="mi">45</span><span class="p">,</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">18</span><span class="p">]</span> <span class="o">==</span> <span class="mi">45</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">101</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">122</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">101</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">==</span> <span class="mi">120</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">==</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">22</span><span class="p">],</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="mi">76</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">23</span><span class="p">]</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">==</span> <span class="mi">116</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">==</span> <span class="mi">102</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="mi">2</span> <span class="o">*</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">-</span> <span class="mi">134</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">16</span><span class="p">],</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">21</span><span class="p">]</span> <span class="o">==</span> <span class="mi">84</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span> <span class="o">==</span> <span class="mi">72</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">==</span> <span class="mi">117</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span> <span class="o">==</span> <span class="mi">53</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span> <span class="o">==</span> <span class="mi">112</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">22</span><span class="p">]</span> <span class="o">==</span> <span class="mi">70</span><span class="p">,</span>
+    <span class="n">userInput</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">21</span><span class="p">],</span>
+    <span class="mi">2</span> <span class="o">*</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">24</span><span class="p">]</span> <span class="o">-</span> <span class="mi">61</span> <span class="o">==</span> <span class="n">userInput</span><span class="p">[</span><span class="mi">20</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Solve &amp; Print result</span>
+<span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">check</span><span class="p">():</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>
+    <span class="n">solution</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">userInput</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">as_long</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">26</span><span class="p">)])</span>
+    <span class="k">print</span><span class="p">(</span>
+        <span class="s2">&#34;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&#34;</span> <span class="o">+</span> <span class="n">solution</span>
+    <span class="p">)</span>
+</code></pre></div><p>Et après lancement du script on obtient :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/Teez7-xdFLT-ctfgH5-puTF6Y
+</code></pre></div><h2 id="iv-reverse-statique-du-second-binaire">IV. Reverse <em>statique</em> du second binaire</h2>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ file Teez7-xdFLT-ctfgH5-puTF6Y
+
+Teez7-xdFLT-ctfgH5-puTF6Y: PE32 executable <span class="o">(</span>console<span class="o">)</span> Intel <span class="m">80386</span> Mono/.Net assembly, <span class="k">for</span> MS Windows
+</code></pre></div><p>Il s&rsquo;agit cette fois-ci d&rsquo;un binaire pour un OS Windows.</p>
+<p>La commande <strong>strings</strong> va nous donner une information essentielle qui explique je pense pourquoi beaucoup de gens n&rsquo;ont pas réussi à passer cette étape :</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ strings Teez7-xdFLT-ctfgH5-puTF6Y
+
+<span class="o">[</span>...<span class="o">]</span>
+_CorExeMain  
+mscoree.dll
+</code></pre></div><p><strong>_CorExeMain</strong> est une caractéristique propre au <strong>framework .NET</strong> <em>(ce qui explique pourquoi Ghidra et IDA Freeware sont en difficulté pour désassembler)</em>.</p>
+<p>On va donc devoir utiliser un outil adapté au reverse de binaire issu du <strong>framework .NET</strong> <em>(qui est généralement du <strong>C#</strong>)</em> le plus connu de tous étant :</p>
+<ul>
+<li>ILSpy <em>(<a href="https://github.com/icsharpcode/ILSpy">https://github.com/icsharpcode/ILSpy</a>)</em> pour OS Windows</li>
+<li>ILSpy <em>(<a href="https://github.com/icsharpcode/AvaloniaILSpy">https://github.com/icsharpcode/AvaloniaILSpy</a>)</em> pour OS Linux</li>
+</ul>
+<p>Cependant je vais utiliser un autre outil que j&rsquo;ai découvert récemment et qui fait le café :</p>
+<ul>
+<li>CodemerxDecompile <em>(<a href="https://github.com/codemerx/CodemerxDecompile/releases">https://github.com/codemerx/CodemerxDecompile/releases</a>)</em></li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget https://github.com/codemerx/CodemerxDecompile/releases/download/0.9.2/CodemerxDecompile-linux-x64.tar.gz
+tar -xzpf ./CodemerxDecompile-linux-x64.tar.gz
+
+./CodemerxDecompile-linux-x64/bin/CodemerxDecompile
+</code></pre></div><p>L&rsquo;interface se base sur celle de Visual Studio Code :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img11.png"
+	width="1246"
+	height="868"
+	srcset="/p/catf-2022-my-secret-vault/img/img11_hu77d99510c82324897f815ecf2f734c5d_35526_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img11_hu77d99510c82324897f815ecf2f734c5d_35526_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="344px"
+	
+></p>
+<p>On va, avant d&rsquo;importer le binaire depuis <strong>File &gt; Open assembly</strong>, le renommer avec l&rsquo;extension <strong>.exe</strong> pour que le binaire soit détecté :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ mv Teez7-xdFLT-ctfgH5-puTF6Y Teez7-xdFLT-ctfgH5-puTF6Y.exe
+</code></pre></div><p>Une fois importé, on a le <strong>main</strong> suivant :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img12.png"
+	width="1313"
+	height="820"
+	srcset="/p/catf-2022-my-secret-vault/img/img12_hu3bdd048e564def24a8e91f74c37f5869_163496_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img12_hu3bdd048e564def24a8e91f74c37f5869_163496_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="384px"
+	
+></p>
+<p>Le binaire n&rsquo;est pas bien grand et le flag est généré comme suit <em>(après quelques renommages)</em> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">private</span> <span class="k">static</span> <span class="kt">double</span> <span class="n">LuysGrAgZzbIRsd</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">get_Now</span><span class="p">().</span><span class="n">get_Month</span><span class="p">()</span> <span class="p">*</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">get_Now</span><span class="p">().</span><span class="n">get_Year</span><span class="p">());</span>
+<span class="p">}</span>
+<span class="na">
+</span><span class="na">[...]</span>
+
+<span class="c1">// La partie mystère
+</span><span class="c1"></span><span class="kt">double</span> <span class="n">mysterious</span> <span class="p">=</span> <span class="n">Program</span><span class="p">.</span><span class="n">LuysGrAgZzbIRsd</span><span class="p">();</span> <span class="c1">// ??
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">mysteriousDivided</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">mysterious</span> <span class="p">/</span> <span class="m">227.475</span><span class="p">);</span> <span class="c1">// ??/227.475
+</span><span class="c1"></span><span class="kt">string</span> <span class="n">strMysteriousDiv</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="s">&#34;0x&#34;</span><span class="p">,</span> <span class="n">Program</span><span class="p">.</span><span class="n">int_to_hex</span><span class="p">(</span><span class="n">mysteriousDivided</span><span class="p">));</span> <span class="c1">// str(hex(??/227.475))
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">keyXOR</span> <span class="p">=</span> <span class="n">Convert</span><span class="p">.</span><span class="n">ToInt32</span><span class="p">(</span><span class="n">strMysteriousDiv</span><span class="p">,</span> <span class="m">16</span><span class="p">);</span> <span class="c1">// ??/227.475 (mysteriousDivided==keyXOR)
+</span><span class="c1"></span><span class="kt">string</span> <span class="n">str3</span> <span class="p">=</span> <span class="n">Program</span><span class="p">.</span><span class="n">xor_string</span><span class="p">(</span><span class="s">&#34;31$6+e5&amp;5e#9&gt;7}3s}9#}51#)}&#34;</span><span class="p">,</span> <span class="n">keyXOR</span><span class="p">);</span>
+
+<span class="c1">// La partie affichage
+</span><span class="c1"></span><span class="n">Program</span><span class="p">.</span><span class="n">green_text</span><span class="p">();</span>
+<span class="kt">string</span> <span class="n">str4</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="n">str3</span><span class="p">,</span> <span class="n">mysterious</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+<span class="kt">string</span> <span class="n">str5</span> <span class="p">=</span> <span class="n">str4</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="m">5</span><span class="p">,</span> <span class="n">mysterious</span><span class="p">.</span><span class="n">ToString</span><span class="p">());</span>
+<span class="kt">string</span> <span class="n">str6</span> <span class="p">=</span> <span class="n">str5</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="s">&#34;-&#34;</span><span class="p">);</span>
+<span class="kt">string</span> <span class="n">str7</span> <span class="p">=</span> <span class="n">str6</span><span class="p">.</span><span class="n">Replace</span><span class="p">(</span><span class="s">&#34;catf&#34;</span><span class="p">,</span> <span class="s">&#34;CATF&#34;</span><span class="p">);</span> <span class="c1">// La ligne qui débloque le mystère
+</span><span class="c1"></span><span class="kt">string</span> <span class="n">str8</span> <span class="p">=</span> <span class="kt">string</span><span class="p">.</span><span class="n">Concat</span><span class="p">(</span><span class="n">str7</span><span class="p">,</span> <span class="s">&#34;}&#34;</span><span class="p">);</span>
+</code></pre></div><p>Nous n&rsquo;avons pas connaissance de la variable <strong>mysterious</strong> qui conditionne la génération du flag, cependant dans la fin du morceau de code on obtient une indication précieuse : après avoir &ldquo;&ldquo;&ldquo;deXORé&rdquo;&rdquo;&rdquo; la chaîne <strong>31$6+e5&amp;5e#9&gt;7}3s}9#}51#)}</strong>, cette dernière semble contenir <strong>catf</strong> .</p>
+<p>On va donc bruteforce la valeur de <strong>keyXOR</strong> <em>(qui est utilisée pour le XOR)</em> et remonter petit à petit pour retrouvé <strong>mysterious</strong> qui sera la seule partie manquante du flag. On va pour ça s&rsquo;aider de <strong>CyberChef</strong> <em>(<a href="https://gchq.github.io/CyberChef/">https://gchq.github.io/CyberChef/</a>)</em> :</p>
+<p><img src="/p/catf-2022-my-secret-vault/img/img13.png"
+	width="1778"
+	height="613"
+	srcset="/p/catf-2022-my-secret-vault/img/img13_hud588f79977e13d4b060f441af7d2d3e4_88226_480x0_resize_box_2.png 480w, /p/catf-2022-my-secret-vault/img/img13_hud588f79977e13d4b060f441af7d2d3e4_88226_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="290"
+		data-flex-basis="696px"
+	
+></p>
+<blockquote>
+<p>🚨 CyberChef renvoie la clé en hexadécimal 🚨 <em>(temps phénoménal perdu ici)</em></p>
+</blockquote>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Key = 50: catf{5eve5sing-c#-is-easy-
+</code></pre></div><ul>
+<li>Ca ressemble bien à un début de flag, donc <strong>keyXOR = 0x50 = 80</strong>.</li>
+<li><strong>keyXOR</strong> provient de la variable <strong>strMysteriousDiv</strong> qui était exprimée en hexadécimal, donc <strong>strMysteriousDiv = &lsquo;0x50&rsquo;</strong>.</li>
+<li><strong>strMysteriousDiv</strong> s&rsquo;est formée à partir de <strong>mysteriousDivided</strong> qui était exprimée en décimal, donc <strong>mysteriousDivided = 0x50 = 80</strong>.</li>
+<li><strong>mysteriousDivided</strong> est issue de la division de <strong>mysterious</strong> par <strong>227.475</strong>, donc <strong>mysterious ≈ 80 * 227.475 ≈ 18198</strong> <em>(notez bien le ≈)</em>.</li>
+</ul>
+<p>La dernière condition semble finaliser le reverse mais il y a une subtilité :</p>
+<div class="highlight"><pre class="chroma"><code class="language-cs" data-lang="cs"><span class="kt">int</span> <span class="n">mysteriousDivided</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">mysterious</span> <span class="p">/</span> <span class="m">227.475</span><span class="p">);</span> <span class="c1">// Doit être égal à 80
+</span></code></pre></div><p>La division par un nombre flottant et le cast en <strong>(int)</strong> fait perdre de la précision et il n&rsquo;y a donc pas unicité de la solution pour la valeur <strong>mysterious</strong> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">mysterious = 18198 =&gt; int(18198 / 227.475) = 80 
+mysterious = 18199 =&gt; int(18199 / 227.475) = 80
+mysterious = 18200 =&gt; int(18200 / 227.475) = 80
+
+etc ...
+</code></pre></div><p>Il va donc falloir trouver quelle est réellement la valeur <strong>mysterious</strong>. En revenant dans le code, on remarque qu&rsquo;elle est initialisée par la fonction suivante :</p>
+<div class="highlight"><pre class="chroma"><code class="language-cs" data-lang="cs"><span class="k">private</span> <span class="k">static</span> <span class="kt">double</span> <span class="n">LuysGrAgZzbIRsd</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)(</span><span class="n">DateTime</span><span class="p">.</span><span class="n">get_Now</span><span class="p">().</span><span class="n">get_Month</span><span class="p">()</span> <span class="p">*</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">get_Now</span><span class="p">().</span><span class="n">get_Year</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div><p><strong>mysterious</strong> est issu d&rsquo;un produit du mois et de l&rsquo;année <strong>au moment de l&rsquo;exécution</strong>. Un petit script python pour énumérer les cas possibles :</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># Month</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">2022</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># Years</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">((</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span><span class="p">)</span> <span class="o">/</span> <span class="mf">227.475</span><span class="p">)</span> <span class="o">==</span> <span class="mi">80</span><span class="p">:</span>  <span class="c1"># Constraint</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+</code></pre></div><p>On obtient :</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ python3 solver.py
+
+<span class="m">9</span> <span class="m">2022</span>
+</code></pre></div><p>Cela semble très cohérant avec la période du CTF, <strong>mysterious = 9 * 2002 = 18198</strong></p>
+<p>Il ne reste plus qu&rsquo;à regarder les dernières lignes pour rassembler le tout et on obtient le flag suivant :</p>
+<p><strong>CATF{18198-5eve5sing-c#-is-easy-18198}</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
