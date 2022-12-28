@@ -415,14 +415,6 @@ etc ...
 </description>
         </item>
         <item>
-        <title>ANCIENS POSTS</title>
-        <link>https://endeavxor.github.io/p/anciens-posts/</link>
-        <pubDate>Sat, 24 Dec 2022 00:00:00 +0000</pubDate>
-        
-        <guid>https://endeavxor.github.io/p/anciens-posts/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>vsCTF 2022 - vsCAPTCHA</title>
         <link>https://endeavxor.github.io/p/vsctf-2022-vscaptcha/</link>
         <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
@@ -2759,6 +2751,22 @@ Now we need to find the username :&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;FLAG : Hero{sql1_t0_lf1_t0_rc3_b4d_s3cur1ty}&lt;/strong&gt;&lt;/p&gt;
 </description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://endeavxor.github.io/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://endeavxor.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Rechercher</title>
+        <link>https://endeavxor.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://endeavxor.github.io/search/</guid>
+        <description></description>
         </item>
         
     </channel>

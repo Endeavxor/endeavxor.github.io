@@ -6,7 +6,415 @@
         <description>Recent content in CTF on Endeavxor</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 11 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://endeavxor.github.io/categories/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 25 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://endeavxor.github.io/categories/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>CATF 2022 - My Secret Vault</title>
+        <link>https://endeavxor.github.io/p/catf-2022-my-secret-vault/</link>
+        <pubDate>Sun, 25 Dec 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://endeavxor.github.io/p/catf-2022-my-secret-vault/</guid>
+        <description>&lt;img src="https://endeavxor.github.io/p/catf-2022-my-secret-vault/cover.jpg" alt="Featured image of post CATF 2022 - My Secret Vault" /&gt;&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img1.png&#34;
+	width=&#34;494&#34;
+	height=&#34;603&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img1_hu4644e400aeeabd171499779f5fd07aad_47447_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img1_hu4644e400aeeabd171499779f5fd07aad_47447_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;81&#34;
+		data-flex-basis=&#34;196px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;i-premières-informations-sur-le-binaire-&#34;&gt;I. Premières informations sur le binaire :&lt;/h2&gt;
+&lt;p&gt;Après avoir récupéré le binaire &lt;strong&gt;My_Secret_Vault&lt;/strong&gt; on peut lancer un &lt;strong&gt;file&lt;/strong&gt; dessus pour avoir un premier aperçu :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ file My_Secret_Vault 
+
+My_Secret_Vault: ELF 64-bit LSB pie executable, x86-64, version &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SYSV&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;sha1&lt;span class=&#34;o&#34;&gt;]=&lt;/span&gt;0733083f40f381469e7f22f663f382d7031944c7, &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; GNU/Linux 3.2.0, stripped
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On a donc affaire à un binaire strippé &lt;em&gt;(donc sans les symboles de débuggage et donc moins facile à reverse)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Un petit coup de &lt;strong&gt;strings&lt;/strong&gt; habituel nous donne davantage d&amp;rsquo;informations.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ strings My_Secret_Vault
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+
+_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE5c_strEv
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE6appendEPKcm
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEC1ERKS3_
+_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7_M_dataEv
+_ZNSaIcED2Ev
+_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+_ZNSt8ios_base4InitC1Ev
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE9_M_createERmm
+__cxa_rethrow
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED1Ev
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE13_M_set_lengthEm
+_ZStrsIcSt11char_traitsIcEERSt13basic_istreamIT_T0_ES6_PS3_
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE10_M_disposeEv
+_ZSt4cout
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+
+ptrace
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+
+        /&lt;span class=&#34;se&#34;&gt;\_&lt;/span&gt;/&lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;       / o o &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;   &lt;span class=&#34;s2&#34;&gt;&amp;#34;   )
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;       \~(*)~/
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;        /\_/\
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;       / o o \
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;      (   &amp;#34;&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+       &lt;span class=&#34;se&#34;&gt;\~&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;*&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;~/
+       CORRECT!
+You are not allowed to use IDA!
+ps -A &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep gdb
+You are not allowed to use GDB!
+ Enter Serial
+Invalid serial: contains forbidden characters
+Invalid serial: repeated characters
+Invalid serial: invalid character sequence
+https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/
+wget -q 
+Downloading the V2...
+basic_string::_M_construct null not valid
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;La sortie est volontairement tronquée mais on en tire les informations suivantes :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Les chaînes de caractères du style &amp;ldquo;_ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE5c_strEv&amp;rdquo; sont une caractéristique de la compilation issue d&amp;rsquo;un code source en &lt;strong&gt;C++&lt;/strong&gt; &lt;em&gt;(cf. name mangling)&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ptrace&lt;/strong&gt; est généralement utilisée pour détecter les debuggers et empêcher le reverse &lt;strong&gt;dynamique&lt;/strong&gt; avec &lt;strong&gt;GDB&lt;/strong&gt; par exemple mais nous n&amp;rsquo;en aurons pas besoin ici car le reverse sera uniquement en &lt;strong&gt;statique&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;La dernière partie nous donne dans les grandes lignes le fonctionnement du programme :
+&lt;ul&gt;
+&lt;li&gt;Vérification de la présence de GDB et IDA au lancement via &lt;strong&gt;ps -A | grep gdb&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Demande à l&amp;rsquo;utilisateur un &lt;strong&gt;serial&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;L&amp;rsquo;utilise certainement par la suite pour récupérer un second binaire &lt;strong&gt;V2&lt;/strong&gt; depuis l&amp;rsquo;adresse ** &lt;a href=&#34;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&#34;&gt;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&lt;/a&gt; ** avec &lt;strong&gt;wget&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ii-reverse-statique-du-binaire&#34;&gt;II. Reverse &lt;em&gt;statique&lt;/em&gt; du binaire&lt;/h2&gt;
+&lt;p&gt;On a une bonne vue d&amp;rsquo;ensemble mais on va aller confirmé tout ça. Je vais utiliser &lt;strong&gt;IDA&lt;/strong&gt; dans sa version gratuite qui sera amplement suffisante &lt;em&gt;(&lt;a href=&#34;https://hex-rays.com/ida-free/&#34;&gt;https://hex-rays.com/ida-free/&lt;/a&gt;)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Une fois le binaire chargé on obtient l&amp;rsquo;interface suivante :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img2.png&#34;
+	width=&#34;1920&#34;
+	height=&#34;919&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img2_hucfc06fcc20d89cc52ee9dbebcc41cbf2_177328_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img2_hucfc06fcc20d89cc52ee9dbebcc41cbf2_177328_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;208&#34;
+		data-flex-basis=&#34;501px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Parmi les nombreuses fonctionnalités que propose IDA, une va nous faire gagner du temps : le pseudo décompilateur &lt;em&gt;(via &lt;strong&gt;F5&lt;/strong&gt;)&lt;/em&gt;. Il va nous permettre d&amp;rsquo;obtenir un &amp;ldquo;&amp;ldquo;&amp;ldquo;code source&amp;rdquo;&amp;rdquo;&amp;rdquo; se rapprochant de celui originel.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img3.png&#34;
+	width=&#34;605&#34;
+	height=&#34;171&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img3_hu1e4abffc62afd226f2045848fe560b00_22528_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img3_hu1e4abffc62afd226f2045848fe560b00_22528_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;353&#34;
+		data-flex-basis=&#34;849px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Je ne vais pas rentrer trop dans le détail de ces lignes donc on va directement se rendre dans &lt;strong&gt;main&lt;/strong&gt; dont voici un rapide aperçu :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img4.png&#34;
+	width=&#34;702&#34;
+	height=&#34;684&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img4_hu79a82cdcb27d7b526105fb9ab271e757_77508_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img4_hu79a82cdcb27d7b526105fb9ab271e757_77508_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;102&#34;
+		data-flex-basis=&#34;246px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Après renommage des variables et des fonctions on y voit beaucoup plus clair :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img5.png&#34;
+	width=&#34;1093&#34;
+	height=&#34;693&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img5_hu05e49a27fd82352911a3866251962479_141272_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img5_hu05e49a27fd82352911a3866251962479_141272_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;378px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Quelques précisions :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;uselessFunction()&lt;/strong&gt; est une fonction qui effectue des calculs de &lt;strong&gt;log(),sqrt() et pow()&lt;/strong&gt; avec un nombre aléatoire dans aucun but, elle est juste là pour faire perdre du temps au reverser :).&lt;/li&gt;
+&lt;li&gt;De même pour &lt;strong&gt;userlessVar&lt;/strong&gt; qui n&amp;rsquo;est utilisée nul part ailleurs.&lt;/li&gt;
+&lt;li&gt;On observe qu&amp;rsquo;il y a beaucoup de vérification sur le &lt;strong&gt;userInput&lt;/strong&gt; , qui vérifie la valeur du code ASCII de différents caractères et quitte le programme via &lt;strong&gt;exit(0)&lt;/strong&gt; si cela ne correspond pas.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On a donc affaire à une sorte de &lt;strong&gt;Keygen&lt;/strong&gt; avec un système à plusieurs inconnues à résoudre, il y a cependant un léger hic à plusieurs endroits :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img6.png&#34;
+	width=&#34;1093&#34;
+	height=&#34;133&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img6_hua2dddf61cd509ecf592e77ef6297c13e_32114_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img6_hua2dddf61cd509ecf592e77ef6297c13e_32114_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;821&#34;
+		data-flex-basis=&#34;1972px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Les variables &lt;strong&gt;v22,v28,v35&lt;/strong&gt;, etc &amp;hellip; sont elles aussi comparées mais ne sont initialisées nulle part dans le binaire, et appartiennent à une zone mémoire très proche de celle de &lt;strong&gt;ptrUserInput&lt;/strong&gt; :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img7.png&#34;
+	width=&#34;414&#34;
+	height=&#34;410&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img7_hu0af85b4286840fb4f6f500010a21f15d_37543_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img7_hu0af85b4286840fb4f6f500010a21f15d_37543_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;242px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Un &lt;strong&gt;ptrUserInput&lt;/strong&gt; à seulement 3 caractères 🤔 ? Il s&amp;rsquo;avère que le pseudo-décompilateur n&amp;rsquo;a pas su quelle était la taille du tableau de caractères &lt;em&gt;(string)&lt;/em&gt; . Il va donc falloir manuellement &lt;strong&gt;retyper ptrUserInput&lt;/strong&gt; en &lt;strong&gt;char[n]&lt;/strong&gt; où n est la longueur de la chaîne de caractères. Mais quelle taille fait-elle ? Une des premières conditions vérifiées est la suivante :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img8.png&#34;
+	width=&#34;575&#34;
+	height=&#34;34&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img8_huc18185563e05c4bfe81cbe411dd9066c_6668_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img8_huc18185563e05c4bfe81cbe411dd9066c_6668_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;1691&#34;
+		data-flex-basis=&#34;4058px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;La taille de l&amp;rsquo;entrée utilisateur doit être supérieur ou égal à 25 pour ne pas rentrer dans la condition &lt;em&gt;(évitant le &lt;strong&gt;exit(0)&lt;/strong&gt;)&lt;/em&gt; et est donc de 26 caractères minimums &lt;em&gt;(strlen ne prend pas en compte le NULL BYTE à la fin donc 25+1)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Clique droit sur &lt;strong&gt;ptrUserInput&lt;/strong&gt; &amp;gt; Set lvar type &amp;gt; char ptrUserInput[26]&lt;/p&gt;
+&lt;p&gt;Et là, la magie de Noël opère car les comparaisons se font bien uniquement sur l&amp;rsquo;entrée utilisateur :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img9.png&#34;
+	width=&#34;1049&#34;
+	height=&#34;665&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img9_hue4437651fe0dc1a45ec8c9739f20c64f_111110_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img9_hue4437651fe0dc1a45ec8c9739f20c64f_111110_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;157&#34;
+		data-flex-basis=&#34;378px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Bon il faut maitenant satisfaire toutes les conditions afin d&amp;rsquo;échapper aux multiples &lt;strong&gt;exit(0)&lt;/strong&gt; mais avant cela regardons à quoi va servir notre &lt;strong&gt;ptrUserInput&lt;/strong&gt; :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img14.png&#34;
+	width=&#34;1256&#34;
+	height=&#34;355&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img14_hu94ca2fc6469e8858f2d2347e226b56c7_132005_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img14_hu94ca2fc6469e8858f2d2347e226b56c7_132005_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;353&#34;
+		data-flex-basis=&#34;849px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;On voit ici que l&amp;rsquo;entrée utilisateur est concaténée à la fin de &lt;strong&gt;&amp;ldquo;&lt;a href=&#34;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/%22&#34;&gt;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&amp;quot;&lt;/a&gt;&lt;/strong&gt; puis est rajoutée devant &lt;strong&gt;&amp;ldquo;wget -q &amp;ldquo;&lt;/strong&gt; pour former la commande suivante qui sera exécutée dans &lt;strong&gt;system()&lt;/strong&gt; :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;wget -q https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/USER_INPUT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Il nous reste donc à déterminer quelle entrée utilisateur correspond.&lt;/p&gt;
+&lt;h2 id=&#34;iii-résolution-du-système&#34;&gt;III. Résolution du système&lt;/h2&gt;
+&lt;p&gt;Pour résoudre toutes ces contraintes sur l&amp;rsquo;entrée utilisateur que l&amp;rsquo;on a vue plus haut, il y a trois possibilités :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img10.jpg&#34;
+	width=&#34;500&#34;
+	height=&#34;517&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img10_hu3d3e51e6834f5da43f04e77706a67fb8_43222_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img10_hu3d3e51e6834f5da43f04e77706a67fb8_43222_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;96&#34;
+		data-flex-basis=&#34;232px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Bien que je l&amp;rsquo;aie initialement résolu à la main, nous allons ici utiliser &lt;strong&gt;Z3&lt;/strong&gt;, quant à &lt;strong&gt;angr&lt;/strong&gt;, l&amp;rsquo;épave qui me sert de PC est incapable de trouver en temps raisonable un chemin vers la victoire &lt;em&gt;(donc si certains ont un script fonctionnel je suis preneur)&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;z3&#34;&gt;Z3&lt;/h3&gt;
+&lt;p&gt;Pour résumer très brièvement, z3 &lt;em&gt;(&lt;a href=&#34;https://github.com/Z3Prover/z3&#34;&gt;https://github.com/Z3Prover/z3&lt;/a&gt;)&lt;/em&gt; permet, avec un certains nombre de contraintes/formules donné, de déterminer s&amp;rsquo;il existe une solution à ce problème, s&amp;rsquo;il est &lt;strong&gt;satisfaisable&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;pip&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;solver&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Bon pour des contraintes aussi simples, c&amp;rsquo;est un peu sortir l&amp;rsquo;arme nucléaire pour tuer une mouche mais c&amp;rsquo;est un bon cas d&amp;rsquo;école pour découvrir z3. Sans plus tarder voilà le script après avoir copié/collé la majorité des contraintes depuis IDA :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;z3&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Prepare&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IntVector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;userInput&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;26&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Solver&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Constraints&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;45&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;45&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;45&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;101&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;122&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;101&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;120&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;76&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;116&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;102&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;134&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;84&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;72&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;117&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;53&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;112&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;70&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;61&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Solve &amp;amp; Print result&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;check&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;model&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;solution&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;chr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;userInput&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;as_long&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;26&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)])&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;solution&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Et après lancement du script on obtient :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;https://cyberavent.ctfd.io/files/21c81d37fdb40d831bc68ca74cbf2084/Teez7-xdFLT-ctfgH5-puTF6Y
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;iv-reverse-statique-du-second-binaire&#34;&gt;IV. Reverse &lt;em&gt;statique&lt;/em&gt; du second binaire&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ file Teez7-xdFLT-ctfgH5-puTF6Y
+
+Teez7-xdFLT-ctfgH5-puTF6Y: PE32 executable &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;console&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; Intel &lt;span class=&#34;m&#34;&gt;80386&lt;/span&gt; Mono/.Net assembly, &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; MS Windows
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Il s&amp;rsquo;agit cette fois-ci d&amp;rsquo;un binaire pour un OS Windows.&lt;/p&gt;
+&lt;p&gt;La commande &lt;strong&gt;strings&lt;/strong&gt; va nous donner une information essentielle qui explique je pense pourquoi beaucoup de gens n&amp;rsquo;ont pas réussi à passer cette étape :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ strings Teez7-xdFLT-ctfgH5-puTF6Y
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;...&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+_CorExeMain  
+mscoree.dll
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;_CorExeMain&lt;/strong&gt; est une caractéristique propre au &lt;strong&gt;framework .NET&lt;/strong&gt; &lt;em&gt;(ce qui explique pourquoi Ghidra et IDA Freeware sont en difficulté pour désassembler)&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;On va donc devoir utiliser un outil adapté au reverse de binaire issu du &lt;strong&gt;framework .NET&lt;/strong&gt; &lt;em&gt;(qui est généralement du &lt;strong&gt;C#&lt;/strong&gt;)&lt;/em&gt; le plus connu de tous étant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ILSpy &lt;em&gt;(&lt;a href=&#34;https://github.com/icsharpcode/ILSpy&#34;&gt;https://github.com/icsharpcode/ILSpy&lt;/a&gt;)&lt;/em&gt; pour OS Windows&lt;/li&gt;
+&lt;li&gt;ILSpy &lt;em&gt;(&lt;a href=&#34;https://github.com/icsharpcode/AvaloniaILSpy&#34;&gt;https://github.com/icsharpcode/AvaloniaILSpy&lt;/a&gt;)&lt;/em&gt; pour OS Linux&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cependant je vais utiliser un autre outil que j&amp;rsquo;ai découvert récemment et qui fait le café :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CodemerxDecompile &lt;em&gt;(&lt;a href=&#34;https://github.com/codemerx/CodemerxDecompile/releases&#34;&gt;https://github.com/codemerx/CodemerxDecompile/releases&lt;/a&gt;)&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;wget https://github.com/codemerx/CodemerxDecompile/releases/download/0.9.2/CodemerxDecompile-linux-x64.tar.gz
+tar -xzpf ./CodemerxDecompile-linux-x64.tar.gz
+
+./CodemerxDecompile-linux-x64/bin/CodemerxDecompile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;L&amp;rsquo;interface se base sur celle de Visual Studio Code :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img11.png&#34;
+	width=&#34;1246&#34;
+	height=&#34;868&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img11_hu77d99510c82324897f815ecf2f734c5d_35526_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img11_hu77d99510c82324897f815ecf2f734c5d_35526_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;143&#34;
+		data-flex-basis=&#34;344px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;On va, avant d&amp;rsquo;importer le binaire depuis &lt;strong&gt;File &amp;gt; Open assembly&lt;/strong&gt;, le renommer avec l&amp;rsquo;extension &lt;strong&gt;.exe&lt;/strong&gt; pour que le binaire soit détecté :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;$ mv Teez7-xdFLT-ctfgH5-puTF6Y Teez7-xdFLT-ctfgH5-puTF6Y.exe
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Une fois importé, on a le &lt;strong&gt;main&lt;/strong&gt; suivant :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img12.png&#34;
+	width=&#34;1313&#34;
+	height=&#34;820&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img12_hu3bdd048e564def24a8e91f74c37f5869_163496_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img12_hu3bdd048e564def24a8e91f74c37f5869_163496_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;384px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Le binaire n&amp;rsquo;est pas bien grand et le flag est généré comme suit &lt;em&gt;(après quelques renommages)&lt;/em&gt; :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span class=&#34;k&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LuysGrAgZzbIRsd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;na&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[...]&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// La partie mystère
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysterious&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Program&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LuysGrAgZzbIRsd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ??
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysteriousDivided&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysterious&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;227.475&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ??/227.475
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;strMysteriousDiv&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;0x&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Program&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;int_to_hex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysteriousDivided&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// str(hex(??/227.475))
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keyXOR&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Convert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ToInt32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;strMysteriousDiv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// ??/227.475 (mysteriousDivided==keyXOR)
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Program&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;xor_string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;31$6+e5&amp;amp;5e#9&amp;gt;7}3s}9#}51#)}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keyXOR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;// La partie affichage
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Program&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;green_text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str4&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysterious&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ToString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str5&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Insert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysterious&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ToString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str6&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Insert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;-&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str7&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Replace&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;catf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;CATF&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// La ligne qui débloque le mystère
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;str8&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Concat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;str7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Nous n&amp;rsquo;avons pas connaissance de la variable &lt;strong&gt;mysterious&lt;/strong&gt; qui conditionne la génération du flag, cependant dans la fin du morceau de code on obtient une indication précieuse : après avoir &amp;ldquo;&amp;ldquo;&amp;ldquo;deXORé&amp;rdquo;&amp;rdquo;&amp;rdquo; la chaîne &lt;strong&gt;31$6+e5&amp;amp;5e#9&amp;gt;7}3s}9#}51#)}&lt;/strong&gt;, cette dernière semble contenir &lt;strong&gt;catf&lt;/strong&gt; .&lt;/p&gt;
+&lt;p&gt;On va donc bruteforce la valeur de &lt;strong&gt;keyXOR&lt;/strong&gt; &lt;em&gt;(qui est utilisée pour le XOR)&lt;/em&gt; et remonter petit à petit pour retrouvé &lt;strong&gt;mysterious&lt;/strong&gt; qui sera la seule partie manquante du flag. On va pour ça s&amp;rsquo;aider de &lt;strong&gt;CyberChef&lt;/strong&gt; &lt;em&gt;(&lt;a href=&#34;https://gchq.github.io/CyberChef/&#34;&gt;https://gchq.github.io/CyberChef/&lt;/a&gt;)&lt;/em&gt; :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img13.png&#34;
+	width=&#34;1778&#34;
+	height=&#34;613&#34;
+	srcset=&#34;https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img13_hud588f79977e13d4b060f441af7d2d3e4_88226_480x0_resize_box_2.png 480w, https://endeavxor.github.io/p/catf-2022-my-secret-vault/img/img13_hud588f79977e13d4b060f441af7d2d3e4_88226_1024x0_resize_box_2.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;290&#34;
+		data-flex-basis=&#34;696px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;🚨 CyberChef renvoie la clé en hexadécimal 🚨 &lt;em&gt;(temps phénoménal perdu ici)&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;Key = 50: catf{5eve5sing-c#-is-easy-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Ca ressemble bien à un début de flag, donc &lt;strong&gt;keyXOR = 0x50 = 80&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;keyXOR&lt;/strong&gt; provient de la variable &lt;strong&gt;strMysteriousDiv&lt;/strong&gt; qui était exprimée en hexadécimal, donc &lt;strong&gt;strMysteriousDiv = &amp;lsquo;0x50&amp;rsquo;&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;strMysteriousDiv&lt;/strong&gt; s&amp;rsquo;est formée à partir de &lt;strong&gt;mysteriousDivided&lt;/strong&gt; qui était exprimée en décimal, donc &lt;strong&gt;mysteriousDivided = 0x50 = 80&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mysteriousDivided&lt;/strong&gt; est issue de la division de &lt;strong&gt;mysterious&lt;/strong&gt; par &lt;strong&gt;227.475&lt;/strong&gt;, donc &lt;strong&gt;mysterious ≈ 80 * 227.475 ≈ 18198&lt;/strong&gt; &lt;em&gt;(notez bien le ≈)&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La dernière condition semble finaliser le reverse mais il y a une subtilité :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mysteriousDivided&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mysterious&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;227.475&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Doit être égal à 80
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;La division par un nombre flottant et le cast en &lt;strong&gt;(int)&lt;/strong&gt; fait perdre de la précision et il n&amp;rsquo;y a donc pas unicité de la solution pour la valeur &lt;strong&gt;mysterious&lt;/strong&gt; :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;mysterious = 18198 =&amp;gt; int(18198 / 227.475) = 80 
+mysterious = 18199 =&amp;gt; int(18199 / 227.475) = 80
+mysterious = 18200 =&amp;gt; int(18200 / 227.475) = 80
+
+etc ...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Il va donc falloir trouver quelle est réellement la valeur &lt;strong&gt;mysterious&lt;/strong&gt;. En revenant dans le code, on remarque qu&amp;rsquo;elle est initialisée par la fonction suivante :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cs&#34; data-lang=&#34;cs&#34;&gt;&lt;span class=&#34;k&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LuysGrAgZzbIRsd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DateTime&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;get_Year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;mysterious&lt;/strong&gt; est issu d&amp;rsquo;un produit du mois et de l&amp;rsquo;année &lt;strong&gt;au moment de l&amp;rsquo;exécution&lt;/strong&gt;. Un petit script python pour énumérer les cas possibles :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# Month&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2022&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# Years&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;227.475&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;80&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# Constraint&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;On obtient :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;$ python3 solver.py
+
+&lt;span class=&#34;m&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2022&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Cela semble très cohérant avec la période du CTF, &lt;strong&gt;mysterious = 9 * 2002 = 18198&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Il ne reste plus qu&amp;rsquo;à regarder les dernières lignes pour rassembler le tout et on obtient le flag suivant :&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CATF{18198-5eve5sing-c#-is-easy-18198}&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>vsCTF 2022 - vsCAPTCHA</title>
         <link>https://endeavxor.github.io/p/vsctf-2022-vscaptcha/</link>
         <pubDate>Mon, 11 Jul 2022 00:00:00 +0000</pubDate>
