@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Programmation on Endeavxor</title>
+        <link>https://endeavxor.github.io/categories/programmation/</link>
+        <description>Recent content in Programmation on Endeavxor</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 02 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://endeavxor.github.io/categories/programmation/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>HeroCTF V4 - Deadalus</title>
+        <link>https://endeavxor.github.io/p/heroctf-v4-deadalus/</link>
+        <pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://endeavxor.github.io/p/heroctf-v4-deadalus/</guid>
+        <description>&lt;img src="https://endeavxor.github.io/p/heroctf-v4-deadalus/cover.jpg" alt="Featured image of post HeroCTF V4 - Deadalus" /&gt;&lt;h1 id=&#34;description&#34;&gt;Description&lt;/h1&gt;
+&lt;p&gt;Vous trouverez la description complète du challenge ici : &lt;a class=&#34;link&#34; href=&#34;https://github.com/Endeavxor/CTF-Writeups/blob/32b7259d311de8ac2cb2d36a08fb063fe4e5e9ab/2022/HeroCTF%20V4/Deadalus/challenge.md&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;challenge.md&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;rapide-retour-au-monde-des-mathématiques&#34;&gt;Rapide retour au monde des mathématiques&lt;/h1&gt;
+&lt;p&gt;Avant de plonger plus en détail sur la stratégie adoptée, je vais faire un rapide retour sur les notions nécessaires à sa compréhension.&lt;em&gt;(Vous pouvez passer à la suite si vous êtes déjà familier avec les graphes)&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;les-graphes&#34;&gt;Les graphes&lt;/h2&gt;
+&lt;p&gt;Un &lt;strong&gt;graphe&lt;/strong&gt; est simplement constitué d&amp;rsquo;un ensemble de &lt;strong&gt;sommets&lt;/strong&gt; et &lt;strong&gt;d&amp;rsquo;arêtes&lt;/strong&gt; &lt;em&gt;(qui indique quel sommet est relié à quel autre sommet)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Les &lt;strong&gt;graphes&lt;/strong&gt; sont des objets/structures mathématiques qui ont été profondément étudié aux travers des siècles et disposent donc de nombreux d&amp;rsquo;algorithmes pour résoudre des problèmes souvent complexes avec plus de facilité qu&amp;rsquo;un algorithme dans des paradigmes classiques.&lt;/p&gt;
+&lt;p&gt;Voici quelques exemples de graphes &lt;em&gt;(il en existe d&amp;rsquo;autres adapté à différents problèmes)&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe.jpg&#34;
+	width=&#34;1234&#34;
+	height=&#34;300&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe_hu1e83fd3b77fe46cfe34f1ead0b25b64e_72381_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe_hu1e83fd3b77fe46cfe34f1ead0b25b64e_72381_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;411&#34;
+		data-flex-basis=&#34;987px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Le premier est le plus commun, le second est un graphe dit &amp;ldquo;étiqueté&amp;rdquo; et le dernier, qui va nous intéresser pour ce challenge, est un graphe dit &lt;strong&gt;&amp;ldquo;orienté&amp;rdquo;&lt;/strong&gt;. En effet comme on peut le constater, ce ne sont &lt;strong&gt;pas des arêtes&lt;/strong&gt; mais des &lt;strong&gt;arcs&lt;/strong&gt;, rendant la liaison entre deux sommets &lt;strong&gt;unidirectionnelle&lt;/strong&gt; et non bidirectionnelle comme c&amp;rsquo;était le cas auparavant.&lt;/p&gt;
+&lt;h2 id=&#34;circuit-dans-un-graphe-orienté&#34;&gt;Circuit dans un graphe orienté&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Wikipedia &lt;a href=&#34;https://fr.wikipedia.org/wiki/Circuit_(th%C3%A9orie_des_graphes)&#34;&gt;https://fr.wikipedia.org/wiki/Circuit_(th%C3%A9orie_des_graphes)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&amp;ndash; &lt;!-- raw HTML omitted --&gt;Dans un graphe orienté, on appelle circuit une suite d&amp;rsquo;arcs consécutifs (chemin) dont les deux sommets aux extrémités sont identiques&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pour illustrer, voici en rouge des circuits dans des graphes orientés :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/circuit.jpg&#34;
+	width=&#34;915&#34;
+	height=&#34;300&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/circuit_hu69b5f4bfce9e76ff69b190ad0364b06e_67238_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/circuit_hu69b5f4bfce9e76ff69b190ad0364b06e_67238_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;305&#34;
+		data-flex-basis=&#34;732px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Nous allons pour ce challenge nous intéresser à des circuits &lt;strong&gt;élémentaires&lt;/strong&gt;, &lt;em&gt;correspondant aux boucles&lt;/em&gt;, qui ne sont ni plus ni moins que des circuits dont chaque sommet n&amp;rsquo;apparaît qu&amp;rsquo;une seule fois &lt;em&gt;(ce qui n&amp;rsquo;est pas le cas par exemple d&amp;rsquo;un des circuits dans le second graphe : x2-&amp;gt;x4-&amp;gt;&lt;strong&gt;x3&lt;/strong&gt;-&amp;gt;x5-&amp;gt;x6-&amp;gt;&lt;strong&gt;x3&lt;/strong&gt;-&amp;gt;x2 )&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Et bien si vous avez compris ça, vous avez toutes les clés en main pour résoudre le challenge très facilement :)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Pour ceux qui ne se seraient pas intéressé aux graphes, je vous conseille grandement d&amp;rsquo;y jeter un oeil car si vous arrivez à modéliser un problème sous forme de graphes, il a de forte chance qu&amp;rsquo;un algorithme puisse vous faciliter la vie pour sa résolution&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&#34;retour-sur-le-challenge-et-explication-de-la-stratégie&#34;&gt;Retour sur le challenge et explication de la stratégie&lt;/h1&gt;
+&lt;p&gt;Laissons de côté les graphes un court instant et revenons sur notre problème : une fois arrivé sur une case qui impose une direction &lt;em&gt;(R,L,D ou U)&lt;/em&gt;, nous devons suivre cette direction jusqu&amp;rsquo;à arriver sur un des quatre cas suivant :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sur un point (.)&lt;/li&gt;
+&lt;li&gt;Sur une nouvelle direction &lt;em&gt;(R,L,D ou U)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Hors du labyrithe&lt;/li&gt;
+&lt;li&gt;Sur une case spéciale &lt;em&gt;( - ou | )&lt;/em&gt; dont le traitement varie selon la direction empruntée et la case en question&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si l&amp;rsquo;on schématise ce parcours sur un des exemples voici ce que l&amp;rsquo;on a :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe0_ex.jpg&#34;
+	width=&#34;900&#34;
+	height=&#34;900&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe0_ex_hu5f54f9eee301eca18cf95929ae68ee14_40541_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe0_ex_hu5f54f9eee301eca18cf95929ae68ee14_40541_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;
+&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe1_ex.jpg&#34;
+	width=&#34;900&#34;
+	height=&#34;900&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe1_ex_hu76c73d7f567c8822c98287a1872f9499_232178_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe1_ex_hu76c73d7f567c8822c98287a1872f9499_232178_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Comme on peut le remarquer, les points &lt;em&gt;(&#39;.&#39;)&lt;/em&gt; sont redondants et on pourrait simplement aller directement à la prochaine case. Si l&amp;rsquo;on connecte entre elles les cases sans passer par les points et qu&amp;rsquo;on retire aussi les cas où l&amp;rsquo;on est bloqué &lt;em&gt;(par exemple &amp;lsquo;|&amp;rsquo; ici)&lt;/em&gt;, on obtient un parcours bien plus digeste :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe2_ex.jpg&#34;
+	width=&#34;900&#34;
+	height=&#34;900&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe2_ex_hu8423e7fcbae444198fe3c55cf700b2c4_215434_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe2_ex_hu8423e7fcbae444198fe3c55cf700b2c4_215434_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Et si vous ne voyez toujours pas où je veux en venir, retirons le labyrinthe :&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe3_ex.jpg&#34;
+	width=&#34;900&#34;
+	height=&#34;900&#34;
+	srcset=&#34;https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe3_ex_hufc456b779f355fa472ce52867ed21972_186969_480x0_resize_q75_box.jpg 480w, https://endeavxor.github.io/p/heroctf-v4-deadalus/graphe3_ex_hufc456b779f355fa472ce52867ed21972_186969_1024x0_resize_q75_box.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Eh bien nous voilà en présence d&amp;rsquo;un magnifique graphe composé de &lt;strong&gt;2 circuits élémentaires&lt;/strong&gt; ! Exactement ce que nous recherchions.&lt;/p&gt;
+&lt;p&gt;Très bien cela saute aux yeux qu&amp;rsquo;il y a 2 circuits élémentaires, mais comment fait-on pour les trouver ? Et bien comme expliqué plus haut, les graphes ont été grandement étudié et il existe déjà des algorithmes qui permettent de trouver des circuits élémentaires dans un graphe orienté. Dans notre cas, l&amp;rsquo;algorithme présent dans la librairie que nous utiliserons sera celui de DONALD B. JOHNSON (&lt;a href=&#34;https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF&#34;&gt;https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF&lt;/a&gt;) disposant d&amp;rsquo;une complexité linéaire.&lt;/p&gt;
+&lt;p&gt;Grâce à la modélisation du problème sous forme de graphe, le challenge se simplifie en  : &amp;ldquo;&lt;strong&gt;Représentez le labyrinthe sous forme de graphe&lt;/strong&gt;&amp;rdquo;, bien plus simple non :) ?&lt;/p&gt;
+&lt;h2 id=&#34;implémentation-de-la-solution&#34;&gt;Implémentation de la solution&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python3&#34; data-lang=&#34;python3&#34;&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Servira pour factoriser le code&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;pwn&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Facilite la communication avec le serveur&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;networkx&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;nx&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Implémente la notion de Graphe et ses algorithmes&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;DIRECTIONS_NODES&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;R&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;L&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;D&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;U&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;SPECIALS_NODES&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;-&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;|&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remote&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;172.17.0.2&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;7000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    Classe de type Enum qui facilite la factorisation du code.
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    Le déplacement dans le labyrinthe se faisant dans une seule direction et d&amp;#39;une seule case à la fois,
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    chaque direction est composé d&amp;#39;un tuple : (déplacement ligne, déplacement colonne).
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;RIGHT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;LEFT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;DOWN&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;UP&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentColumnIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;direction&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;s1&#34;&gt;&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    Fonction permettant de connecter deux noeuds entre eux et de les ajouter au graphe G.
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    @param: currentRowIndex L&amp;#39;index de la ligne de la case en cours d&amp;#39;analyse
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    @param: currentRowIndex L&amp;#39;index de la colonne de la case en cours d&amp;#39;analyse
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    @param: direction La direction pour trouver la prochaine case à lier à la case en cours d&amp;#39;analyse
+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;dRow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dCol&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Récupère le déplacement à faire sur les lignes et colonnes&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentRowIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dRow&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# L&amp;#39;index de la ligne de la prochaine case &lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentColumnIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dCol&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# L&amp;#39;index de la colonne de la prochaine case &lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# Tant que la prochaine case n&amp;#39;est pas hors du labyrinthe&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numberOfRows&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;numberOfColumns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Récupère la prochaine case&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;# 2 cases sont connectées entre-elles uniquement lorsque l&amp;#39;une de ces conditions est établie :&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DIRECTIONS_NODES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-&amp;#34;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dRow&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;or&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;|&amp;#34;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dCol&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+
+            &lt;span class=&#34;c1&#34;&gt;# On connecte nos deux cases en les nommant par leurs positions dans le labyrinthe&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;G&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;currentColumnIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+            
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SPECIALS_NODES&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;c1&#34;&gt;# La case spéciale sera traitée après&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;specialNodes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nextNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;.&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;
+
+        &lt;span class=&#34;c1&#34;&gt;# Va à la prochaine case &lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;nextRowIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dRow&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;nextColumnIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dCol&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Il y a 16 labyrinthe à traiter&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;G&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DiGraph&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Créer un graphe orienté (directed graph)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;recvuntil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Answer &amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Answer &amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;strip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;split&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:]&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Ligne très moche pour récupérer le labyrinthe du serveur&lt;/span&gt;
+    
+    &lt;span class=&#34;n&#34;&gt;numberOfRows&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;numberOfColumns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+    
+    &lt;span class=&#34;n&#34;&gt;specialNodes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Utilisation d&amp;#39;un set (aucune entrée dupliquée) pour stocker les cases spéciales (| or -)&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;numberOfRows&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;numberOfColumns&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;currentNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;R&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;L&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LEFT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;D&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DOWN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;currentNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;U&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;colIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specialNodeCoordiantes&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specialNodes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# .copy() est utilisée pour modifier dynamiquement le contenu du set()&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specialNodeCoordiantes&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;specialNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maze&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+        
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;specialNode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;-&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Si cette case spéciale est atteinte, elle se connecte à ce qui se trouve sur sa gauche et sa droite&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LEFT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RIGHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Si cette case spéciale est atteinte, elle se connecte à ce qui se trouve au-dessus et en dessous&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;UP&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;connectNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeRowIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;specialNodeColIndex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Direction&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DOWN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;send&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nx&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;simple_cycles&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;G&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))))&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;encode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Ligne moche qui envoie le nombre de circuits élémentaires (boucles) au serveur&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;recvuntil&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;}&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Affiche le flag&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;conn&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;close&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Plus qu&amp;rsquo;à lancer le tout&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;python3 deadalus.py
+
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;+&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Opening connection to 172.17.0.2 on port 7000: Done
+b&lt;span class=&#34;s1&#34;&gt;&amp;#39;\nCongratz !\nHero{h0w_aM4ZEiNg_y0U_d1D_17_3v3n_beTt3R_th4n_4ri4dne}&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;*&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; Closed connection to 172.17.0.2 port &lt;span class=&#34;m&#34;&gt;7000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

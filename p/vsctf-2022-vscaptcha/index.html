@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Recognition Let&amp;rsquo;s start by going to the website. We arrive on the following page:
+This is a simple page containing what looks like a captcha. The goal seems pretty clear now: You have to validate the captcha before 10 seconds and this 1000 times in a row. To solve the captcha you need to add the two numbers shown in green.
+When we look a little closer at the exchanges between us and the server, we observe that when the first captcha is requested, the server sends it back to us with a JWT token (https://en.'>
+<title>vsCTF 2022 - vsCAPTCHA</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/vsctf-2022-vscaptcha/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='vsCTF 2022 - vsCAPTCHA'>
+<meta property='og:description' content='Recognition Let&amp;rsquo;s start by going to the website. We arrive on the following page:
+This is a simple page containing what looks like a captcha. The goal seems pretty clear now: You have to validate the captcha before 10 seconds and this 1000 times in a row. To solve the captcha you need to add the two numbers shown in green.
+When we look a little closer at the exchanges between us and the server, we observe that when the first captcha is requested, the server sends it back to us with a JWT token (https://en.'>
+<meta property='og:url' content='https://endeavxor.github.io/p/vsctf-2022-vscaptcha/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-07-11T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-11T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/vsctf-2022-vscaptcha/cover.jpg' />
+<meta name="twitter:title" content="vsCTF 2022 - vsCAPTCHA">
+<meta name="twitter:description" content="Recognition Let&amp;rsquo;s start by going to the website. We arrive on the following page:
+This is a simple page containing what looks like a captcha. The goal seems pretty clear now: You have to validate the captcha before 10 seconds and this 1000 times in a row. To solve the captcha you need to add the two numbers shown in green.
+When we look a little closer at the exchanges between us and the server, we observe that when the first captcha is requested, the server sends it back to us with a JWT token (https://en."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/vsctf-2022-vscaptcha/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table des matières</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#finding-the-solution-of-the-captcha">Finding the solution of the captcha</a></li>
+    <li><a href="#preparing-the-payload">Preparing the payload</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/vsctf-2022-vscaptcha/">
+                <img src="/p/vsctf-2022-vscaptcha/cover_hu38fe278006cf35f230a31e53c5b70eba_203359_800x0_resize_q75_box.jpg"
+                        srcset="/p/vsctf-2022-vscaptcha/cover_hu38fe278006cf35f230a31e53c5b70eba_203359_800x0_resize_q75_box.jpg 800w, /p/vsctf-2022-vscaptcha/cover_hu38fe278006cf35f230a31e53c5b70eba_203359_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post vsCTF 2022 - vsCAPTCHA" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/vsctf-2022-vscaptcha/">vsCTF 2022 - vsCAPTCHA</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 11, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    9 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="/p/vsctf-2022-vscaptcha/challenge.jpg"
+	width="917"
+	height="264"
+	srcset="/p/vsctf-2022-vscaptcha/challenge_hu5a81f289535dd71a71eb4629f598a508_21919_480x0_resize_q75_box.jpg 480w, /p/vsctf-2022-vscaptcha/challenge_hu5a81f289535dd71a71eb4629f598a508_21919_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="347"
+		data-flex-basis="833px"
+	
+></p>
+<h1 id="recognition">Recognition</h1>
+<p>Let&rsquo;s start by going to the website. We arrive on the following page:</p>
+<p><img src="/p/vsctf-2022-vscaptcha/challengePage.gif"
+	width="1266"
+	height="570"
+	srcset="/p/vsctf-2022-vscaptcha/challengePage_hu61f6d1932625ea0d821f6a3226fbae74_186910_480x0_resize_box.gif 480w, /p/vsctf-2022-vscaptcha/challengePage_hu61f6d1932625ea0d821f6a3226fbae74_186910_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<p>This is a simple page containing what looks like a captcha. The goal seems pretty clear now: You have to validate the captcha before 10 seconds and this 1000 times in a row. To solve the captcha you need to add the two numbers shown in green.</p>
+<p>When we look a little closer at the exchanges between us and the server, we observe that when the first captcha is requested, the server sends it back to us with a JWT token (<a href="https://en.wikipedia.org/wiki/JSON_Web_Token">https://en.wikipedia.org/wiki/JSON_Web_Token</a>) in the header <strong>x-captcha-state</strong> :</p>
+<p><img src="/p/vsctf-2022-vscaptcha/firstRequest.jpg"
+	width="1481"
+	height="687"
+	srcset="/p/vsctf-2022-vscaptcha/firstRequest_hu46d0c636a4d98e28f3a5d3b580b72cf2_102856_480x0_resize_q75_box.jpg 480w, /p/vsctf-2022-vscaptcha/firstRequest_hu46d0c636a4d98e28f3a5d3b580b72cf2_102856_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
+	
+></p>
+<p>If we decode <em>(base64)</em> the part of the token containing the payload we get this:</p>
+<p>From :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">eyJleHAiOjE2NTc0NzcxNjUsImp0aSI6IjJjY2Y2Nzg2LTdmMDYtNGFkNS04MTRmLWE2MWI1NmJkYjUxOCIsImZhaWxlZCI6ZmFsc2UsIm51bUNhcHRjaGFzU29sdmVkIjowfQ
+</code></pre></div><p>To :</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span><span class="s2">&#34;exp&#34;</span><span class="o">:</span><span class="mi">1657477165</span><span class="p">,</span><span class="s2">&#34;jti&#34;</span><span class="o">:</span><span class="s2">&#34;2ccf6786-7f06-4ad5-814f-a61b56bdb518&#34;</span><span class="p">,</span><span class="s2">&#34;failed&#34;</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;numCaptchasSolved&#34;</span><span class="o">:</span><span class="mi">0</span><span class="p">}</span>
+</code></pre></div><p>The following assumptions can therefore be made:</p>
+<ul>
+<li><strong>exp</strong> : represents the timestamp after which the token is not valid any more <em>(the 10 seconds added to date of the generation of this token)</em></li>
+<li><strong>jti</strong> : a unique identifier to differentiate our token from those of others</li>
+<li><strong>failed</strong> : indicates whether you have already failed a step</li>
+<li><strong>numCaptchasSolved</strong> : The number of validated steps</li>
+</ul>
+<p>A first approach would be to change the value of <strong>numCaptchasSolved</strong> to 1000 in the token and send it to fool the server into thinking that you have validated all the steps. However, JWT tokens are <strong>signed</strong> and none of the various existing approaches to breaking the token signature have been successful and so another approach will have to be found.</p>
+<p>Another approach would be to use OCR to retrieve the content of the captcha but this is a very tedious and uncertain approach in such a limited time.</p>
+<p>While generating a few captchas, a particularity jumped out at me  :</p>
+<p><img src="/p/vsctf-2022-vscaptcha/index1.png"
+	width="250"
+	height="150"
+	srcset="/p/vsctf-2022-vscaptcha/index1_huec0891df30e577936640591e10e418c1_6901_480x0_resize_box_2.png 480w, /p/vsctf-2022-vscaptcha/index1_huec0891df30e577936640591e10e418c1_6901_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+>
+<img src="/p/vsctf-2022-vscaptcha/index2.png"
+	width="250"
+	height="150"
+	srcset="/p/vsctf-2022-vscaptcha/index2_hu695363099bbb0069cba09233db0613da_7231_480x0_resize_box_2.png 480w, /p/vsctf-2022-vscaptcha/index2_hu695363099bbb0069cba09233db0613da_7231_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+>
+<img src="/p/vsctf-2022-vscaptcha/index3.png"
+	width="250"
+	height="150"
+	srcset="/p/vsctf-2022-vscaptcha/index3_hu75d68a04f1edba1d6f043a0ca8875e67_7223_480x0_resize_box_2.png 480w, /p/vsctf-2022-vscaptcha/index3_hu75d68a04f1edba1d6f043a0ca8875e67_7223_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+>
+<img src="/p/vsctf-2022-vscaptcha/index4.png"
+	width="250"
+	height="150"
+	srcset="/p/vsctf-2022-vscaptcha/index4_hu4170cf87e13c68fd54daa9e3d75b8d98_7560_480x0_resize_box_2.png 480w, /p/vsctf-2022-vscaptcha/index4_hu4170cf87e13c68fd54daa9e3d75b8d98_7560_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<p><strong>The numbers generated on the different captchas were in a very close range</strong>. In truth we already have everything we need to solve the challenge but we&rsquo;ll look at the source code given in the challenge to get it right</p>
+<h1 id="diving-into-the-source-code">Diving into the source code</h1>
+<p>Here are the contents of the archive provided :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">├── __MACOSX
+│   └── vsCAPTCHA
+│       └── static
+├── vsCAPTCHA
+│   ├── Dockerfile
+│   ├── generate.sh
+│   ├── src
+│   │   └── main.ts
+│   └── static
+│       └── index.html
+└── vsCAPTCHA.rar
+</code></pre></div><p>I spare you the review, the only interesting file is the source code <strong>main.ts</strong> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">import</span> <span class="p">{</span> <span class="nx">createCaptcha</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;https://deno.land/x/captcha@v1.0.1/mods.ts&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="o">*</span> <span class="kr">as</span> <span class="nx">jose</span> <span class="kr">from</span> <span class="s2">&#34;https://deno.land/x/jose@v4.8.3/index.ts&#34;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Application</span><span class="p">,</span> <span class="nx">Router</span> <span class="p">}</span> <span class="kr">from</span> <span class="s2">&#34;https://deno.land/x/oak@v10.6.0/mod.ts&#34;</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">FLAG</span> <span class="o">=</span> <span class="nx">Deno</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;FLAG&#34;</span><span class="p">)</span> <span class="o">??</span> <span class="s2">&#34;vsctf{REDACTED}&#34;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">captchaSolutions</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+
+<span class="kr">interface</span> <span class="nx">CaptchaJWT</span> <span class="p">{</span>
+  <span class="nx">exp</span>: <span class="kt">number</span><span class="p">;</span>
+  <span class="nx">jti</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">flag?</span>: <span class="kt">string</span><span class="p">;</span>
+  <span class="nx">failed</span>: <span class="kt">boolean</span><span class="p">;</span>
+  <span class="nx">numCaptchasSolved</span>: <span class="kt">number</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kr">const</span> <span class="nx">jwtKey</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">importPKCS8</span><span class="p">(</span>
+  <span class="k">new</span> <span class="nx">TextDecoder</span><span class="p">().</span><span class="nx">decode</span><span class="p">(</span><span class="k">await</span> <span class="nx">Deno</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&#34;./jwtRS256.key&#34;</span><span class="p">)),</span>
+  <span class="s2">&#34;RS256&#34;</span>
+<span class="p">);</span>
+<span class="kr">const</span> <span class="nx">jwtPubKey</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">importSPKI</span><span class="p">(</span>
+  <span class="k">new</span> <span class="nx">TextDecoder</span><span class="p">().</span><span class="nx">decode</span><span class="p">(</span><span class="k">await</span> <span class="nx">Deno</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&#34;./jwtRS256.key.pub&#34;</span><span class="p">)),</span>
+  <span class="s2">&#34;RS256&#34;</span>
+<span class="p">);</span>
+
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Application</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">();</span>
+
+<span class="kr">const</span> <span class="nx">b1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">b2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s2">&#34;index.html&#34;</span><span class="p">,</span>
+    <span class="nx">root</span><span class="o">:</span> <span class="s2">&#34;./static&#34;</span><span class="p">,</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/captcha&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">stateJWT</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">({</span>
+    <span class="kr">type</span><span class="o">:</span> <span class="s2">&#34;json&#34;</span><span class="p">,</span>
+  <span class="p">}).</span><span class="nx">value</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">solution</span> <span class="o">=</span> <span class="nx">body</span><span class="p">.</span><span class="nx">solution</span><span class="p">;</span>
+
+  <span class="kd">let</span> <span class="nx">jwtPayload</span>: <span class="kt">CaptchaJWT</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">// 10 seconds to solve
+</span><span class="c1"></span>    <span class="nx">exp</span>: <span class="kt">Math.round</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">jti</span>: <span class="kt">crypto.randomUUID</span><span class="p">(),</span>
+    <span class="nx">failed</span>: <span class="kt">false</span><span class="p">,</span>
+    <span class="nx">numCaptchasSolved</span>: <span class="kt">0</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">stateJWT</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kr">const</span> <span class="p">{</span> <span class="nx">payload</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">jwtVerify</span><span class="p">(</span><span class="nx">stateJWT</span><span class="p">,</span> <span class="nx">jwtPubKey</span><span class="p">);</span>
+      <span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span><span class="p">;</span>
+
+      <span class="k">if</span> <span class="p">(</span>
+        <span class="o">!</span><span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">jti</span><span class="p">)</span> <span class="o">||</span>
+        <span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">jti</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">solution</span>
+      <span class="p">)</span> <span class="p">{</span>
+        <span class="kr">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="k">await</span> <span class="k">new</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">SignJWT</span><span class="p">({</span>
+          <span class="nx">failed</span>: <span class="kt">true</span><span class="p">,</span>
+          <span class="nx">numCaptchasSolved</span>: <span class="kt">payload.numCaptchasSolved</span><span class="p">,</span>
+          <span class="nx">exp</span>: <span class="kt">payload.exp</span><span class="p">,</span>
+        <span class="p">})</span>
+          <span class="p">.</span><span class="nx">setProtectedHeader</span><span class="p">({</span> <span class="nx">alg</span><span class="o">:</span> <span class="s2">&#34;RS256&#34;</span> <span class="p">})</span>
+          <span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">jwtKey</span><span class="p">);</span>
+
+        <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">,</span> <span class="nx">jwt</span><span class="p">);</span>
+        <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">401</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kr">const</span> <span class="nx">num1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b1</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b2</span><span class="p">;</span>
+
+  <span class="kr">const</span> <span class="nx">captcha</span> <span class="o">=</span> <span class="nx">createCaptcha</span><span class="p">({</span>
+    <span class="nx">width</span>: <span class="kt">250</span><span class="p">,</span>
+    <span class="nx">height</span>: <span class="kt">150</span><span class="p">,</span>
+    <span class="c1">// @ts-ignore provided options are merged with default options
+</span><span class="c1"></span>    <span class="nx">captcha</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">text</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">num1</span><span class="si">}</span><span class="sb"> + </span><span class="si">${</span><span class="nx">num2</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">});</span>
+
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="s2">&#34;content-type&#34;</span><span class="p">,</span> <span class="s2">&#34;image/png&#34;</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">flag</span> <span class="o">=</span> <span class="nx">FLAG</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span>
+    <span class="s2">&#34;x-captcha-state&#34;</span><span class="p">,</span>
+    <span class="k">await</span> <span class="k">new</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">SignJWT</span><span class="p">(</span><span class="nx">jwtPayload</span> <span class="kr">as</span> <span class="kt">unknown</span> <span class="kr">as</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">JWTPayload</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">setProtectedHeader</span><span class="p">({</span> <span class="nx">alg</span><span class="o">:</span> <span class="s2">&#34;RS256&#34;</span> <span class="p">})</span>
+      <span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">jwtKey</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">jti</span><span class="p">,</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">);</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">captcha</span><span class="p">.</span><span class="nx">image</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">router</span><span class="p">.</span><span class="nx">routes</span><span class="p">());</span>
+
+<span class="k">await</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">({</span> <span class="nx">port</span>: <span class="kt">8080</span> <span class="p">});</span>
+</code></pre></div><p>When the server starts, <strong>these two global variables are initialized and will remain so until the server is shut down</strong> <em>(they will be important for the future)</em> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">b1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">b2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">500</span><span class="p">);</span>
+</code></pre></div><p>Math.random() generates a pseudo-random number between 0 <em>(included)</em> and 1 <em>(excluded)</em></p>
+<ul>
+<li>b1 will have a value between 0 <em>(included)</em> and 500 <em>(excluded)</em></li>
+<li>b2 will have a value between 0 <em>(included)</em> and 500 <em>(excluded)</em></li>
+</ul>
+<p>This piece of code is the heart of the challenge and is executed for each request to <strong>/captcha</strong> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">num1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b1</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b2</span><span class="p">;</span>
+
+<span class="kr">const</span> <span class="nx">captcha</span> <span class="o">=</span> <span class="nx">createCaptcha</span><span class="p">({</span>
+  <span class="nx">width</span>: <span class="kt">250</span><span class="p">,</span>
+  <span class="nx">height</span>: <span class="kt">150</span><span class="p">,</span>
+  <span class="c1">// @ts-ignore provided options are merged with default options
+</span><span class="c1"></span>  <span class="nx">captcha</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">num1</span><span class="si">}</span><span class="sb"> + </span><span class="si">${</span><span class="nx">num2</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+</code></pre></div><p>It is this part that generates the numbers to add up to solve the captcha and sends the two numbers to a library that will generate an image of this style :</p>
+<p><img src="/p/vsctf-2022-vscaptcha/index5.png"
+	width="250"
+	height="150"
+	srcset="/p/vsctf-2022-vscaptcha/index5_huc93dc96c308261a43abc99571d9eb255_7118_480x0_resize_box_2.png 480w, /p/vsctf-2022-vscaptcha/index5_huc93dc96c308261a43abc99571d9eb255_7118_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<p>We are especially interested in these two lines because they will generate the numbers to be guessed :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="kr">const</span> <span class="nx">num1</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b1</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">num2</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b2</span><span class="p">;</span>
+</code></pre></div><p>Our previous intuition was correct because it does have a very short interval for the generated numbers <em>(I will explain with num1 but it is the same principle for num2)</em> :</p>
+<ul>
+<li>Math.random() generates a number in the interval <strong>[0,1[</strong></li>
+<li>*7 generates a number in the interval [0*7,1*7[ = <strong>[0,7[</strong></li>
+<li>Math.floor() generates a number in this range : <strong>[0,1,2,3,4,5,6,7[</strong> <em>(in the previous step, real numbers were taken into account)</em></li>
+<li>+ b1 adds the number generated when the server is started so the range become : <strong>[b1,b1+1,b1+2,b1+3,b1+4,b1+5,b1+6,b1+7[</strong></li>
+</ul>
+<p>So for <strong>num1</strong> we just need to find b1 and <strong>there will be only 7 possibilities to find the generated number</strong></p>
+<p>Similarly for <strong>num2</strong> we just need to find b2 and <strong>there will be only 3 possibilities to find the generated number</strong> <em>([b2,b2+1,b2+2,b2+3[)</em></p>
+<h2 id="finding-the-solution-of-the-captcha">Finding the solution of the captcha</h2>
+<p>Knowing that num1 has a maximum interval of 6 and num2 of 2, if we generate some captcha it will be enough to find <em>(for example for num1)</em> two numbers which have a difference of 6 and it will be the extremities of the range, the smallest of these two being b1</p>
+<p>After several captcha generations we get the following list:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>num1</th>
+<th>num2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>160</strong></td>
+<td><strong>427</strong></td>
+</tr>
+<tr>
+<td>155</td>
+<td><strong>425</strong></td>
+</tr>
+<tr>
+<td>156</td>
+<td>426</td>
+</tr>
+<tr>
+<td><strong>154</strong></td>
+<td>426</td>
+</tr>
+</tbody>
+</table></div>
+<p>So <strong>b1 = 154</strong> and <strong>b2 = 425</strong></p>
+<p><em>(remember that these numbers were generated at the very beginning of the program as global variables and will therefore not change during the various queries)</em></p>
+<p>The value of <strong>num1</strong> will therefore be in the following range: <strong>[154,155,156,157,158,159,160,161[</strong></p>
+<p>The value of <strong>num2</strong> will therefore be in the following range: <strong>[425,426,427,428[</strong></p>
+<p>And so <strong>the solution of the captcha</strong> which is equal to <strong>num1</strong> + <strong>num2</strong> will be one of the following 9 cases : <strong>[579, 580, 581, 582, 583, 584, 585, 586, 587]</strong></p>
+<p>So to solve the captcha you will have to send 9 requests before 10 seconds in the worst case.</p>
+<h2 id="preparing-the-payload">Preparing the payload</h2>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/captcha&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">stateJWT</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">);</span>
+</code></pre></div><p>The header <strong>x-captcha-state</strong> containing the JWT token must be sent with each request because it contains 2 crucial pieces of information:</p>
+<ul>
+<li><strong>exp</strong> : represents the timestamp after which the token is not valid any more <em>(the 10 seconds added to date of the generation of this token)</em></li>
+<li><strong>jti</strong> : a unique identifier to differentiate our token from those of others</li>
+</ul>
+<p>When you fail to send a solution, the server returns a 401 error but keeps the unique identifier in memory so that you can retry within 10 seconds:</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="k">if</span> <span class="p">(</span>
+  <span class="o">!</span><span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">jti</span><span class="p">)</span> <span class="o">||</span>
+  <span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">get</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">jti</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">solution</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">jwt</span> <span class="o">=</span> <span class="k">await</span> <span class="k">new</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">SignJWT</span><span class="p">({</span>
+    <span class="nx">failed</span>: <span class="kt">true</span><span class="p">,</span>
+    <span class="nx">numCaptchasSolved</span>: <span class="kt">payload.numCaptchasSolved</span><span class="p">,</span>
+    <span class="nx">exp</span>: <span class="kt">payload.exp</span><span class="p">,</span>
+  <span class="p">})</span>
+    <span class="p">.</span><span class="nx">setProtectedHeader</span><span class="p">({</span> <span class="nx">alg</span><span class="o">:</span> <span class="s2">&#34;RS256&#34;</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">jwtKey</span><span class="p">);</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">,</span> <span class="nx">jwt</span><span class="p">);</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">401</span><span class="p">;</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>When a step is passed, a new captcha is generated and an updated token is returned <em>(updating its <strong>exp</strong> value to have the 10 second delay for the new step)</em> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="p">[...]</span>
+<span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">[...]</span>
+
+<span class="kr">const</span> <span class="nx">captcha</span> <span class="o">=</span> <span class="nx">createCaptcha</span><span class="p">({</span>
+  <span class="nx">width</span>: <span class="kt">250</span><span class="p">,</span>
+  <span class="nx">height</span>: <span class="kt">150</span><span class="p">,</span>
+  <span class="c1">// @ts-ignore provided options are merged with default options
+</span><span class="c1"></span>  <span class="nx">captcha</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">text</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">num1</span><span class="si">}</span><span class="sb"> + </span><span class="si">${</span><span class="nx">num2</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">});</span>
+
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="s2">&#34;content-type&#34;</span><span class="p">,</span> <span class="s2">&#34;image/png&#34;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">flag</span> <span class="o">=</span> <span class="nx">FLAG</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span>
+  <span class="s2">&#34;x-captcha-state&#34;</span><span class="p">,</span>
+  <span class="k">await</span> <span class="k">new</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">SignJWT</span><span class="p">(</span><span class="nx">jwtPayload</span> <span class="kr">as</span> <span class="kt">unknown</span> <span class="kr">as</span> <span class="nx">jose</span><span class="p">.</span><span class="nx">JWTPayload</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">setProtectedHeader</span><span class="p">({</span> <span class="nx">alg</span><span class="o">:</span> <span class="s2">&#34;RS256&#34;</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">jwtKey</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="nx">captchaSolutions</span><span class="p">.</span><span class="kr">set</span><span class="p">(</span><span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">jti</span><span class="p">,</span> <span class="nx">num1</span> <span class="o">+</span> <span class="nx">num2</span><span class="p">);</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">captcha</span><span class="p">.</span><span class="nx">image</span><span class="p">;</span>
+</code></pre></div><p>The logic of resolution will therefore be as follows: Send a request with the same token until you send a valid solution which will then answer the request with :</p>
+<ul>
+<li>200 Code Status</li>
+<li>New captcha</li>
+<li>Updated JWT</li>
+</ul>
+<p>Repeat the operation with the new JWT token, until you reach step 1000 which will contain the flag in the JWT :</p>
+<div class="highlight"><pre class="chroma"><code class="language-ts" data-lang="ts"><span class="k">if</span> <span class="p">(</span><span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">numCaptchasSolved</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">jwtPayload</span><span class="p">.</span><span class="nx">flag</span> <span class="o">=</span> <span class="nx">FLAG</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h1 id="implementation-of-the-solution">Implementation of the solution</h1>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span> <span class="c1"># Default headers</span>
+<span class="n">sess</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="c1"># Needed to have persistent connection (don&#39;t recreate a TCP session for each request)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&#34;https://vscaptcha-twekqonvua-uc.a.run.app/captcha&#34;</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;solution&#34;</span><span class="p">:</span><span class="mi">1337</span><span class="p">})</span> <span class="c1"># Get the first captcha</span>
+<span class="n">headers</span><span class="p">[</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">]</span> <span class="c1"># Retrieve JWT</span>
+
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1001</span><span class="p">):</span>
+    
+    <span class="k">for</span> <span class="n">possibleCaptchaSolution</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">581</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">583</span><span class="p">,</span> <span class="mi">584</span><span class="p">,</span> <span class="mi">585</span><span class="p">,</span><span class="mi">580</span><span class="p">,</span> <span class="mi">586</span><span class="p">,</span> <span class="mi">587</span><span class="p">,</span> <span class="mi">579</span> <span class="p">]:</span> <span class="c1"># All possible solution</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">sess</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&#34;https://vscaptcha-twekqonvua-uc.a.run.app/captcha&#34;</span><span class="p">,</span><span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;solution&#34;</span><span class="p">:</span><span class="n">possibleCaptchaSolution</span><span class="p">})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;Step &#34;</span><span class="p">,</span><span class="n">step</span><span class="p">,</span><span class="s2">&#34; | Trying : &#34;</span><span class="p">,</span><span class="n">possibleCaptchaSolution</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="k">if</span> <span class="n">step</span><span class="o">==</span><span class="mi">1000</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span> <span class="c1"># Return 200 only if correct solution, else 401 or 400.</span>
+            <span class="n">headers</span><span class="p">[</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&#34;x-captcha-state&#34;</span><span class="p">]</span>
+            <span class="k">break</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+
+</code></pre></div><p><em>If you are attentive you have surely seen that the possible numbers for the solution are not in order: indeed normally there are 7*3 = 21 possibilities, however some of them are identical (when we perform num1+num2) and some have therefore more chance to appear than others: {579: 1, 580: 2, 581: 3, 582: 3, 583: 3, 584: 3, 585: 3, 586: 2, 587: 1}</em></p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">$ python3 vsCaptchaSolver.py
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">Step  <span class="m">1</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">200</span> None
+------------------------------
+Step  <span class="m">2</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">200</span> None
+------------------------------
+Step  <span class="m">3</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">401</span> None
+Step  <span class="m">3</span>  <span class="p">|</span> Trying :  <span class="m">582</span> <span class="m">401</span> None
+Step  <span class="m">3</span>  <span class="p">|</span> Trying :  <span class="m">583</span> <span class="m">200</span> None
+------------------------------
+
+<span class="o">[</span>...<span class="o">]</span>
+
+Step  <span class="m">998</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">200</span> None
+------------------------------
+Step  <span class="m">999</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">401</span> None
+Step  <span class="m">999</span>  <span class="p">|</span> Trying :  <span class="m">582</span> <span class="m">401</span> None
+Step  <span class="m">999</span>  <span class="p">|</span> Trying :  <span class="m">583</span> <span class="m">200</span> None
+------------------------------
+Step  <span class="m">1000</span>  <span class="p">|</span> Trying :  <span class="m">581</span> <span class="m">200</span> <span class="o">{</span><span class="s1">&#39;content-type&#39;</span>: <span class="s1">&#39;image/png&#39;</span>, <span class="s1">&#39;x-captcha-state&#39;</span>: <span class="s1">&#39;eyJhbGciOiJSUzI1NiJ9.eyJleHAiOjE2NTc0OTcwODYsImp0aSI6IjI5ZmU0YThmLTdlMzctNGRmOS04YTk2LWU2YzhlZTM3YjZlOCIsImZhaWxlZCI6ZmFsc2UsIm51bUNhcHRjaGFzU29sdmVkIjoxMDAwLCJmbGFnIjoidnNjdGZ7YXV0MG00dDNkX2FjdDF2aXR5X2QzdGVjdGVkX3MwbHYzXzEwMDBfbTByM19jNHB0Y2hhNV90MF9jMG50aW51M30ifQ.QDUmhUt4TXGMLdje8gz5PiYn32Io9rFyCWCx_arheLbRVrXk75XSdPYh01tXbAkva92ElnpWZ0YACbPbOFy1KMbcb87T5U9HM5B6O8fxlaCJR4oz4-PHqFnBllOgUsISw_WTnS4K-hVNK7INijB0HfO36Rz_42sqpgzi2KYimRz0duwLtcB16HBnBmBC9vOdI-0ccyJzKuwSUUsryN_28-7jMoLbVKm2y1gaaIsoFRLulTM__0Bge2XGxQGbv-nAJw-9JHVoFSnL9ixYlbSYDpqp-1EseskJZOMtAf_vrYR_2ummMCBelpWmYQl3ZmQLgtTZ4XxH5zkxnyphRG7zvlxWTz72aMjcOQZzEzmtQXHUW60zoM7rwJTSiw7PCDrv2jME6PvcOjNUAfbVbXhzN3XXUEwlexk2ljZU3JepeD2veLk2GdJHYW6yTbkgKrlWsytMxgC9QyxugD3I3XQOmzzzKr39nvou7l8YRuwCt_KIt_RdU7mCvFunF9dlgLbZBMErTinzYF56eXQIfnOuZcfWluAL5x3noH4TwmTLcS2xUAla9oRAp28uUh_LGrMZzeTKNv0OieQ39guDMCx5TUhpwoQdCK1K7IqS4ki9xBAJmflqkb1X162FqHgjjmQhMg5NEnQ0U2jqpB8MGsLwJvpaZK8LuheGKxN9McR0rds&#39;</span>, <span class="s1">&#39;vary&#39;</span>: <span class="s1">&#39;Accept-Encoding&#39;</span>, <span class="s1">&#39;X-Cloud-Trace-Context&#39;</span>: <span class="s1">&#39;a9942d25c6e60d9ad60c5e3a0e8d9253&#39;</span>, <span class="s1">&#39;Date&#39;</span>: <span class="s1">&#39;Sun, 10 Jul 2022 23:51:15 GMT&#39;</span>, <span class="s1">&#39;Server&#39;</span>: <span class="s1">&#39;Google Frontend&#39;</span>, <span class="s1">&#39;Content-Length&#39;</span>: <span class="s1">&#39;7418&#39;</span>, <span class="s1">&#39;Alt-Svc&#39;</span>: <span class="s1">&#39;h3=&#34;:443&#34;; ma=2592000,h3-29=&#34;:443&#34;; ma=2592000,h3-Q050=&#34;:443&#34;; ma=2592000,h3-Q046=&#34;:443&#34;; ma=2592000,h3-Q043=&#34;:443&#34;; ma=2592000,quic=&#34;:443&#34;; ma=2592000; v=&#34;46,43&#34;&#39;</span><span class="o">}</span>
+</code></pre></div><p>Get the flag inside the payload of JWT token :</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span><span class="s2">&#34;exp&#34;</span><span class="o">:</span><span class="mi">1657497086</span><span class="p">,</span><span class="s2">&#34;jti&#34;</span><span class="o">:</span><span class="s2">&#34;29fe4a8f-7e37-4df9-8a96-e6c8ee37b6e8&#34;</span><span class="p">,</span><span class="s2">&#34;failed&#34;</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span><span class="s2">&#34;numCaptchasSolved&#34;</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span><span class="s2">&#34;flag&#34;</span><span class="o">:</span><span class="s2">&#34;vsctf{aut0m4t3d_act1vity_d3tected_s0lv3_1000_m0r3_c4ptcha5_t0_c0ntinu3}&#34;</span><span class="p">}</span>
+</code></pre></div><p><strong>FLAG : vsctf{aut0m4t3d_act1vity_d3tected_s0lv3_1000_m0r3_c4ptcha5_t0_c0ntinu3}</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Contenus liés</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/dctf-2022-bookstore.java/">
+        
+        
+            <div class="article-image">
+                <img src="/p/dctf-2022-bookstore.java/cover.fcf1cd77e146ffcb493cbc811ba094a9_hua098301c826ad8eefb390521eac20c74_299631_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post DCTF 2022 - BookStore.java"
+                        
+                        data-hash="md5-/PHNd&#43;FG/8tJPLyBG6CUqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DCTF 2022 - BookStore.java</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/inter-iut-hr-panel-1-2-3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/inter-iut-hr-panel-1-2-3/cover.707c5de47c776550253b9b4720aaa3e2_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Inter IUT - HR Panel (1, 2 &amp; 3)"
+                        
+                        data-hash="md5-cHxd5Hx3ZVAlO5tHIKqj4g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Inter IUT - HR Panel (1, 2 &amp; 3)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v3-winventory/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v3-winventory/cover.a0029d17eed506c12795acb1c584a7b2_hu0767c118ba10ca67569e79c8dd3099ad_612104_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V3 - Winventory"
+                        
+                        data-hash="md5-oAKdF&#43;7VBsEnlayxxYSnsg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V3 - Winventory</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v4-deadalus/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v4-deadalus/cover.f82aa23a9ce3d56902419b54a6794f43_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V4 - Deadalus"
+                        
+                        data-hash="md5-&#43;CqiOpzj1WkCQZtUpnlPQw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V4 - Deadalus</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

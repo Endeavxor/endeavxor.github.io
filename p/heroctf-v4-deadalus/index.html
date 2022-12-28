@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Challenge conçu par Log_S'>
+<title>HeroCTF V4 - Deadalus</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/heroctf-v4-deadalus/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='HeroCTF V4 - Deadalus'>
+<meta property='og:description' content='Challenge conçu par Log_S'>
+<meta property='og:url' content='https://endeavxor.github.io/p/heroctf-v4-deadalus/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-06-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-06-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/heroctf-v4-deadalus/cover.jpg' />
+<meta name="twitter:title" content="HeroCTF V4 - Deadalus">
+<meta name="twitter:description" content="Challenge conçu par Log_S"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/heroctf-v4-deadalus/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table des matières</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#les-graphes">Les graphes</a></li>
+    <li><a href="#circuit-dans-un-graphe-orienté">Circuit dans un graphe orienté</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#implémentation-de-la-solution">Implémentation de la solution</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/heroctf-v4-deadalus/">
+                <img src="/p/heroctf-v4-deadalus/cover_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_800x0_resize_q75_box.jpg"
+                        srcset="/p/heroctf-v4-deadalus/cover_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_800x0_resize_q75_box.jpg 800w, /p/heroctf-v4-deadalus/cover_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V4 - Deadalus" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+            <a href="/categories/programmation/" >
+                Programmation
+            </a>
+        
+            <a href="/categories/th%C3%A9orie-des-graphes/" >
+                Théorie des graphes
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/heroctf-v4-deadalus/">HeroCTF V4 - Deadalus</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Challenge conçu par Log_S
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 02, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="description">Description</h1>
+<p>Vous trouverez la description complète du challenge ici : <a class="link" href="https://github.com/Endeavxor/CTF-Writeups/blob/32b7259d311de8ac2cb2d36a08fb063fe4e5e9ab/2022/HeroCTF%20V4/Deadalus/challenge.md"  target="_blank" rel="noopener"
+    >challenge.md</a></p>
+<h1 id="rapide-retour-au-monde-des-mathématiques">Rapide retour au monde des mathématiques</h1>
+<p>Avant de plonger plus en détail sur la stratégie adoptée, je vais faire un rapide retour sur les notions nécessaires à sa compréhension.<em>(Vous pouvez passer à la suite si vous êtes déjà familier avec les graphes)</em></p>
+<h2 id="les-graphes">Les graphes</h2>
+<p>Un <strong>graphe</strong> est simplement constitué d&rsquo;un ensemble de <strong>sommets</strong> et <strong>d&rsquo;arêtes</strong> <em>(qui indique quel sommet est relié à quel autre sommet)</em></p>
+<p>Les <strong>graphes</strong> sont des objets/structures mathématiques qui ont été profondément étudié aux travers des siècles et disposent donc de nombreux d&rsquo;algorithmes pour résoudre des problèmes souvent complexes avec plus de facilité qu&rsquo;un algorithme dans des paradigmes classiques.</p>
+<p>Voici quelques exemples de graphes <em>(il en existe d&rsquo;autres adapté à différents problèmes)</em>:</p>
+<p><img src="/p/heroctf-v4-deadalus/graphe.jpg"
+	width="1234"
+	height="300"
+	srcset="/p/heroctf-v4-deadalus/graphe_hu1e83fd3b77fe46cfe34f1ead0b25b64e_72381_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/graphe_hu1e83fd3b77fe46cfe34f1ead0b25b64e_72381_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="411"
+		data-flex-basis="987px"
+	
+></p>
+<p>Le premier est le plus commun, le second est un graphe dit &ldquo;étiqueté&rdquo; et le dernier, qui va nous intéresser pour ce challenge, est un graphe dit <strong>&ldquo;orienté&rdquo;</strong>. En effet comme on peut le constater, ce ne sont <strong>pas des arêtes</strong> mais des <strong>arcs</strong>, rendant la liaison entre deux sommets <strong>unidirectionnelle</strong> et non bidirectionnelle comme c&rsquo;était le cas auparavant.</p>
+<h2 id="circuit-dans-un-graphe-orienté">Circuit dans un graphe orienté</h2>
+<blockquote>
+<p>Wikipedia <a href="https://fr.wikipedia.org/wiki/Circuit_(th%C3%A9orie_des_graphes)">https://fr.wikipedia.org/wiki/Circuit_(th%C3%A9orie_des_graphes)</a></p>
+<p>&ndash; <!-- raw HTML omitted -->Dans un graphe orienté, on appelle circuit une suite d&rsquo;arcs consécutifs (chemin) dont les deux sommets aux extrémités sont identiques<!-- raw HTML omitted --></p>
+</blockquote>
+<p>Pour illustrer, voici en rouge des circuits dans des graphes orientés :</p>
+<p><img src="/p/heroctf-v4-deadalus/circuit.jpg"
+	width="915"
+	height="300"
+	srcset="/p/heroctf-v4-deadalus/circuit_hu69b5f4bfce9e76ff69b190ad0364b06e_67238_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/circuit_hu69b5f4bfce9e76ff69b190ad0364b06e_67238_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="305"
+		data-flex-basis="732px"
+	
+></p>
+<p>Nous allons pour ce challenge nous intéresser à des circuits <strong>élémentaires</strong>, <em>correspondant aux boucles</em>, qui ne sont ni plus ni moins que des circuits dont chaque sommet n&rsquo;apparaît qu&rsquo;une seule fois <em>(ce qui n&rsquo;est pas le cas par exemple d&rsquo;un des circuits dans le second graphe : x2-&gt;x4-&gt;<strong>x3</strong>-&gt;x5-&gt;x6-&gt;<strong>x3</strong>-&gt;x2 )</em></p>
+<p>Et bien si vous avez compris ça, vous avez toutes les clés en main pour résoudre le challenge très facilement :)</p>
+<p><em>Pour ceux qui ne se seraient pas intéressé aux graphes, je vous conseille grandement d&rsquo;y jeter un oeil car si vous arrivez à modéliser un problème sous forme de graphes, il a de forte chance qu&rsquo;un algorithme puisse vous faciliter la vie pour sa résolution</em></p>
+<h1 id="retour-sur-le-challenge-et-explication-de-la-stratégie">Retour sur le challenge et explication de la stratégie</h1>
+<p>Laissons de côté les graphes un court instant et revenons sur notre problème : une fois arrivé sur une case qui impose une direction <em>(R,L,D ou U)</em>, nous devons suivre cette direction jusqu&rsquo;à arriver sur un des quatre cas suivant :</p>
+<ul>
+<li>Sur un point (.)</li>
+<li>Sur une nouvelle direction <em>(R,L,D ou U)</em></li>
+<li>Hors du labyrithe</li>
+<li>Sur une case spéciale <em>( - ou | )</em> dont le traitement varie selon la direction empruntée et la case en question</li>
+</ul>
+<p>Si l&rsquo;on schématise ce parcours sur un des exemples voici ce que l&rsquo;on a :</p>
+<p><img src="/p/heroctf-v4-deadalus/graphe0_ex.jpg"
+	width="900"
+	height="900"
+	srcset="/p/heroctf-v4-deadalus/graphe0_ex_hu5f54f9eee301eca18cf95929ae68ee14_40541_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/graphe0_ex_hu5f54f9eee301eca18cf95929ae68ee14_40541_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+>
+<img src="/p/heroctf-v4-deadalus/graphe1_ex.jpg"
+	width="900"
+	height="900"
+	srcset="/p/heroctf-v4-deadalus/graphe1_ex_hu76c73d7f567c8822c98287a1872f9499_232178_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/graphe1_ex_hu76c73d7f567c8822c98287a1872f9499_232178_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p>Comme on peut le remarquer, les points <em>('.')</em> sont redondants et on pourrait simplement aller directement à la prochaine case. Si l&rsquo;on connecte entre elles les cases sans passer par les points et qu&rsquo;on retire aussi les cas où l&rsquo;on est bloqué <em>(par exemple &lsquo;|&rsquo; ici)</em>, on obtient un parcours bien plus digeste :</p>
+<p><img src="/p/heroctf-v4-deadalus/graphe2_ex.jpg"
+	width="900"
+	height="900"
+	srcset="/p/heroctf-v4-deadalus/graphe2_ex_hu8423e7fcbae444198fe3c55cf700b2c4_215434_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/graphe2_ex_hu8423e7fcbae444198fe3c55cf700b2c4_215434_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p>Et si vous ne voyez toujours pas où je veux en venir, retirons le labyrinthe :</p>
+<p><img src="/p/heroctf-v4-deadalus/graphe3_ex.jpg"
+	width="900"
+	height="900"
+	srcset="/p/heroctf-v4-deadalus/graphe3_ex_hufc456b779f355fa472ce52867ed21972_186969_480x0_resize_q75_box.jpg 480w, /p/heroctf-v4-deadalus/graphe3_ex_hufc456b779f355fa472ce52867ed21972_186969_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p>Eh bien nous voilà en présence d&rsquo;un magnifique graphe composé de <strong>2 circuits élémentaires</strong> ! Exactement ce que nous recherchions.</p>
+<p>Très bien cela saute aux yeux qu&rsquo;il y a 2 circuits élémentaires, mais comment fait-on pour les trouver ? Et bien comme expliqué plus haut, les graphes ont été grandement étudié et il existe déjà des algorithmes qui permettent de trouver des circuits élémentaires dans un graphe orienté. Dans notre cas, l&rsquo;algorithme présent dans la librairie que nous utiliserons sera celui de DONALD B. JOHNSON (<a href="https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF">https://www.cs.tufts.edu/comp/150GA/homeworks/hw1/Johnson%2075.PDF</a>) disposant d&rsquo;une complexité linéaire.</p>
+<p>Grâce à la modélisation du problème sous forme de graphe, le challenge se simplifie en  : &ldquo;<strong>Représentez le labyrinthe sous forme de graphe</strong>&rdquo;, bien plus simple non :) ?</p>
+<h2 id="implémentation-de-la-solution">Implémentation de la solution</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python3" data-lang="python3">
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span> <span class="c1"># Servira pour factoriser le code</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="k">import</span> <span class="o">*</span> <span class="c1"># Facilite la communication avec le serveur</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span> <span class="c1"># Implémente la notion de Graphe et ses algorithmes</span>
+
+<span class="n">DIRECTIONS_NODES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;L&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="s1">&#39;U&#39;</span><span class="p">]</span>
+<span class="n">SPECIALS_NODES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;|&#39;</span><span class="p">]</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;172.17.0.2&#34;</span><span class="p">,</span><span class="mi">7000</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">    Classe de type Enum qui facilite la factorisation du code.
+</span><span class="s1">
+</span><span class="s1">    Le déplacement dans le labyrinthe se faisant dans une seule direction et d&#39;une seule case à la fois,
+</span><span class="s1">    chaque direction est composé d&#39;un tuple : (déplacement ligne, déplacement colonne).
+</span><span class="s1">    &#39;&#39;&#39;</span>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">DOWN</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">UP</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">connectNode</span><span class="p">(</span><span class="n">currentRowIndex</span><span class="p">,</span><span class="n">currentColumnIndex</span><span class="p">,</span><span class="n">direction</span><span class="p">):</span>
+    <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">    Fonction permettant de connecter deux noeuds entre eux et de les ajouter au graphe G.
+</span><span class="s1">
+</span><span class="s1">    @param: currentRowIndex L&#39;index de la ligne de la case en cours d&#39;analyse
+</span><span class="s1">    @param: currentRowIndex L&#39;index de la colonne de la case en cours d&#39;analyse
+</span><span class="s1">    @param: direction La direction pour trouver la prochaine case à lier à la case en cours d&#39;analyse
+</span><span class="s1">    &#39;&#39;&#39;</span>
+    <span class="n">dRow</span><span class="p">,</span><span class="n">dCol</span> <span class="o">=</span> <span class="n">direction</span><span class="o">.</span><span class="n">value</span> <span class="c1"># Récupère le déplacement à faire sur les lignes et colonnes</span>
+    <span class="n">nextRowIndex</span> <span class="o">=</span> <span class="n">currentRowIndex</span> <span class="o">+</span> <span class="n">dRow</span> <span class="c1"># L&#39;index de la ligne de la prochaine case </span>
+    <span class="n">nextColumnIndex</span> <span class="o">=</span> <span class="n">currentColumnIndex</span> <span class="o">+</span><span class="n">dCol</span> <span class="c1"># L&#39;index de la colonne de la prochaine case </span>
+
+    <span class="c1"># Tant que la prochaine case n&#39;est pas hors du labyrinthe</span>
+    <span class="k">while</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nextRowIndex</span> <span class="o">&lt;=</span> <span class="n">numberOfRows</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">nextColumnIndex</span> <span class="o">&lt;=</span> <span class="n">numberOfColumns</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="n">nextRowIndex</span><span class="p">][</span><span class="n">nextColumnIndex</span><span class="p">]</span> <span class="c1"># Récupère la prochaine case</span>
+
+        <span class="c1"># 2 cases sont connectées entre-elles uniquement lorsque l&#39;une de ces conditions est établie :</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nextNode</span> <span class="ow">in</span> <span class="n">DIRECTIONS_NODES</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">nextNode</span> <span class="o">==</span> <span class="s2">&#34;-&#34;</span> <span class="ow">and</span> <span class="n">dRow</span> <span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">nextNode</span> <span class="o">==</span> <span class="s2">&#34;|&#34;</span> <span class="ow">and</span> <span class="n">dCol</span><span class="o">!=</span><span class="mi">0</span><span class="p">):</span>
+
+            <span class="c1"># On connecte nos deux cases en les nommant par leurs positions dans le labyrinthe</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">currentRowIndex</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">currentColumnIndex</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">nextRowIndex</span><span class="p">)</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">nextColumnIndex</span><span class="p">))</span>
+            
+            <span class="k">if</span> <span class="n">nextNode</span> <span class="ow">in</span> <span class="n">SPECIALS_NODES</span><span class="p">:</span>
+                <span class="c1"># La case spéciale sera traitée après</span>
+                <span class="n">specialNodes</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="n">nextRowIndex</span><span class="p">,</span><span class="n">nextColumnIndex</span><span class="p">))</span>
+            <span class="k">return</span>
+        
+        <span class="k">if</span> <span class="n">nextNode</span> <span class="o">!=</span><span class="s2">&#34;.&#34;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Va à la prochaine case </span>
+        <span class="n">nextRowIndex</span> <span class="o">+=</span> <span class="n">dRow</span>
+        <span class="n">nextColumnIndex</span> <span class="o">+=</span> <span class="n">dCol</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span> <span class="c1"># Il y a 16 labyrinthe à traiter</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span> <span class="c1"># Créer un graphe orienté (directed graph)</span>
+    <span class="n">maze</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;Answer &gt;&gt; &#34;</span><span class="p">)[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">&#34;Answer &gt;&gt; &#34;</span><span class="p">)]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1"># Ligne très moche pour récupérer le labyrinthe du serveur</span>
+    
+    <span class="n">numberOfRows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+    <span class="n">numberOfColumns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">maze</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="n">specialNodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span> <span class="c1"># Utilisation d&#39;un set (aucune entrée dupliquée) pour stocker les cases spéciales (| or -)</span>
+
+    <span class="k">for</span> <span class="n">rowIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfRows</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">colIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numberOfColumns</span><span class="p">):</span>
+            <span class="n">currentNode</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="n">rowIndex</span><span class="p">][</span><span class="n">colIndex</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">currentNode</span> <span class="o">==</span> <span class="s1">&#39;R&#39;</span><span class="p">:</span>
+                <span class="n">connectNode</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">currentNode</span> <span class="o">==</span> <span class="s1">&#39;L&#39;</span><span class="p">:</span>
+                <span class="n">connectNode</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">currentNode</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+                <span class="n">connectNode</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">DOWN</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">currentNode</span> <span class="o">==</span> <span class="s1">&#39;U&#39;</span><span class="p">:</span>
+                <span class="n">connectNode</span><span class="p">(</span><span class="n">rowIndex</span><span class="p">,</span><span class="n">colIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">UP</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">specialNodeCoordiantes</span> <span class="ow">in</span> <span class="n">specialNodes</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span> <span class="c1"># .copy() est utilisée pour modifier dynamiquement le contenu du set()</span>
+        <span class="n">specialNodeRowIndex</span> <span class="p">,</span> <span class="n">specialNodeColIndex</span> <span class="o">=</span> <span class="n">specialNodeCoordiantes</span>
+        <span class="n">specialNode</span> <span class="o">=</span> <span class="n">maze</span><span class="p">[</span><span class="n">specialNodeRowIndex</span><span class="p">][</span><span class="n">specialNodeColIndex</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">specialNode</span> <span class="o">==</span> <span class="s2">&#34;-&#34;</span><span class="p">:</span> <span class="c1"># Si cette case spéciale est atteinte, elle se connecte à ce qui se trouve sur sa gauche et sa droite</span>
+            <span class="n">connectNode</span><span class="p">(</span><span class="n">specialNodeRowIndex</span><span class="p">,</span><span class="n">specialNodeColIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+            <span class="n">connectNode</span><span class="p">(</span><span class="n">specialNodeRowIndex</span><span class="p">,</span><span class="n">specialNodeColIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">RIGHT</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># Si cette case spéciale est atteinte, elle se connecte à ce qui se trouve au-dessus et en dessous</span>
+            <span class="n">connectNode</span><span class="p">(</span><span class="n">specialNodeRowIndex</span><span class="p">,</span><span class="n">specialNodeColIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">UP</span><span class="p">)</span>
+            <span class="n">connectNode</span><span class="p">(</span><span class="n">specialNodeRowIndex</span><span class="p">,</span><span class="n">specialNodeColIndex</span><span class="p">,</span><span class="n">Direction</span><span class="o">.</span><span class="n">DOWN</span><span class="p">)</span>
+
+    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">simple_cycles</span><span class="p">(</span><span class="n">G</span><span class="p">))))</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1"># Ligne moche qui envoie le nombre de circuits élémentaires (boucles) au serveur</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">conn</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;}&#39;</span><span class="p">))</span> <span class="c1"># Affiche le flag</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+</code></pre></div><p>Plus qu&rsquo;à lancer le tout</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">python3 deadalus.py
+
+<span class="o">[</span>+<span class="o">]</span> Opening connection to 172.17.0.2 on port 7000: Done
+b<span class="s1">&#39;\nCongratz !\nHero{h0w_aM4ZEiNg_y0U_d1D_17_3v3n_beTt3R_th4n_4ri4dne}&#39;</span>
+<span class="o">[</span>*<span class="o">]</span> Closed connection to 172.17.0.2 port <span class="m">7000</span>
+</code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Contenus liés</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/vsctf-2022-vscaptcha/">
+        
+        
+            <div class="article-image">
+                <img src="/p/vsctf-2022-vscaptcha/cover.8f57b2fb40f3dec4271312c0e2ad871d_hu38fe278006cf35f230a31e53c5b70eba_203359_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post vsCTF 2022 - vsCAPTCHA"
+                        
+                        data-hash="md5-j1ey&#43;0Dz3sQnExLA4q2HHQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">vsCTF 2022 - vsCAPTCHA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dctf-2022-bookstore.java/">
+        
+        
+            <div class="article-image">
+                <img src="/p/dctf-2022-bookstore.java/cover.fcf1cd77e146ffcb493cbc811ba094a9_hua098301c826ad8eefb390521eac20c74_299631_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post DCTF 2022 - BookStore.java"
+                        
+                        data-hash="md5-/PHNd&#43;FG/8tJPLyBG6CUqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DCTF 2022 - BookStore.java</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/inter-iut-hr-panel-1-2-3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/inter-iut-hr-panel-1-2-3/cover.707c5de47c776550253b9b4720aaa3e2_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Inter IUT - HR Panel (1, 2 &amp; 3)"
+                        
+                        data-hash="md5-cHxd5Hx3ZVAlO5tHIKqj4g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Inter IUT - HR Panel (1, 2 &amp; 3)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v3-winventory/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v3-winventory/cover.a0029d17eed506c12795acb1c584a7b2_hu0767c118ba10ca67569e79c8dd3099ad_612104_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V3 - Winventory"
+                        
+                        data-hash="md5-oAKdF&#43;7VBsEnlayxxYSnsg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V3 - Winventory</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

