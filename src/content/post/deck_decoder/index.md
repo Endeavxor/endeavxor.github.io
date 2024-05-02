@@ -421,8 +421,8 @@ def getShellCodeSize(ql: Qiling) -> None:
 
 for possibleSeed in [23,214,248,272,541,734,748,912,1087,1203,1343,1387,1640,1665]:
     print("Current SEED =>", possibleSeed)
-    rootfs = r'/qiling/rootfs2/qiling-rootfs-09f5c5b0d51ac50b99ff7067ce02afa67e3c8a98/x8664_linux_glibc2.39/'
-    ql = Qiling(["/qiling/rootfs/x8664_linux/deck_decoder",str(possibleSeed)], rootfs, verbose=QL_VERBOSE.OFF)
+    rootfs = r'/qiling/rootfs/x8664_linux_glibc2.39/'
+    ql = Qiling(["/qiling/rootfs/x8664_linux_glibc2.39/deck_decoder",str(possibleSeed)], rootfs, verbose=QL_VERBOSE.OFF)
 
     base_addr = ql.loader.images[0].base
     hook_addr_shellcode = base_addr + 0xEA89
