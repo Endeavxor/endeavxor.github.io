@@ -111,7 +111,7 @@ Cette partie vérifie qu'il n'y a pas eu d'altération de la fonction **main** l
   *(_DWORD *)(v22 + 8) = (unsigned __int8)(v23 - 12 * v25) | ((v25 | ((((unsigned __int8)v24 % 0xCu) | (((unsigned __int8)v24 / 0xCu) << 8)) << 8)) << 8);
 ```
 
-Ce bloc va dans un premier temps faire appel à **shmget** et **shmmat** qui vont mettre en place un segment mémoire partagé au sein du processus. Cela peut indiquer l'usage de **threads** par la suite qui utiliseront cette mémoire pour faire de l'intercommunication.
+Ce bloc va dans un premier temps faire appel à **shmget** et **shmmat** qui vont mettre en place un segment mémoire partagé au sein du processus. Cela peut indiquer l'usage de **fork** par la suite permettant aux processus enfants d'utiliser cette mémoire pour faire de l'intercommunication.
 
 L'entrée utilisateur est récupérée, et subit une suite d'opérations qui n'est pas évidente à interpréter dans cette vue ni dans sa logique *(mais qui prendra tout son sens par la suite)*. Pour faire simple, pour chaque caractère, on place successivement dans la mémoire partagée deux éléments : 
 
