@@ -389,6 +389,6 @@ for i in range(0,12,2):
 *_mVyp
 ```
 
-Comme notifié plus haut, l'entrée utilisateur n'a pas été décomposé dans l'ordre, il faut inverser la chaîne :
+Comme indiqué plus haut, l'entrée utilisateur n'a pas été décomposé dans l'ordre, il faut inverser la chaîne :
 
 **FLAG : pyVm_\***
